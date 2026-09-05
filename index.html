@@ -1,1517 +1,2013 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>The Elements by Yeocha — Coffee • Resto • Events | Calamba, Laguna</title>
-    <meta name="description" content="Welcome to The Elements by Yeocha in P. Burgos St, Calamba, Laguna. Signature Pizza, Grilled Pork Liempo, Dim Sum, Siomai Rice Meals, and Specialty Coffee. Order now on Foodpanda!">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MODERNBOOKS — Discover Cookbooks You Will Love</title>
+  <meta name="description" content="Discover premium culinary eBooks by Chef A. Instant digital downloads on Gumroad. Meat Lovers Cookbook, Pasta Ultimate Collection, and The Seafood Masterbook.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ==================== CSS VARIABLES & RESET ==================== */
+    :root {
+      --primary: #00C9A7;
+      --primary-hover: #00b092;
+      --primary-light: #e6fbf7;
+      --primary-dark: #00876f;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --bg-page: #f8fafc;
+      --bg-surface: #ffffff;
+      --border-color: #e2e8f0;
+      --border-subtle: #f1f5f9;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 12px 30px rgba(15, 23, 42, 0.12);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+      --transition: all 0.22s ease-in-out;
+    }
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Cabinet+Grotesk:wght@700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    html {
+      scroll-behavior: smooth;
+    }
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        theme: {
-                            dark: '#0C0A09',
-                            darker: '#070605',
-                            darkCard: '#161311',
-                            darkCardHover: '#201C18',
-                            lightBg: '#FAF7F2',
-                            lightCard: '#FFFFFF',
-                            orange: '#FF5722',
-                            orangeHover: '#E64A19',
-                            coral: '#FF6E40',
-                            amber: '#F59E0B',
-                            gold: '#E5A93C',
-                            goldLight: '#FDE8B5',
-                            pink: '#D70F64',
-                            pinkHover: '#B80952',
-                            borderDark: '#2C241E',
-                            borderLight: '#E8E1D7',
-                            textDark: '#1C1917',
-                            textMuted: '#A3998F',
-                            textLightMuted: '#78716C'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        display: ['"Cabinet Grotesk"', '"Plus Jakarta Sans"', 'sans-serif'],
-                        serif: ['"Playfair Display"', 'serif']
-                    }
-                }
-            }
-        }
-    </script>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
 
-    <style>
-        html {
-            scroll-behavior: smooth;
-            -webkit-tap-highlight-color: transparent;
-        }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #0C0A09;
-            color: #FAF5EE;
-            overflow-x: hidden;
-            position: relative;
-        }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
 
-        /* Ambient Dynamic Glow Orbs (Atmosphere) */
-        .ambient-stage {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
+    button, input {
+      font-family: inherit;
+    }
 
-        .ambient-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.38;
-            animation: orbFloat 16s ease-in-out infinite alternate;
-            will-change: transform, opacity;
-        }
+    .container {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
 
-        .ambient-orb.orb-1 {
-            width: 480px;
-            height: 480px;
-            background: radial-gradient(circle, rgba(255, 87, 34, 0.22) 0%, rgba(245, 158, 11, 0.12) 50%, transparent 70%);
-            top: -100px;
-            left: -80px;
-            animation-duration: 18s;
-        }
+    /* ==================== HEADER / NAVBAR ==================== */
+    .header {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
 
-        .ambient-orb.orb-2 {
-            width: 580px;
-            height: 580px;
-            background: radial-gradient(circle, rgba(215, 15, 100, 0.18) 0%, rgba(229, 169, 60, 0.1) 50%, transparent 70%);
-            top: 35%;
-            right: -150px;
-            animation-duration: 22s;
-            animation-delay: -5s;
-        }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
 
-        .ambient-orb.orb-3 {
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, rgba(255, 87, 34, 0.08) 50%, transparent 70%);
-            bottom: 5%;
-            left: 5%;
-            animation-duration: 20s;
-            animation-delay: -10s;
-        }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      transition: var(--transition);
+    }
 
-        @keyframes orbFloat {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-            50% { transform: translate(35px, -25px) scale(1.1); opacity: 0.55; }
-            100% { transform: translate(-25px, 35px) scale(0.95); opacity: 0.35; }
-        }
+    .brand-logo:hover {
+      color: var(--primary-dark);
+    }
 
-        /* Floating Atmosphere Sparks & Herbs */
-        .particles-layer {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
 
-        .particle {
-            position: absolute;
-            bottom: -40px;
-            opacity: 0;
-            animation: particleRise linear infinite;
-            user-select: none;
-        }
+    .brand-name {
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+    }
 
-        @keyframes particleRise {
-            0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
-            15% { opacity: 0.7; }
-            85% { opacity: 0.5; }
-            100% { transform: translateY(-110vh) rotate(360deg) scale(1.1); opacity: 0; }
-        }
+    .brand-name span {
+      color: var(--primary);
+    }
 
-        /* Interactive Click Ripple */
-        .click-spark {
-            position: fixed;
-            pointer-events: none;
-            z-index: 999999;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            animation: rippleAnim 0.6s cubic-bezier(0.12, 0.8, 0.32, 1) forwards;
-        }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
 
-        @keyframes rippleAnim {
-            0% { width: 0px; height: 0px; opacity: 1; border: 3px solid rgba(255, 87, 34, 0.95); box-shadow: 0 0 24px rgba(245, 158, 11, 0.7); }
-            100% { width: 120px; height: 120px; opacity: 0; border: 1px solid transparent; box-shadow: 0 0 40px rgba(255, 87, 34, 0); }
-        }
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
 
-        /* Brush Wave SVG Dividers */
-        .brush-divider {
-            line-height: 0;
-            width: 100%;
-            overflow: hidden;
-        }
-        .brush-divider svg {
-            display: block;
-            width: 100%;
-            height: 48px;
-        }
-        @media (min-width: 768px) {
-            .brush-divider svg {
-                height: 72px;
-            }
-        }
+    .nav-links a:hover {
+      color: var(--primary);
+    }
 
-        /* Pill Buttons with High Energy */
-        .btn-brand-orange {
-            background: linear-gradient(135deg, #FF6E40 0%, #FF5722 50%, #E64A19 100%);
-            box-shadow: 0 8px 24px -4px rgba(255, 87, 34, 0.5);
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .btn-brand-orange:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px -4px rgba(255, 87, 34, 0.7);
-            background: linear-gradient(135deg, #FF7D54 0%, #FF6433 50%, #E64A19 100%);
-        }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
 
-        .btn-brand-foodpanda {
-            background: linear-gradient(135deg, #E8156B 0%, #D70F64 50%, #B80C55 100%);
-            box-shadow: 0 8px 24px -4px rgba(215, 15, 100, 0.5);
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .btn-brand-foodpanda:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px -4px rgba(215, 15, 100, 0.7);
-            background: linear-gradient(135deg, #F51B78 0%, #E8156B 50%, #B80C55 100%);
-        }
+    .search-toggle-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 0.4rem;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
 
-        /* Glassmorphism Panels */
-        .glass-panel {
-            background: rgba(22, 19, 17, 0.85);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(229, 169, 60, 0.15);
-        }
+    .search-toggle-btn:hover {
+      color: var(--primary);
+      background: var(--border-subtle);
+    }
 
-        /* Uniform Food Card Styling for Perfect Alignment */
-        .recipe-card {
-            background: #161311;
-            border: 1px solid #2C241E;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .recipe-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 87, 34, 0.5);
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.85), 0 0 24px rgba(255, 87, 34, 0.16);
-        }
+    .btn-gumroad {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--primary);
+      color: #ffffff !important;
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 0.62rem 1.4rem;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+      border: 1px solid transparent;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 201, 167, 0.25);
+    }
 
-        /* Category Filter Tabs */
-        .filter-tab.active {
-            background: linear-gradient(135deg, #FF6E40 0%, #FF5722 100%);
-            color: #FFFFFF;
-            border-color: transparent;
-            box-shadow: 0 6px 18px rgba(255, 87, 34, 0.4);
-        }
+    .btn-gumroad:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 201, 167, 0.35);
+    }
 
-        /* Clean White Cards from Reference */
-        .feature-light-card {
-            background: #FFFFFF;
-            border: 1px solid #EFEAE2;
-            box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .feature-light-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
-            border-color: #FFD5C8;
-        }
+    .btn-gumroad:active {
+      transform: translateY(0);
+    }
 
-        /* Circular Focal Plate (Reference 1 & 2) */
-        .focal-plate-container {
-            position: relative;
-            border-radius: 9999px;
-            padding: 8px;
-            background: linear-gradient(135deg, rgba(255, 87, 34, 0.4), rgba(215, 15, 100, 0.2), rgba(245, 158, 11, 0.2));
-            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9);
-        }
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-main);
+      padding: 0.4rem;
+    }
 
-        /* Safe Mobile Bottom Bar Padding */
-        .mobile-safe-bottom {
-            padding-bottom: calc(4.8rem + env(safe-area-inset-bottom, 0px));
-        }
+    /* ==================== HERO SECTION ==================== */
+    .hero-section {
+      position: relative;
+      background-image: url('hero_bg.webp');
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+      padding: 5rem 1.5rem;
+      text-align: center;
+      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+    }
 
-        /* No Scrollbar Utility */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-    </style>
+    .hero-content {
+      max-width: 820px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-size: 2.85rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 0.85rem;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-subtitle {
+      font-size: 1.12rem;
+      color: #e2e8f0;
+      font-weight: 400;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-search-wrapper {
+      max-width: 650px;
+      margin: 0 auto;
+      display: flex;
+      background: #ffffff;
+      border-radius: var(--radius-sm);
+      padding: 4px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .hero-search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 0.85rem 1.25rem;
+      font-size: 1rem;
+      color: var(--text-main);
+      background: transparent;
+    }
+
+    .hero-search-input::placeholder {
+      color: var(--text-light);
+    }
+
+    .hero-search-btn {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 0 2.2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-search-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .search-tags {
+      margin-top: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+    }
+
+    .tag-pill {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--radius-full);
+      color: #ffffff;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: var(--transition);
+    }
+
+    .tag-pill:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    /* ==================== TRUST / FEATURES BAR ==================== */
+    .features-bar {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.5rem 0;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .feature-icon-box {
+      width: 42px;
+      height: 42px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feature-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .feature-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ==================== POPULAR GENRES & COLLECTIONS ==================== */
+    .genres-section {
+      padding: 3.5rem 0 5rem;
+    }
+
+    .section-header {
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .section-filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-tab:hover, .filter-tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    /* 2-Column Wide Category Cards (Matches Reference Photo) */
+    .genres-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .genre-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .genre-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #cbd5e1;
+    }
+
+    .genre-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .genre-card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .genre-card-title .badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      background: var(--primary-light);
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+    }
+
+    .genre-view-all {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: var(--transition);
+    }
+
+    .genre-view-all:hover {
+      color: var(--primary-dark);
+      transform: translateX(2px);
+    }
+
+    /* 4-Item Book Shelf inside each Genre Card */
+    .genre-books-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .book-item {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .book-cover-wrap {
+      position: relative;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      aspect-ratio: 2 / 3;
+      background: #f1f5f9;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      transition: var(--transition);
+    }
+
+    .book-item:hover .book-cover-wrap {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.14);
+    }
+
+    .book-cover-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .book-cover-badge {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: rgba(15, 23, 42, 0.8);
+      color: #ffffff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .book-hover-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 201, 167, 0.85);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      opacity: 0;
+      transition: var(--transition);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .book-item:hover .book-hover-overlay {
+      opacity: 1;
+    }
+
+    .book-info {
+      margin-top: 0.65rem;
+    }
+
+    .book-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 0.2rem;
+    }
+
+    .book-author {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Bundle Card Special Styling */
+    .bundle-box {
+      border: 2px dashed var(--primary);
+      background: var(--primary-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      height: 100%;
+      aspect-ratio: 2 / 3;
+      transition: var(--transition);
+    }
+
+    .book-item:hover .bundle-box {
+      background: #d4f7ef;
+      transform: translateY(-4px);
+    }
+
+    .bundle-box svg {
+      width: 32px;
+      height: 32px;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .bundle-box-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      line-height: 1.2;
+    }
+
+    .bundle-box-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* ==================== SPOTLIGHT EBOOK SHOWCASE ==================== */
+    .spotlight-section {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 4.5rem 0;
+    }
+
+    .spotlight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .spotlight-card {
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .spotlight-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+
+    .spotlight-img-wrap {
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    .spotlight-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+      color: var(--text-main);
+    }
+
+    .spotlight-tagline {
+      font-size: 0.85rem;
+      color: var(--primary-dark);
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+    }
+
+    .spotlight-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      flex: 1;
+      line-height: 1.55;
+    }
+
+    .spotlight-specs {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border-color);
+      margin-bottom: 1.25rem;
+    }
+
+    .spotlight-cta-wrap {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn-preview {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 0.65rem 1rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-preview:hover {
+      background: var(--border-subtle);
+      border-color: #cbd5e1;
+    }
+
+    .btn-buy-book {
+      flex: 1.2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      background: var(--primary);
+      color: #ffffff !important;
+      padding: 0.65rem 1rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+      box-shadow: 0 2px 6px rgba(0, 201, 167, 0.25);
+    }
+
+    .btn-buy-book:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 201, 167, 0.35);
+    }
+
+    /* ==================== BOTTOM BANNER ==================== */
+    .cta-banner-section {
+      padding: 5rem 0;
+      background: var(--bg-page);
+    }
+
+    .cta-banner-box {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 3.5rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cta-banner-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(0, 201, 167, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-banner-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-banner-subtitle {
+      font-size: 1.05rem;
+      color: #94a3b8;
+      max-width: 620px;
+      margin: 0 auto 2.25rem;
+      line-height: 1.6;
+    }
+
+    .cta-banner-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-large-gumroad {
+      background: var(--primary);
+      color: #ffffff !important;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 0.95rem 2.5rem;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 16px rgba(0, 201, 167, 0.4);
+    }
+
+    .btn-large-gumroad:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(0, 201, 167, 0.55);
+    }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-color);
+      padding: 3rem 0 2rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* ==================== MODAL: LOOK INSIDE ==================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-window {
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      max-width: 960px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .modal-title-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .modal-author {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .modal-close-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      padding: 0.4rem;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .modal-close-btn:hover {
+      color: var(--text-main);
+      background: var(--border-subtle);
+    }
+
+    .modal-body {
+      padding: 1.75rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .modal-page-viewer {
+      position: relative;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      background: #f1f5f9;
+      aspect-ratio: 2 / 3;
+    }
+
+    .modal-page-viewer img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #1e293b;
+    }
+
+    .modal-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .modal-tab-btn {
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 0.9rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .modal-tab-btn:hover, .modal-tab-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .modal-info-details h4 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .modal-info-details p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .modal-highlights {
+      list-style: none;
+      margin-bottom: 1.75rem;
+    }
+
+    .modal-highlights li {
+      font-size: 0.85rem;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .modal-highlights li svg {
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .modal-footer-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .modal-gumroad-btn {
+      background: var(--primary);
+      color: #ffffff !important;
+      padding: 0.85rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 14px rgba(0, 201, 167, 0.35);
+    }
+
+    .modal-gumroad-btn:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 6px 18px rgba(0, 201, 167, 0.45);
+    }
+
+    /* Live Search Results Container */
+    .search-results-feedback {
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      display: none;
+      background: var(--primary-light);
+      padding: 0.65rem 1rem;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ==================== RESPONSIVE MEDIA QUERIES ==================== */
+    @media (max-width: 1024px) {
+      .genres-grid {
+        grid-template-columns: 1fr;
+      }
+      .spotlight-grid {
+        grid-template-columns: 1fr;
+      }
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .search-toggle-btn {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+      .hero-title {
+        font-size: 2rem;
+      }
+      .hero-subtitle {
+        font-size: 0.95rem;
+      }
+      .hero-search-wrapper {
+        flex-direction: column;
+        gap: 0.5rem;
+        background: transparent;
+        box-shadow: none;
+      }
+      .hero-search-input {
+        background: #ffffff;
+        border-radius: var(--radius-sm);
+      }
+      .hero-search-btn {
+        padding: 0.85rem;
+        justify-content: center;
+      }
+      .genre-books-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .modal-body {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-<body class="selection:bg-orange-500 selection:text-white mobile-safe-bottom">
+<body>
 
-    <!-- Ambient Dynamic Glow Stage -->
-    <div class="ambient-stage">
-        <div class="ambient-orb orb-1"></div>
-        <div class="ambient-orb orb-2"></div>
-        <div class="ambient-orb orb-3"></div>
-    </div>
+  <!-- ==================== HEADER / NAVBAR ==================== -->
+  <header class="header">
+    <div class="container header-inner">
+      <!-- Logo: Icon + MODERNBOOKS -->
+      <a href="#" class="brand-logo" title="MODERNBOOKS Home">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+        </svg>
+        <span class="brand-name">MODERN<span>BOOKS</span></span>
+      </a>
 
-    <!-- Floating Particles Layer -->
-    <div class="particles-layer" id="particlesContainer"></div>
+      <!-- Desktop Nav Items -->
+      <ul class="nav-links">
+        <li><a href="#genres">Books Genres</a></li>
+        <li><a href="#spotlight">Spotlight eBooks</a></li>
+        <li><a href="#features">Why Chef A</a></li>
+        <li><a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer">All Cookbooks</a></li>
+      </ul>
 
-    <!-- Live Social Proof Order Notification (Adds Life to the Page) -->
-    <div id="liveOrderToast" class="fixed bottom-20 left-4 sm:bottom-6 sm:left-6 z-40 max-w-xs sm:max-w-sm glass-panel p-3 sm:p-4 rounded-2xl border border-theme-orange/40 shadow-2xl flex items-center gap-3.5 hidden transition-all duration-500">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-theme-orange to-theme-pink flex items-center justify-center text-white text-lg shrink-0 shadow-lg animate-bounce">
-            🍕
-        </div>
-        <div class="text-xs">
-            <div class="flex items-center gap-1.5 text-theme-coral font-extrabold text-[11px] sm:text-xs">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                <span>Just Ordered in Calamba!</span>
-            </div>
-            <p class="text-white font-bold text-[11px] sm:text-xs mt-0.5" id="toastMessage">The Elements Pizza</p>
-            <p class="text-[10px] text-theme-textMuted mt-0.5" id="toastMeta">via Foodpanda • 2 mins ago</p>
-        </div>
-        <button onclick="document.getElementById('liveOrderToast').classList.add('hidden')" class="text-slate-400 hover:text-white ml-auto p-1 text-xs" aria-label="Close notification">
-            <i class="fa-solid fa-xmark"></i>
+      <!-- Action Button: Directed to Gumroad -->
+      <div class="header-actions">
+        <button class="search-toggle-btn" aria-label="Search" onclick="document.getElementById('searchInput').focus(); window.scrollTo({top: 100, behavior: 'smooth'});">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
         </button>
-    </div>
 
-    <!-- Top Announcement Live Bar -->
-    <div class="relative z-50 bg-gradient-to-r from-theme-pink via-rose-950 to-amber-950 text-white text-xs sm:text-sm py-2 px-3 sm:px-4 font-semibold border-b border-theme-pink/30 flex items-center justify-center gap-2 sm:gap-4 flex-wrap text-center">
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-extrabold bg-white text-theme-pink shadow-md uppercase tracking-wider">
-            <i class="fa-solid fa-bolt mr-1 text-amber-500 animate-pulse"></i> Foodpanda Official
-        </span>
-        <span class="text-amber-100 text-[11px] sm:text-xs">Craving Handcrafted Pizza, Sizzling Liempo & Artisan Coffee in Calamba?</span>
-        <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-           class="font-black text-amber-300 hover:text-white underline transition-colors inline-flex items-center gap-1 text-[11px] sm:text-xs">
-            <span>Order on Foodpanda</span>
-            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="btn-gumroad" title="Browse full store on Gumroad">
+          <span>GET ACCESS</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
         </a>
+      </div>
     </div>
+  </header>
 
-    <!-- Main Navigation Header -->
-    <header class="sticky top-0 z-50 bg-theme-dark/95 backdrop-blur-md border-b border-theme-borderDark transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 sm:h-20">
-                
-                <!-- Brand Logo (Emblem + Name) -->
-                <a href="#home" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-theme-orange to-theme-pink p-0.5 flex items-center justify-center shadow-lg shadow-orange-950/40 group-hover:scale-105 transition-transform">
-                        <div class="w-full h-full bg-theme-dark rounded-full flex items-center justify-center text-theme-coral">
-                            <i class="fa-solid fa-fire-burner text-base sm:text-lg group-hover:rotate-12 transition-transform"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-1.5">
-                            <span class="font-display font-extrabold text-lg sm:text-2xl text-white tracking-tight">The Elements</span>
-                            <span class="text-[9px] sm:text-[10px] px-2 py-0.5 rounded bg-theme-orange/20 text-theme-coral border border-theme-orange/30 font-bold uppercase tracking-wider">by Yeocha</span>
-                        </div>
-                        <p class="text-[10px] sm:text-[11px] text-theme-textMuted font-medium">Coffee • Resto • Events | P. Burgos, Calamba</p>
-                    </div>
-                </a>
+  <!-- ==================== HERO SECTION (Based on Inspo Screenshot) ==================== -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Discover eBooks you will love!</h1>
+      <p class="hero-subtitle">Premium, tested digital culinary masterclasses by Chef A. Instant lifetime access, full-color recipe spreads, and foolproof kitchen guides.</p>
 
-                <!-- Desktop Navigation Menu -->
-                <nav class="hidden lg:flex items-center gap-7 text-xs font-bold uppercase tracking-wider text-slate-300">
-                    <a href="#home" class="hover:text-theme-orange transition-colors flex items-center gap-1.5">
-                        <i class="fa-solid fa-house text-xs text-theme-orange"></i> Overview
-                    </a>
-                    <a href="#highlights" class="hover:text-theme-orange transition-colors flex items-center gap-1.5">
-                        <i class="fa-solid fa-sparkles text-xs text-theme-amber"></i> The Elements
-                    </a>
-                    <a href="#menu" class="hover:text-theme-orange transition-colors flex items-center gap-1.5">
-                        <i class="fa-solid fa-utensils text-xs text-theme-coral"></i> Foodpanda Recipes
-                    </a>
-                    <a href="#events" class="hover:text-theme-orange transition-colors flex items-center gap-1.5">
-                        <i class="fa-solid fa-champagne-glasses text-xs text-purple-400"></i> Events
-                    </a>
-                    <a href="#reviews" class="hover:text-theme-orange transition-colors flex items-center gap-1.5">
-                        <i class="fa-solid fa-star text-xs text-amber-400"></i> Reviews (4.9★)
-                    </a>
-                    <a href="#contact" class="hover:text-theme-orange transition-colors flex items-center gap-1.5">
-                        <i class="fa-solid fa-location-dot text-xs text-emerald-400"></i> Location & Hours
-                    </a>
-                </nav>
+      <!-- Search Bar -->
+      <div class="hero-search-wrapper">
+        <input 
+          type="text" 
+          id="searchInput"
+          class="hero-search-input" 
+          placeholder="Search by Title, Recipe, or Ingredient (e.g. Meat, Pasta, Seafood)..." 
+          autocomplete="off"
+        >
+        <button class="hero-search-btn" id="searchButton" type="button">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          Search
+        </button>
+      </div>
 
-                <!-- Desktop Actions -->
-                <div class="hidden sm:flex items-center gap-2.5">
-                    <a href="https://www.facebook.com/theelementsbyyeocha/" target="_blank" rel="noopener noreferrer" 
-                       class="w-9 h-9 rounded-xl border border-theme-borderDark hover:border-blue-500 text-slate-300 hover:text-blue-400 bg-theme-darkCard flex items-center justify-center text-xs transition-all shadow hover:scale-105" 
-                       title="Visit our Facebook Page">
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
-                    <a href="https://www.google.com/maps/place/The+Elements+-+Coffee%E2%80%A2Resto%E2%80%A2Events/@14.2128577,121.1690755,18z" target="_blank" rel="noopener noreferrer" 
-                       class="w-9 h-9 rounded-xl border border-theme-borderDark hover:border-emerald-500 text-slate-300 hover:text-emerald-400 bg-theme-darkCard flex items-center justify-center text-xs transition-all shadow hover:scale-105" 
-                       title="Directions on Google Maps">
-                        <i class="fa-solid fa-location-dot"></i>
-                    </a>
-                    <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                       class="btn-brand-foodpanda px-5 py-2.5 rounded-xl font-black text-xs flex items-center gap-2 uppercase tracking-wider active:scale-95">
-                        <i class="fa-solid fa-bag-shopping"></i>
-                        <span>Order on Foodpanda</span>
-                    </a>
-                </div>
+      <!-- Quick Search Filter Tags -->
+      <div class="search-tags">
+        <span>Popular searches:</span>
+        <button type="button" class="tag-pill" onclick="quickFilter('Meat')">Meat Lovers</button>
+        <button type="button" class="tag-pill" onclick="quickFilter('Pasta')">Pasta Ultimate</button>
+        <button type="button" class="tag-pill" onclick="quickFilter('Seafood')">Seafood Masterbook</button>
+        <button type="button" class="tag-pill" onclick="quickFilter('Brisket')">BBQ Brisket</button>
+        <button type="button" class="tag-pill" onclick="quickFilter('Salmon')">Salmon Penne</button>
+        <button type="button" class="tag-pill" onclick="quickFilter('Boil')">Seafood Boil</button>
+      </div>
+    </div>
+  </section>
 
-                <!-- Mobile Hamburger Button -->
-                <button id="mobileNavToggle" class="lg:hidden p-2.5 rounded-xl bg-theme-darkCard border border-theme-borderDark text-slate-300 hover:text-white" aria-label="Toggle navigation">
-                    <i class="fa-solid fa-bars text-lg" id="navIcon"></i>
-                </button>
-
-            </div>
-        </div>
-
-        <!-- Mobile Drawer Menu -->
-        <div id="mobileDrawer" class="hidden lg:hidden bg-theme-darkCard border-t border-theme-borderDark px-4 py-4 space-y-2">
-            <a href="#home" class="mobile-menu-item block px-3 py-2.5 rounded-xl text-sm font-bold text-white hover:bg-theme-borderDark flex items-center gap-2.5">
-                <i class="fa-solid fa-house text-theme-orange text-xs w-4"></i> Overview
-            </a>
-            <a href="#highlights" class="mobile-menu-item block px-3 py-2.5 rounded-xl text-sm font-bold text-slate-300 hover:bg-theme-borderDark flex items-center gap-2.5">
-                <i class="fa-solid fa-sparkles text-theme-amber text-xs w-4"></i> The Elements Concept
-            </a>
-            <a href="#menu" class="mobile-menu-item block px-3 py-2.5 rounded-xl text-sm font-bold text-slate-300 hover:bg-theme-borderDark flex items-center gap-2.5">
-                <i class="fa-solid fa-utensils text-theme-coral text-xs w-4"></i> Foodpanda Recipes & Menu
-            </a>
-            <a href="#events" class="mobile-menu-item block px-3 py-2.5 rounded-xl text-sm font-bold text-slate-300 hover:bg-theme-borderDark flex items-center gap-2.5">
-                <i class="fa-solid fa-champagne-glasses text-purple-400 text-xs w-4"></i> Private Events
-            </a>
-            <a href="#reviews" class="mobile-menu-item block px-3 py-2.5 rounded-xl text-sm font-bold text-slate-300 hover:bg-theme-borderDark flex items-center gap-2.5">
-                <i class="fa-solid fa-star text-amber-400 text-xs w-4"></i> Customer Reviews (4.9★)
-            </a>
-            <a href="#contact" class="mobile-menu-item block px-3 py-2.5 rounded-xl text-sm font-bold text-slate-300 hover:bg-theme-borderDark flex items-center gap-2.5">
-                <i class="fa-solid fa-location-dot text-emerald-400 text-xs w-4"></i> Location & Store Hours
-            </a>
-            
-            <div class="pt-3 border-t border-theme-borderDark space-y-2">
-                <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                   class="btn-brand-foodpanda w-full py-3 rounded-xl text-center font-black text-xs flex items-center justify-center gap-2 uppercase shadow-lg">
-                    <i class="fa-solid fa-bag-shopping"></i> Order on Foodpanda Now
-                </a>
-                <div class="grid grid-cols-2 gap-2">
-                    <a href="https://www.facebook.com/theelementsbyyeocha/" target="_blank" rel="noopener noreferrer" 
-                       class="py-2.5 rounded-xl bg-blue-950/40 border border-blue-600/40 text-blue-400 font-bold text-xs text-center flex items-center justify-center gap-1.5">
-                        <i class="fa-brands fa-facebook-f"></i> Facebook
-                    </a>
-                    <a href="https://www.google.com/maps/place/The+Elements+-+Coffee%E2%80%A2Resto%E2%80%A2Events/@14.2128577,121.1690755,18z" target="_blank" rel="noopener noreferrer" 
-                       class="py-2.5 rounded-xl bg-theme-dark border border-theme-borderDark text-slate-300 font-bold text-xs text-center flex items-center justify-center gap-1.5">
-                        <i class="fa-solid fa-location-arrow text-emerald-400"></i> Directions
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main class="relative z-10">
-        
-        <!-- ── SECTION 1: HERO SECTION (Lively, Rich Food Platter Showcase) ── -->
-        <section id="home" class="relative bg-theme-darker pt-8 sm:pt-14 pb-16 sm:pb-24 overflow-hidden">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-                    
-                    <!-- Left Hero Text Content -->
-                    <div class="lg:col-span-6 space-y-5 text-center lg:text-left">
-                        
-                        <!-- Open Status Badge -->
-                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-theme-darkCard border border-emerald-500/40 text-xs font-bold text-emerald-400 shadow-md">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                            <span>Kitchen Active & Delivering • 11:15 AM to 10:30 PM</span>
-                        </div>
-
-                        <!-- Main Title -->
-                        <h1 class="font-display font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12]">
-                            Delicious Food, Artisan Brews & Good Vibes at <br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-theme-orange via-amber-400 to-theme-coral">The Elements</span>
-                        </h1>
-
-                        <!-- Subtitle -->
-                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl mx-auto lg:mx-0">
-                            Indulge in freshly baked artisan pizzas, sizzling pork liempo meals, crispy chicken wings, savory dim sum, and handcrafted Yeocha coffee — cooked fresh and delivered hot via Foodpanda in Calamba, Laguna!
-                        </p>
-
-                        <!-- Primary CTAs -->
-                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-foodpanda w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-2xl active:scale-95">
-                                <i class="fa-solid fa-bag-shopping text-base"></i>
-                                <span>ORDER ON FOODPANDA</span>
-                            </a>
-                            <a href="#menu" 
-                               class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-theme-darkCard hover:bg-theme-darkCardHover border border-theme-borderDark hover:border-theme-orange/50 text-white font-bold text-sm transition-all flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-utensils text-theme-orange"></i>
-                                <span>Browse Recipes</span>
-                            </a>
-                        </div>
-
-                        <!-- Ratings & Location Verification -->
-                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4 border-t border-theme-borderDark text-xs text-slate-300">
-                            <div class="flex items-center gap-1.5">
-                                <div class="flex text-amber-400 text-xs">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <span class="font-extrabold text-white ml-1">4.9★</span>
-                                <span class="text-slate-400">(82+ Foodpanda Reviews)</span>
-                            </div>
-                            <span class="text-slate-600 hidden sm:inline">•</span>
-                            <div class="flex items-center gap-1 text-slate-300">
-                                <i class="fa-solid fa-location-dot text-emerald-400"></i>
-                                <span>P. Burgos St, Calamba, Laguna</span>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Right Hero Food Showcase: High-Resolution Food Spread with Floating Tags -->
-                    <div class="lg:col-span-6 flex justify-center">
-                        <div class="recipe-card rounded-3xl p-4 sm:p-6 max-w-md sm:max-w-lg w-full relative shadow-2xl">
-                            
-                            <!-- Header Bar -->
-                            <div class="flex items-center justify-between mb-3 px-1">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2.5 h-2.5 rounded-full bg-theme-orange animate-ping"></span>
-                                    <span class="font-display font-black text-xs uppercase tracking-widest text-slate-200">Featured Feast Spread</span>
-                                </div>
-                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-theme-orange text-white shadow">
-                                    Live on Foodpanda
-                                </span>
-                            </div>
-
-                            <!-- Main Photo Frame -->
-                            <div class="relative h-64 sm:h-80 rounded-2xl overflow-hidden bg-theme-dark shadow-inner group">
-                                <img src="images/store_listing_cover.jpg" 
-                                     alt="The Elements Signature Feast Spread" 
-                                     class="w-full h-full object-cover filter contrast-115 group-hover:scale-105 transition-transform duration-700"
-                                     onerror="this.src='https://images.deliveryhero.io/image/fd-ph/LH/jnij-listing.jpg'">
-                                <div class="absolute inset-0 bg-gradient-to-t from-theme-darker/90 via-transparent to-transparent"></div>
-                                
-                                <!-- Floating Pill 1: Pizza -->
-                                <div class="absolute top-3 left-3 px-3 py-1.5 rounded-xl bg-theme-darkCard/95 border border-theme-borderDark shadow-xl flex items-center gap-2">
-                                    <span class="text-base">🍕</span>
-                                    <div class="text-[10px] font-bold leading-tight">
-                                        <p class="text-white">Artisan Pizza</p>
-                                        <p class="text-theme-coral">From ₱364</p>
-                                    </div>
-                                </div>
-
-                                <!-- Floating Pill 2: Liempo & Sizzling -->
-                                <div class="absolute top-3 right-3 px-3 py-1.5 rounded-xl bg-theme-darkCard/95 border border-theme-borderDark shadow-xl flex items-center gap-2">
-                                    <span class="text-base">🥩</span>
-                                    <div class="text-[10px] font-bold leading-tight">
-                                        <p class="text-white">Crispy Liempo</p>
-                                        <p class="text-amber-400">From ₱176</p>
-                                    </div>
-                                </div>
-
-                                <!-- Bottom Badge Inside Image -->
-                                <div class="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-theme-darkCard/90 backdrop-blur-md border border-theme-borderDark flex items-center justify-between">
-                                    <div>
-                                        <h4 class="font-display font-bold text-sm text-white">The Elements by Yeocha</h4>
-                                        <p class="text-[11px] text-theme-textMuted">Freshly prepared comfort food & artisan drinks</p>
-                                    </div>
-                                    <span class="text-2xl">✨</span>
-                                </div>
-                            </div>
-
-                            <!-- Bottom Highlights -->
-                            <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-theme-borderDark text-center">
-                                <div class="p-2 rounded-xl bg-theme-darker/80 border border-theme-borderDark">
-                                    <p class="font-black text-white text-xs sm:text-sm">4.9★</p>
-                                    <p class="text-[10px] text-theme-textMuted">Foodpanda Rating</p>
-                                </div>
-                                <div class="p-2 rounded-xl bg-theme-darker/80 border border-theme-borderDark">
-                                    <p class="font-black text-theme-coral text-xs sm:text-sm">11:15 AM</p>
-                                    <p class="text-[10px] text-theme-textMuted">Kitchen Opens</p>
-                                </div>
-                                <div class="p-2 rounded-xl bg-theme-darker/80 border border-theme-borderDark">
-                                    <p class="font-black text-emerald-400 text-xs sm:text-sm">Fast</p>
-                                    <p class="text-[10px] text-theme-textMuted">Direct Delivery</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- ── BRUSH WAVE DIVIDER (Dark to Light) ── -->
-        <div class="brush-divider bg-theme-darker text-theme-lightBg">
-            <svg viewBox="0 0 1440 72" fill="currentColor" preserveAspectRatio="none">
-                <path d="M0,0 C160,50 360,70 520,40 C680,10 840,55 1000,45 C1160,35 1300,65 1440,20 L1440,72 L0,72 Z"></path>
+  <!-- ==================== TRUST / FEATURES BAR ==================== -->
+  <section class="features-bar" id="features">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
+          </div>
+          <div>
+            <div class="feature-title">Instant Digital Download</div>
+            <div class="feature-desc">Get your eBook PDF & ePub right after checkout</div>
+          </div>
         </div>
 
-        <!-- ── SECTION 2: THE 3 ELEMENTS (Clean Light Contrast Section) ── -->
-        <section id="highlights" class="bg-theme-lightBg text-theme-textDark py-12 sm:py-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
-                    <span class="px-3.5 py-1 rounded-full bg-theme-orange/10 text-theme-orange font-extrabold text-xs uppercase tracking-wider">
-                        The 3 Core Elements
-                    </span>
-                    <h2 class="font-display font-black text-3xl sm:text-4xl text-theme-textDark mt-3">
-                        Coffee • Resto • Events
-                    </h2>
-                    <p class="text-xs sm:text-sm text-theme-textLightMuted mt-2 leading-relaxed">
-                        Every detail is crafted with passion — from morning espresso to evening feast platters and unforgettable milestones.
-                    </p>
-                </div>
-
-                <!-- 3 Feature Cards with Actual Dish Thumbnails -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-                    
-                    <!-- Card 1: Coffee -->
-                    <div class="feature-light-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between group">
-                        <div>
-                            <div class="relative h-44 rounded-2xl overflow-hidden mb-5 bg-stone-100">
-                                <img src="images/spanish_latte.jpg" 
-                                     alt="Yeocha Spanish Latte" 
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                     onerror="this.src='https://images.deliveryhero.io/image/fd-ph/Products/76724820.jpg'">
-                                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-stone-900/90 text-amber-300">
-                                    Specialty Brew
-                                </span>
-                            </div>
-                            <h3 class="font-display font-black text-xl text-theme-textDark mb-1.5">1. Artisan Coffee & Frappes</h3>
-                            <p class="text-xs sm:text-sm text-theme-textLightMuted leading-relaxed">
-                                Yeocha's renowned Spanish lattes, Biscoff cloud matcha, iced Americanos, and velvety frappes crafted with premium beans and fine ingredients.
-                            </p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                            <span class="font-bold text-theme-orange">From ₱92</span>
-                            <span class="font-bold text-slate-700 flex items-center gap-1">
-                                Available on Foodpanda <i class="fa-solid fa-arrow-right text-[10px] text-theme-orange"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Card 2: Resto -->
-                    <div class="feature-light-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between group">
-                        <div>
-                            <div class="relative h-44 rounded-2xl overflow-hidden mb-5 bg-stone-100">
-                                <img src="images/elements_pizza.jpg" 
-                                     alt="The Elements House Pizza" 
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                     onerror="this.src='https://images.deliveryhero.io/image/global-menu-service/FP_PH/vendor/jnij/product/83300028/df878173-7d51-49b4-aa56-0735d3f03ace.jpg'">
-                                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-theme-pink text-white">
-                                    House Specialty
-                                </span>
-                            </div>
-                            <h3 class="font-display font-black text-xl text-theme-textDark mb-1.5">2. Resto Comfort Food</h3>
-                            <p class="text-xs sm:text-sm text-theme-textLightMuted leading-relaxed">
-                                Hand-tossed pizzas loaded with premium toppings, sizzling grilled liempo meals, crispy chicken wings, savory siomai, and streetfood platters.
-                            </p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                            <span class="font-bold text-theme-pink">Heavy Servings</span>
-                            <span class="font-bold text-slate-700 flex items-center gap-1">
-                                Cooked to Order <i class="fa-solid fa-arrow-right text-[10px] text-theme-pink"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Card 3: Events -->
-                    <div class="feature-light-card rounded-3xl p-6 sm:p-7 flex flex-col justify-between group">
-                        <div>
-                            <div class="relative h-44 rounded-2xl overflow-hidden mb-5 bg-stone-100">
-                                <img src="images/overload_toppings_meal.jpg" 
-                                     alt="The Elements Party Catering" 
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                     onerror="this.src='https://images.deliveryhero.io/image/fd-ph/products/76725642.jpg'">
-                                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500 text-stone-900">
-                                    Gathering Space
-                                </span>
-                            </div>
-                            <h3 class="font-display font-black text-xl text-theme-textDark mb-1.5">3. Private Gatherings & Events</h3>
-                            <p class="text-xs sm:text-sm text-theme-textLightMuted leading-relaxed">
-                                Celebrate birthdays, family celebrations, reunions, and meetings in our cozy, ambient cafe and resto venue along P. Burgos St, Calamba.
-                            </p>
-                        </div>
-                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
-                            <span class="font-bold text-amber-600">Custom Group Sets</span>
-                            <span class="font-bold text-slate-700 flex items-center gap-1">
-                                Inquire Now <i class="fa-solid fa-arrow-right text-[10px] text-amber-600"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ── BRUSH WAVE DIVIDER (Light to Dark) ── -->
-        <div class="brush-divider bg-theme-lightBg text-theme-dark">
-            <svg viewBox="0 0 1440 72" fill="currentColor" preserveAspectRatio="none">
-                <path d="M0,20 C180,60 380,10 540,40 C700,70 860,20 1020,45 C1180,70 1320,10 1440,30 L1440,72 L0,72 Z"></path>
+        <div class="feature-item">
+          <div class="feature-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
             </svg>
+          </div>
+          <div>
+            <div class="feature-title">Chef A Signature Series</div>
+            <div class="feature-desc">Tested gourmet recipes with exact measurements</div>
+          </div>
         </div>
 
-        <!-- ── SECTION 3: OFFICIAL FOODPANDA RECIPES & MENU (Well-Aligned with Real Photos) ── -->
-        <section id="menu" class="bg-theme-dark py-12 sm:py-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <!-- Section Header -->
-                <div class="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
-                    <span class="px-3.5 py-1 rounded-full bg-theme-orange/15 text-theme-coral font-bold text-xs uppercase tracking-wider border border-theme-orange/30">
-                        Official Foodpanda Menu
-                    </span>
-                    <h2 class="font-display font-black text-3xl sm:text-5xl text-white mt-3">
-                        Featured Recipes & Dishes
-                    </h2>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-2">
-                        Authentic food photos directly from our Foodpanda kitchen. Tap any item to order!
-                    </p>
-                </div>
-
-                <!-- Category Filtering Tabs (Horizontal Scroll on Mobile) -->
-                <div class="flex items-center justify-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar text-xs font-bold" id="menuTabsContainer">
-                    <button class="filter-tab active px-4 py-2.5 rounded-full bg-theme-darkCard border border-theme-borderDark text-slate-300 transition-all shrink-0" data-category="all">
-                        All Dishes (12)
-                    </button>
-                    <button class="filter-tab px-4 py-2.5 rounded-full bg-theme-darkCard border border-theme-borderDark text-slate-300 transition-all shrink-0" data-category="pizza">
-                        🍕 Artisan Pizza
-                    </button>
-                    <button class="filter-tab px-4 py-2.5 rounded-full bg-theme-darkCard border border-theme-borderDark text-slate-300 transition-all shrink-0" data-category="rice">
-                        🍚 Rice Meals & Liempo
-                    </button>
-                    <button class="filter-tab px-4 py-2.5 rounded-full bg-theme-darkCard border border-theme-borderDark text-slate-300 transition-all shrink-0" data-category="dimsum">
-                        🥟 Siomai & Dim Sum
-                    </button>
-                    <button class="filter-tab px-4 py-2.5 rounded-full bg-theme-darkCard border border-theme-borderDark text-slate-300 transition-all shrink-0" data-category="snacks">
-                        🍢 Wings & Snacks
-                    </button>
-                    <button class="filter-tab px-4 py-2.5 rounded-full bg-theme-darkCard border border-theme-borderDark text-slate-300 transition-all shrink-0" data-category="coffee">
-                        ☕ Coffee & Frappes
-                    </button>
-                </div>
-
-                <!-- PERFECTLY ALIGNED RECIPES GRID (12 Authentic Foodpanda Dishes with Real Photos) -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="recipesGrid">
-                    
-                    <!-- Recipe 1: The Elements Pizza -->
-                    <div class="recipe-card rounded-3xl overflow-hidden flex flex-col group h-full" data-category="pizza">
-                        <div class="relative h-56 overflow-hidden bg-theme-darker">
-                            <img src="images/elements_pizza.jpg" 
-                                 alt="The Elements Pizza" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='https://images.deliveryhero.io/image/global-menu-service/FP_PH/vendor/jnij/product/83300028/df878173-7d51-49b4-aa56-0735d3f03ace.jpg'">
-                            <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-theme-orange text-white shadow">
-                                Signature 🔥
-                            </span>
-                            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg text-xs font-extrabold bg-theme-darker/90 text-amber-300 border border-theme-borderDark">
-                                ₱ 364
-                            </span>
-                        </div>
-                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="font-display font-bold text-lg text-white group-hover:text-theme-orange transition-colors mb-1.5">
-                                The Elements Pizza
-                            </h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mb-5 flex-grow">
-                                Loaded with ham, bacon, fresh mushroom, onion, bell pepper, tomato, black olives, and juicy pineapple tidbits over rich mozzarella.
-                            </p>
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-foodpanda mt-auto w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95">
-                                <i class="fa-solid fa-bag-shopping"></i> Order on Foodpanda
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Recipe 2: Grilled Pork Liempo Meal -->
-                    <div class="recipe-card rounded-3xl overflow-hidden flex flex-col group h-full" data-category="rice">
-                        <div class="relative h-56 overflow-hidden bg-theme-darker">
-                            <img src="images/grilled_pork_liempo.jpg" 
-                                 alt="Grilled Pork Liempo Meal" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='https://images.deliveryhero.io/image/global-menu-service/FP_PH/vendor/jnij/product/83300042/234875ae-33a6-40b9-ad27-2b1a177cb8c0.jpg'">
-                            <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500 text-stone-900 shadow">
-                                Best Seller 🥩
-                            </span>
-                            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg text-xs font-extrabold bg-theme-darker/90 text-amber-300 border border-theme-borderDark">
-                                ₱ 176
-                            </span>
-                        </div>
-                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="font-display font-bold text-lg text-white group-hover:text-theme-orange transition-colors mb-1.5">
-                                Grilled Pork Liempo Meal
-                            </h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mb-5 flex-grow">
-                                Smoky char-grilled pork belly seasoned with authentic marinades, served with a big portion of rice and sunny-side egg.
-                            </p>
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-foodpanda mt-auto w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95">
-                                <i class="fa-solid fa-bag-shopping"></i> Order on Foodpanda
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Recipe 3: Truffle Mushroom Pizza -->
-                    <div class="recipe-card rounded-3xl overflow-hidden flex flex-col group h-full" data-category="pizza">
-                        <div class="relative h-56 overflow-hidden bg-theme-darker">
-                            <img src="images/truffle_pizza.jpg" 
-                                 alt="Truffle Mushroom Pizza" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='https://images.deliveryhero.io/image/global-menu-service/FP_PH/vendor/jnij/product/114246209/ee4f8c19-fea2-4c24-959f-4cc01ffecaac.jpg'">
-                            <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-purple-600 text-white shadow">
-                                Chef's Choice 🍄
-                            </span>
-                            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg text-xs font-extrabold bg-theme-darker/90 text-amber-300 border border-theme-borderDark">
-                                ₱ 368
-                            </span>
-                        </div>
-                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="font-display font-bold text-lg text-white group-hover:text-theme-orange transition-colors mb-1.5">
-                                Truffle Mushroom Pizza
-                            </h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mb-5 flex-grow">
-                                Creamy white sauce base topped with fresh mushrooms, sliced onion, black olives, and an aromatic drizzle of truffle oil.
-                            </p>
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-foodpanda mt-auto w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95">
-                                <i class="fa-solid fa-bag-shopping"></i> Order on Foodpanda
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Recipe 4: Fried Siomai Rice Bowl -->
-                    <div class="recipe-card rounded-3xl overflow-hidden flex flex-col group h-full" data-category="dimsum">
-                        <div class="relative h-56 overflow-hidden bg-theme-darker">
-                            <img src="images/fried_siomai_meal.jpg" 
-                                 alt="Fried Siomai Rice Bowl" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='https://images.deliveryhero.io/image/fd-ph/Products/76725631.jpg'">
-                            <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-theme-orange text-white shadow">
-                                Daily Fave 🥟
-                            </span>
-                            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg text-xs font-extrabold bg-theme-darker/90 text-amber-300 border border-theme-borderDark">
-                                ₱ 84
-                            </span>
-                        </div>
-                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="font-display font-bold text-lg text-white group-hover:text-theme-orange transition-colors mb-1.5">
-                                Fried Siomai Rice Bowl
-                            </h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mb-5 flex-grow">
-                                4pcs. golden fried savory pork siomai served with vegetable fried rice and spicy chili-garlic dipping sauce.
-                            </p>
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-foodpanda mt-auto w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95">
-                                <i class="fa-solid fa-bag-shopping"></i> Order on Foodpanda
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Recipe 5: Overload Toppings Meal -->
-                    <div class="recipe-card rounded-3xl overflow-hidden flex flex-col group h-full" data-category="rice">
-                        <div class="relative h-56 overflow-hidden bg-theme-darker">
-                            <img src="images/overload_toppings_meal.jpg" 
-                                 alt="Overload Toppings Meal" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='https://images.deliveryhero.io/image/fd-ph/products/76725642.jpg'">
-                            <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-rose-600 text-white shadow">
-                                Big Meal ⭐
-                            </span>
-                            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg text-xs font-extrabold bg-theme-darker/90 text-amber-300 border border-theme-borderDark">
-                                ₱ 160
-                            </span>
-                        </div>
-                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="font-display font-bold text-lg text-white group-hover:text-theme-orange transition-colors mb-1.5">
-                                Overload Toppings Meal
-                            </h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mb-5 flex-grow">
-                                The ultimate feast in one bowl: 4pcs. siomai, 3pcs. crispy shanghai, and 1 fried egg served over seasoned vegetable rice.
-                            </p>
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-foodpanda mt-auto w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95">
-                                <i class="fa-solid fa-bag-shopping"></i> Order on Foodpanda
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Recipe 6: Loaded Streetfood Platter -->
-                    <div class="recipe-card rounded-3xl overflow-hidden flex flex-col group h-full" data-category="snacks">
-                        <div class="relative h-56 overflow-hidden bg-theme-darker">
-                            <img src="images/streetfood_platter.jpg" 
-                                 alt="Loaded Streetfood Platter" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='https://images.deliveryhero.io/image/fd-ph/Products/76725335.jpg'">
-                            <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-theme-orange text-white shadow">
-                                Barkada Platter 🍢
-                            </span>
-                            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg text-xs font-extrabold bg-theme-darker/90 text-amber-300 border border-theme-borderDark">
-                                ₱ 168
-                            </span>
-                        </div>
-                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="font-display font-bold text-lg text-white group-hover:text-theme-orange transition-colors mb-1.5">
-                                Loaded Streetfood Platter
-                            </h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mb-5 flex-grow">
-                                Generous mix of kikiam, squid balls, fish balls, and hotdog fried to crunchy goodness, served with signature homemade sweet & spicy sauce.
-                            </p>
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-foodpanda mt-auto w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95">
-                                <i class="fa-solid fa-bag-shopping"></i> Order on Foodpanda
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Recipe 7: Crispy Chicken Wings -->
-                    <div class="recipe-card rounded-3xl overflow-hidden flex flex-col group h-full" data-category="snacks">
-                        <div class="relative h-56 overflow-hidden bg-theme-darker">
-                            <img src="images/solo_wings.jpg" 
-                                 alt="Solo Chicken Wings (6pcs)" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='https://images.deliveryhero.io/image/fd-ph/Products/76725283.jpg'">
-                            <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500 text-stone-900 shadow">
-                                Crispy 🍗
-                            </span>
-                            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg text-xs font-extrabold bg-theme-darker/90 text-amber-300 border border-theme-borderDark">
-                                ₱ 224
-                            </span>
-                        </div>
-                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="font-display font-bold text-lg text-white group-hover:text-theme-orange transition-colors mb-1.5">
-                                Crispy Chicken Wings (6pcs)
-                            </h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mb-5 flex-grow">
-                                6 pieces of deep-fried crispy chicken wings tossed in your favorite savory or sweet glaze. Perfect companion for movie nights.
-                            </p>
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-foodpanda mt-auto w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95">
-                                <i class="fa-solid fa-bag-shopping"></i> Order on Foodpanda
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Recipe 8: Artisan Spanish Latte -->
-                    <div class="recipe-card rounded-3xl overflow-hidden flex flex-col group h-full" data-category="coffee">
-                        <div class="relative h-56 overflow-hidden bg-theme-darker">
-                            <img src="images/spanish_latte.jpg" 
-                                 alt="Artisan Spanish Latte" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='https://images.deliveryhero.io/image/fd-ph/Products/76724820.jpg'">
-                            <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-theme-orange text-white shadow">
-                                Top Coffee ☕
-                            </span>
-                            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg text-xs font-extrabold bg-theme-darker/90 text-amber-300 border border-theme-borderDark">
-                                ₱ 148
-                            </span>
-                        </div>
-                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="font-display font-bold text-lg text-white group-hover:text-theme-orange transition-colors mb-1.5">
-                                Artisan Spanish Latte
-                            </h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mb-5 flex-grow">
-                                Rich espresso pulled over sweetened condensed milk, velvety steamed or cold milk, and dusted with aromatic cinnamon powder.
-                            </p>
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-foodpanda mt-auto w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95">
-                                <i class="fa-solid fa-bag-shopping"></i> Order on Foodpanda
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Recipe 9: Biscoff Cloud Matcha Latte -->
-                    <div class="recipe-card rounded-3xl overflow-hidden flex flex-col group h-full" data-category="coffee">
-                        <div class="relative h-56 overflow-hidden bg-theme-darker">
-                            <img src="images/biscoff_matcha_latte.jpg" 
-                                 alt="Biscoff Cloud Matcha Latte" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='https://images.deliveryhero.io/image/fd-ph/Products/91495986.jpg'">
-                            <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-600 text-white shadow">
-                                Matcha Fave 🍵
-                            </span>
-                            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg text-xs font-extrabold bg-theme-darker/90 text-amber-300 border border-theme-borderDark">
-                                ₱ 204
-                            </span>
-                        </div>
-                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="font-display font-bold text-lg text-white group-hover:text-theme-orange transition-colors mb-1.5">
-                                Biscoff Cloud Matcha Latte
-                            </h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mb-5 flex-grow">
-                                High-grade Japanese matcha infused with silky milk foam and topped with real crunchy Lotus Biscoff biscuit crumble.
-                            </p>
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-foodpanda mt-auto w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95">
-                                <i class="fa-solid fa-bag-shopping"></i> Order on Foodpanda
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Recipe 10: Deluxe Hawaiian Pizza -->
-                    <div class="recipe-card rounded-3xl overflow-hidden flex flex-col group h-full" data-category="pizza">
-                        <div class="relative h-56 overflow-hidden bg-theme-darker">
-                            <img src="images/deluxe_hawaiian_pizza.jpg" 
-                                 alt="Deluxe Hawaiian Pizza" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='https://images.deliveryhero.io/image/global-menu-service/FP_PH/vendor/jnij/product/114246211/0bbe1196-d261-4664-b89e-3061d345b874.jpg'">
-                            <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-theme-orange text-white shadow">
-                                Classic 🍍
-                            </span>
-                            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg text-xs font-extrabold bg-theme-darker/90 text-amber-300 border border-theme-borderDark">
-                                ₱ 368
-                            </span>
-                        </div>
-                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="font-display font-bold text-lg text-white group-hover:text-theme-orange transition-colors mb-1.5">
-                                Deluxe Hawaiian Pizza
-                            </h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mb-5 flex-grow">
-                                Oven-baked hand-stretched crust topped with savory sliced ham, smoked bacon strips, sweet pineapple tidbits, and rich melted cheese.
-                            </p>
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-foodpanda mt-auto w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95">
-                                <i class="fa-solid fa-bag-shopping"></i> Order on Foodpanda
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Recipe 11: Bacon & Cheese Fries -->
-                    <div class="recipe-card rounded-3xl overflow-hidden flex flex-col group h-full" data-category="snacks">
-                        <div class="relative h-56 overflow-hidden bg-theme-darker">
-                            <img src="images/bacon_cheese_fries.jpg" 
-                                 alt="Bacon & Cheese Fries" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='https://images.deliveryhero.io/image/fd-ph/Products/76701160.jpg'">
-                            <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500 text-stone-900 shadow">
-                                Cheesy 🍟
-                            </span>
-                            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg text-xs font-extrabold bg-theme-darker/90 text-amber-300 border border-theme-borderDark">
-                                ₱ 184
-                            </span>
-                        </div>
-                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="font-display font-bold text-lg text-white group-hover:text-theme-orange transition-colors mb-1.5">
-                                Bacon & Cheese Fries
-                            </h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mb-5 flex-grow">
-                                Hot crispy crinkle-cut fries generously smothered in warm cheese sauce, sweet smoky BBQ sauce, real bacon bits, and grated parmesan.
-                            </p>
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-foodpanda mt-auto w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95">
-                                <i class="fa-solid fa-bag-shopping"></i> Order on Foodpanda
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Recipe 12: Caramel Frappe with Cream -->
-                    <div class="recipe-card rounded-3xl overflow-hidden flex flex-col group h-full" data-category="coffee">
-                        <div class="relative h-56 overflow-hidden bg-theme-darker">
-                            <img src="images/caramel_frappe.jpg" 
-                                 alt="Caramel Frappe with Whipped Cream" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 onerror="this.src='https://images.deliveryhero.io/image/global-menu-service/FP_PH/vendor/jnij/product/83570407/7e19be22-d26f-4452-aae9-4dd874022519.jpg'">
-                            <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-black bg-theme-pink text-white shadow">
-                                Iced Treat 🧋
-                            </span>
-                            <span class="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg text-xs font-extrabold bg-theme-darker/90 text-amber-300 border border-theme-borderDark">
-                                ₱ 184
-                            </span>
-                        </div>
-                        <div class="p-5 sm:p-6 flex flex-col flex-grow">
-                            <h3 class="font-display font-bold text-lg text-white group-hover:text-theme-orange transition-colors mb-1.5">
-                                Caramel Frappe with Cream
-                            </h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mb-5 flex-grow">
-                                Blended espresso and rich caramel sauce topped with fluffy whipped cream and an indulgent golden caramel drizzle.
-                            </p>
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-foodpanda mt-auto w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 active:scale-95">
-                                <i class="fa-solid fa-bag-shopping"></i> Order on Foodpanda
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Foodpanda Direct Redirect Banner -->
-                <div class="mt-12 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-theme-darkCard via-theme-darkCardHover to-theme-darkCard border border-theme-borderDark flex flex-col sm:flex-row items-center justify-between gap-5 text-center sm:text-left shadow-2xl">
-                    <div>
-                        <div class="flex items-center justify-center sm:justify-start gap-2 mb-1">
-                            <span class="text-theme-pink text-lg"><i class="fa-solid fa-circle-check"></i></span>
-                            <span class="text-xs font-bold uppercase tracking-wider text-theme-coral">Full Online Catalog Ready</span>
-                        </div>
-                        <h4 class="font-display font-black text-white text-lg sm:text-2xl">Looking for more flavors & meal bundles?</h4>
-                        <p class="text-xs sm:text-sm text-slate-400 mt-1">Explore all fruit sodas, bilao party wings, and group feast bundles directly on Foodpanda!</p>
-                    </div>
-                    <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                       class="btn-brand-foodpanda px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-wider shrink-0 flex items-center gap-2.5 shadow-xl active:scale-95">
-                        <i class="fa-solid fa-bag-shopping text-sm"></i>
-                        <span>SEE COMPLETE FOODPANDA MENU</span>
-                    </a>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ── SECTION 4: FOCAL CIRCULAR PLATE SHOWCASE (Reference 1 & 2 Inspired) ── -->
-        <section class="py-14 sm:py-24 bg-theme-darker relative border-t border-theme-borderDark overflow-hidden">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-                    
-                    <!-- Left Column Text -->
-                    <div class="lg:col-span-6 space-y-5 text-center lg:text-left">
-                        <span class="px-3.5 py-1 rounded-full bg-theme-orange/15 text-theme-coral font-bold text-xs uppercase tracking-wider border border-theme-orange/30">
-                            Cooked Fresh Daily
-                        </span>
-                        <h2 class="font-display font-black text-3xl sm:text-4xl lg:text-5xl text-white leading-tight">
-                            Prepared with Heart, <br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-theme-orange to-amber-400">Made for Sharing</span>
-                        </h2>
-                        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto lg:mx-0">
-                            Whether you're grabbing a solo lunch, sharing a hot pizza with friends, or ordering party platters for the whole family, The Elements by Yeocha guarantees hot food, generous servings, and authentic flavors.
-                        </p>
-
-                        <div class="grid grid-cols-2 gap-4 pt-3 max-w-md mx-auto lg:mx-0 text-left">
-                            <div class="p-4 rounded-2xl bg-theme-darkCard border border-theme-borderDark">
-                                <div class="text-theme-orange text-xl mb-1">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                </div>
-                                <h4 class="font-display font-bold text-xs text-white uppercase tracking-wider">Generous Portions</h4>
-                                <p class="text-[11px] text-slate-400 mt-0.5">Heavy servings that keep you full and happy.</p>
-                            </div>
-                            <div class="p-4 rounded-2xl bg-theme-darkCard border border-theme-borderDark">
-                                <div class="text-theme-coral text-xl mb-1">
-                                    <i class="fa-solid fa-motorcycle"></i>
-                                </div>
-                                <h4 class="font-display font-bold text-xs text-white uppercase tracking-wider">Fast Delivery</h4>
-                                <p class="text-[11px] text-slate-400 mt-0.5">Swift delivery right to your Calamba doorstep.</p>
-                            </div>
-                        </div>
-
-                        <div class="pt-3">
-                            <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                               class="btn-brand-orange inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl font-extrabold text-xs uppercase tracking-wider">
-                                <i class="fa-solid fa-bag-shopping"></i>
-                                <span>Order Delivery Now</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Right Column: Circular Focal Plate Frame (Real Liempo Foodpanda Photo) -->
-                    <div class="lg:col-span-6 flex justify-center">
-                        <div class="focal-plate-container max-w-sm sm:max-w-md w-full">
-                            <div class="w-full aspect-square rounded-full overflow-hidden bg-theme-dark border-4 border-theme-borderDark relative group shadow-2xl">
-                                <img src="images/grilled_pork_liempo.jpg" 
-                                     alt="Grilled Pork Liempo Meal" 
-                                     class="w-full h-full object-cover filter contrast-115 group-hover:scale-110 transition-transform duration-700"
-                                     onerror="this.src='https://images.deliveryhero.io/image/global-menu-service/FP_PH/vendor/jnij/product/83300042/234875ae-33a6-40b9-ad27-2b1a177cb8c0.jpg'">
-                                
-                                <div class="absolute inset-0 bg-gradient-to-t from-theme-darker/70 via-transparent to-transparent"></div>
-                                
-                                <!-- Center Pill Badge -->
-                                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-theme-darkCard/95 border border-theme-borderDark text-[11px] font-extrabold uppercase tracking-wider text-amber-300 shadow-xl whitespace-nowrap">
-                                    P. Burgos St, Calamba City
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- ── SECTION 5: CUSTOMER REVIEWS (Real Verified Feedback) ── -->
-        <section id="reviews" class="py-12 sm:py-20 bg-theme-dark border-t border-theme-borderDark">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-                    <span class="px-3.5 py-1 rounded-full bg-amber-500/15 text-amber-300 font-bold text-xs uppercase tracking-wider border border-amber-500/30">
-                        Customer Love
-                    </span>
-                    <h2 class="font-display font-black text-3xl sm:text-4xl text-white mt-3">
-                        Real Reviews from Happy Diners
-                    </h2>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-2">
-                        Read verified ratings from Foodpanda and Google Maps customers.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    
-                    <!-- Review Card 1 -->
-                    <div class="p-6 rounded-3xl bg-theme-darkCard border border-theme-borderDark flex flex-col justify-between hover:border-theme-orange/40 transition-colors">
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="flex text-amber-400 text-xs gap-1">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <span class="text-[10px] font-bold text-theme-pink">Foodpanda Verified</span>
-                            </div>
-                            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed italic">
-                                "Ang sarap ng pizza! Worth the price. Perfect ang crust and generous ang toppings."
-                            </p>
-                        </div>
-                        <div class="flex items-center gap-3 mt-5 pt-4 border-t border-theme-borderDark">
-                            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-theme-orange to-theme-pink text-white font-black text-xs flex items-center justify-center shadow">
-                                J
-                            </div>
-                            <div>
-                                <h4 class="text-xs font-bold text-white">Joanah</h4>
-                                <p class="text-[10px] text-slate-400">Regular Customer</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Review Card 2 -->
-                    <div class="p-6 rounded-3xl bg-theme-darkCard border border-theme-borderDark flex flex-col justify-between hover:border-amber-500/40 transition-colors">
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="flex text-amber-400 text-xs gap-1">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <span class="text-[10px] font-bold text-theme-pink">Foodpanda Verified</span>
-                            </div>
-                            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed italic">
-                                "Ang laki ng liempo solid! Super busog. Marinated well and delivered warm to our place."
-                            </p>
-                        </div>
-                        <div class="flex items-center gap-3 mt-5 pt-4 border-t border-theme-borderDark">
-                            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 text-stone-900 font-black text-xs flex items-center justify-center shadow">
-                                J
-                            </div>
-                            <div>
-                                <h4 class="text-xs font-bold text-white">Joyberzz</h4>
-                                <p class="text-[10px] text-slate-400">Calamba Resident</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Review Card 3 -->
-                    <div class="p-6 rounded-3xl bg-theme-darkCard border border-theme-borderDark flex flex-col justify-between hover:border-theme-coral/40 transition-colors">
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="flex text-amber-400 text-xs gap-1">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <span class="text-[10px] font-bold text-theme-pink">Foodpanda Verified</span>
-                            </div>
-                            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed italic">
-                                "Very nice streetfood platter and busog malala sa siomai rice meal. Solid combination!"
-                            </p>
-                        </div>
-                        <div class="flex items-center gap-3 mt-5 pt-4 border-t border-theme-borderDark">
-                            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-rose-600 to-pink-700 text-white font-black text-xs flex items-center justify-center shadow">
-                                D
-                            </div>
-                            <div>
-                                <h4 class="text-xs font-bold text-white">Derrell</h4>
-                                <p class="text-[10px] text-slate-400">Verified Diner</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ── SECTION 6: LOCATION, MAP & CONTACT (Clean Structured Layout) ── -->
-        <section id="contact" class="py-14 sm:py-20 bg-theme-darker border-t border-theme-borderDark">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-                    <span class="px-3.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400 font-bold text-xs uppercase tracking-wider border border-emerald-500/30">
-                        Visit Our Store
-                    </span>
-                    <h2 class="font-display font-black text-3xl sm:text-4xl text-white mt-3">
-                        Location & Contact Information
-                    </h2>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-2">
-                        We welcome you for dine-in, takeout, and instant Foodpanda delivery!
-                    </p>
-                </div>
-
-                <div class="rounded-3xl bg-theme-darkCard border border-theme-borderDark p-6 sm:p-8 shadow-2xl">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                        
-                        <!-- Left Details Card -->
-                        <div class="lg:col-span-5 space-y-6">
-                            
-                            <!-- Address -->
-                            <div class="flex items-start gap-4">
-                                <div class="w-11 h-11 rounded-2xl bg-theme-orange/15 text-theme-orange flex items-center justify-center text-lg shrink-0 mt-0.5 border border-theme-orange/30">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-display font-bold text-xs uppercase tracking-wider text-theme-coral">Physical Location</h4>
-                                    <p class="text-sm font-semibold text-white mt-1">P. Burgos Street, Barangay 7</p>
-                                    <p class="text-xs text-slate-400">Lone District (6579+CG6), Calamba City, Laguna 4027</p>
-                                </div>
-                            </div>
-
-                            <!-- Operating Hours -->
-                            <div class="flex items-start gap-4">
-                                <div class="w-11 h-11 rounded-2xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-lg shrink-0 mt-0.5 border border-emerald-500/30">
-                                    <i class="fa-solid fa-clock"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-display font-bold text-xs uppercase tracking-wider text-emerald-400">Store Hours</h4>
-                                    <p class="text-sm font-semibold text-white mt-1">Monday – Sunday (Open 7 Days a Week)</p>
-                                    <p class="text-xs text-slate-400">11:15 AM – 10:30 PM Daily</p>
-                                </div>
-                            </div>
-
-                            <!-- Social Links -->
-                            <div class="flex items-start gap-4">
-                                <div class="w-11 h-11 rounded-2xl bg-blue-500/15 text-blue-400 flex items-center justify-center text-lg shrink-0 mt-0.5 border border-blue-500/30">
-                                    <i class="fa-brands fa-facebook-f"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-display font-bold text-xs uppercase tracking-wider text-blue-400">Facebook Page</h4>
-                                    <a href="https://www.facebook.com/theelementsbyyeocha/" target="_blank" rel="noopener noreferrer" 
-                                       class="text-xs text-slate-300 hover:text-white underline mt-1 block">
-                                        fb.com/theelementsbyyeocha
-                                    </a>
-                                </div>
-                            </div>
-
-                            <!-- Action Buttons -->
-                            <div class="pt-4 border-t border-theme-borderDark space-y-3">
-                                <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                                   class="btn-brand-foodpanda w-full py-3.5 rounded-2xl font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg active:scale-95">
-                                    <i class="fa-solid fa-bag-shopping"></i>
-                                    <span>Order Online via Foodpanda</span>
-                                </a>
-                                <a href="https://www.google.com/maps/place/The+Elements+-+Coffee%E2%80%A2Resto%E2%80%A2Events/@14.2128577,121.1690755,18z" target="_blank" rel="noopener noreferrer" 
-                                   class="w-full py-3.5 rounded-2xl bg-theme-dark border border-theme-borderDark hover:border-theme-orange/50 text-slate-200 hover:text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors">
-                                    <i class="fa-solid fa-diamond-turn-right text-emerald-400"></i>
-                                    <span>Get Directions in Google Maps</span>
-                                </a>
-                            </div>
-
-                        </div>
-
-                        <!-- Right Google Map Embed -->
-                        <div class="lg:col-span-7 h-72 sm:h-96 rounded-2xl overflow-hidden bg-theme-dark border border-theme-borderDark shadow-inner">
-                            <iframe 
-                                title="The Elements by Yeocha Google Map"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3868.0433777553556!2d121.16636837590137!3d14.213415986377717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd6300487b12af%3A0x3958b7dd27e0187b!2sThe%20Elements%20-%20Coffee%E2%80%A2Resto%E2%80%A2Events!5e0!3m2!1sen!2sph!4v1725440400000!5m2!1sen!2sph" 
-                                class="w-full h-full border-0 filter contrast-125" 
-                                allowfullscreen="" 
-                                loading="lazy" 
-                                referrerpolicy="no-referrer-when-downgrade">
-                            </iframe>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-    </main>
-
-    <!-- ── FOOTER ── -->
-    <footer class="bg-theme-darker border-t border-theme-borderDark py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-                
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-gradient-to-br from-theme-orange to-theme-pink flex items-center justify-center text-white text-xs">
-                        <i class="fa-solid fa-fire"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-display font-bold text-sm text-white">The Elements by Yeocha</h4>
-                        <p class="text-[11px] text-theme-textMuted">Coffee • Resto • Events | Calamba, Laguna</p>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-6 text-xs text-slate-400 font-medium">
-                    <a href="#home" class="hover:text-theme-orange transition-colors">Overview</a>
-                    <a href="#highlights" class="hover:text-theme-orange transition-colors">Experience</a>
-                    <a href="#menu" class="hover:text-theme-orange transition-colors">Recipes</a>
-                    <a href="#contact" class="hover:text-theme-orange transition-colors">Location</a>
-                </div>
-
-                <div class="flex items-center gap-2.5">
-                    <a href="https://www.facebook.com/theelementsbyyeocha/" target="_blank" rel="noopener noreferrer" 
-                       class="w-8 h-8 rounded-full border border-theme-borderDark text-slate-300 hover:text-blue-400 bg-theme-darkCard flex items-center justify-center text-xs transition-colors" title="Facebook">
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
-                    <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-                       class="btn-brand-foodpanda px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow">
-                        <i class="fa-solid fa-bag-shopping text-xs"></i>
-                        <span>Foodpanda</span>
-                    </a>
-                </div>
-
-            </div>
-
-            <div class="mt-8 pt-6 border-t border-theme-borderDark/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500">
-                <p>© 2026 The Elements by Yeocha. All rights reserved.</p>
-                <p>P. Burgos Street, Barangay 7, Calamba City, Laguna</p>
-            </div>
+        <div class="feature-item">
+          <div class="feature-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <div>
+            <div class="feature-title">High-Res Food Photography</div>
+            <div class="feature-desc">Studio-shot plating guides for every single dish</div>
+          </div>
         </div>
-    </footer>
 
-    <!-- ── FIXED STICKY MOBILE BOTTOM BAR (Cell Phone Priority) ── -->
-    <div class="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-theme-dark/95 backdrop-blur-lg border-t border-theme-borderDark px-3 py-2.5 flex items-center gap-2 shadow-2xl">
-        <a href="https://www.foodpanda.ph/restaurant/jnij/the-elements-by-yeocha-p-burgos" target="_blank" rel="noopener noreferrer" 
-           class="btn-brand-foodpanda flex-1 py-3 px-4 rounded-2xl text-center font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg active:scale-95">
-            <i class="fa-solid fa-bag-shopping text-sm"></i>
-            <span>ORDER ON FOODPANDA</span>
-        </a>
-        <a href="https://www.google.com/maps/place/The+Elements+-+Coffee%E2%80%A2Resto%E2%80%A2Events/@14.2128577,121.1690755,18z" target="_blank" rel="noopener noreferrer" 
-           class="w-12 h-11 rounded-2xl bg-theme-darkCard border border-theme-borderDark text-emerald-400 flex items-center justify-center text-sm shadow active:scale-95" 
-           title="Directions">
-            <i class="fa-solid fa-location-dot"></i>
-        </a>
-        <a href="https://www.facebook.com/theelementsbyyeocha/" target="_blank" rel="noopener noreferrer" 
-           class="w-12 h-11 rounded-2xl bg-blue-950/60 border border-blue-600/40 text-blue-400 flex items-center justify-center text-sm shadow active:scale-95" 
-           title="Facebook">
-            <i class="fa-brands fa-facebook-f"></i>
-        </a>
+        <div class="feature-item">
+          <div class="feature-icon-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="feature-title">Guaranteed on Gumroad</div>
+            <div class="feature-desc">100% secure payment & permanent library link</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- ── INTERACTIVE JAVASCRIPT (Adds Life, No POS/Solver) ── -->
-    <script>
-        // 1. Mobile Drawer Navigation Toggle
-        const mobileNavToggle = document.getElementById('mobileNavToggle');
-        const mobileDrawer = document.getElementById('mobileDrawer');
-        const navIcon = document.getElementById('navIcon');
+  <!-- ==================== POPULAR GENRES (Exact Inspo Photo Layout) ==================== -->
+  <main class="genres-section" id="genres">
+    <div class="container">
+      
+      <!-- Section Title & Filter Tabs -->
+      <div class="section-header">
+        <h2 class="section-title">Popular Genres</h2>
+        <div class="section-filter-tabs">
+          <button class="filter-tab active" onclick="filterGenre('all', this)">All Genres</button>
+          <button class="filter-tab" onclick="filterGenre('meat', this)">Meat & BBQ</button>
+          <button class="filter-tab" onclick="filterGenre('pasta', this)">Pasta & Italian</button>
+          <button class="filter-tab" onclick="filterGenre('seafood', this)">Seafood</button>
+        </div>
+      </div>
 
-        if (mobileNavToggle && mobileDrawer) {
-            mobileNavToggle.addEventListener('click', () => {
-                mobileDrawer.classList.toggle('hidden');
-                if (mobileDrawer.classList.contains('hidden')) {
-                    navIcon.classList.remove('fa-xmark');
-                    navIcon.classList.add('fa-bars');
-                } else {
-                    navIcon.classList.remove('fa-bars');
-                    navIcon.classList.add('fa-xmark');
-                }
-            });
+      <!-- Live Search Feedback -->
+      <div id="searchFeedback" class="search-results-feedback"></div>
 
-            document.querySelectorAll('.mobile-menu-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    mobileDrawer.classList.add('hidden');
-                    navIcon.classList.remove('fa-xmark');
-                    navIcon.classList.add('fa-bars');
-                });
-            });
+      <!-- 2-Column Grid of Category Cards -->
+      <div class="genres-grid">
+
+        <!-- ==================== GENRE CARD 1: MEAT & BBQ (Folder 1) ==================== -->
+        <div class="genre-card" data-genre="meat" data-keywords="meat bbq beef brisket burger steak chef a pork ribs hearty">
+          <div class="genre-card-header">
+            <div class="genre-card-title">
+              <span>Meat & BBQ</span>
+              <span class="badge">Bestseller</span>
+            </div>
+            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="genre-view-all">
+              VIEW ALL
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </a>
+          </div>
+
+          <!-- 4 items inside row -->
+          <div class="genre-books-row">
+            <!-- Book 1: 3D Cover -->
+            <div class="book-item" onclick="openPreview('meat', 0)">
+              <div class="book-cover-wrap">
+                <img src="./1/1.webp" alt="Meat Lovers Cookbook 3D Hardcover" loading="lazy">
+                <span class="book-cover-badge">eBook Cover</span>
+                <div class="book-hover-overlay">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <span>Look Inside</span>
+                </div>
+              </div>
+              <div class="book-info">
+                <div class="book-title">Meat Lovers Cookbook</div>
+                <div class="book-author">Chef A • 100+ Recipes</div>
+              </div>
+            </div>
+
+            <!-- Book 2: Table of Contents -->
+            <div class="book-item" onclick="openPreview('meat', 1)">
+              <div class="book-cover-wrap">
+                <img src="./1/2.webp" alt="Meat Recipes Table of Contents" loading="lazy">
+                <span class="book-cover-badge">Contents</span>
+                <div class="book-hover-overlay">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                  <span>Read Index</span>
+                </div>
+              </div>
+              <div class="book-info">
+                <div class="book-title">Hearty Recipe Index</div>
+                <div class="book-author">Menus 81–100</div>
+              </div>
+            </div>
+
+            <!-- Book 3: Sample Recipe -->
+            <div class="book-item" onclick="openPreview('meat', 2)">
+              <div class="book-cover-wrap">
+                <img src="./1/3.webp" alt="BBQ Beef Brisket Sample Recipe" loading="lazy">
+                <span class="book-cover-badge">Sample Page</span>
+                <div class="book-hover-overlay">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <span>View Recipe</span>
+                </div>
+              </div>
+              <div class="book-info">
+                <div class="book-title">BBQ Beef Brisket</div>
+                <div class="book-author">Smoked • Menu 9</div>
+              </div>
+            </div>
+
+            <!-- Book 4: Buy on Gumroad Quick Card -->
+            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="book-item" title="Get Meat Lovers Cookbook on Gumroad">
+              <div class="bundle-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <div class="bundle-box-title">Get This eBook</div>
+                <div class="bundle-box-sub">ebookluxe.gumroad.com</div>
+              </div>
+              <div class="book-info">
+                <div class="book-title" style="color: var(--primary);">Instant Download</div>
+                <div class="book-author">PDF & EPUB Format</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- ==================== GENRE CARD 2: PASTA & ITALIAN (Folder 2) ==================== -->
+        <div class="genre-card" data-genre="pasta" data-keywords="pasta italian penne salmon cajun spaghetti noodles chef a garlic alfredo parmesan">
+          <div class="genre-card-header">
+            <div class="genre-card-title">
+              <span>Pasta & Italian</span>
+              <span class="badge">Top Rated</span>
+            </div>
+            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="genre-view-all">
+              VIEW ALL
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </a>
+          </div>
+
+          <!-- 4 items inside row -->
+          <div class="genre-books-row">
+            <!-- Book 1: 3D Cover -->
+            <div class="book-item" onclick="openPreview('pasta', 0)">
+              <div class="book-cover-wrap">
+                <img src="./2/1.webp" alt="Pasta Ultimate Collection 3D Cover" loading="lazy">
+                <span class="book-cover-badge">eBook Cover</span>
+                <div class="book-hover-overlay">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <span>Look Inside</span>
+                </div>
+              </div>
+              <div class="book-info">
+                <div class="book-title">Pasta Ultimate Collection</div>
+                <div class="book-author">Chef A • Creamy Classics</div>
+              </div>
+            </div>
+
+            <!-- Book 2: Table of Contents -->
+            <div class="book-item" onclick="openPreview('pasta', 1)">
+              <div class="book-cover-wrap">
+                <img src="./2/2.webp" alt="Pasta Recipes Table of Contents" loading="lazy">
+                <span class="book-cover-badge">Contents</span>
+                <div class="book-hover-overlay">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                  </svg>
+                  <span>Read Index</span>
+                </div>
+              </div>
+              <div class="book-info">
+                <div class="book-title">Pasta Recipes Index</div>
+                <div class="book-author">Menus 81–100</div>
+              </div>
+            </div>
+
+            <!-- Book 3: Sample Recipe -->
+            <div class="book-item" onclick="openPreview('pasta', 2)">
+              <div class="book-cover-wrap">
+                <img src="./2/3.webp" alt="Cajun Salmon Penne Recipe Page" loading="lazy">
+                <span class="book-cover-badge">Sample Page</span>
+                <div class="book-hover-overlay">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <span>View Recipe</span>
+                </div>
+              </div>
+              <div class="book-info">
+                <div class="book-title">Cajun Salmon Penne</div>
+                <div class="book-author">Creamed Corn • Menu 43</div>
+              </div>
+            </div>
+
+            <!-- Book 4: Buy on Gumroad Quick Card -->
+            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="book-item" title="Get Pasta Ultimate Collection on Gumroad">
+              <div class="bundle-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <div class="bundle-box-title">Get This eBook</div>
+                <div class="bundle-box-sub">ebookluxe.gumroad.com</div>
+              </div>
+              <div class="book-info">
+                <div class="book-title" style="color: var(--primary);">Instant Download</div>
+                <div class="book-author">PDF & EPUB Format</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- ==================== GENRE CARD 3: SEAFOOD MASTERBOOK (Folder 3) ==================== -->
+        <div class="genre-card" data-genre="seafood" data-keywords="seafood fish crab lobster shrimp salmon oyster masterbook chef a ocean fresh boil">
+          <div class="genre-card-header">
+            <div class="genre-card-title">
+              <span>Seafood & Coastal</span>
+              <span class="badge">Featured</span>
+            </div>
+            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="genre-view-all">
+              VIEW ALL
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </a>
+          </div>
+
+          <!-- 4 items inside row -->
+          <div class="genre-books-row">
+            <!-- Book 1: 3D Cover -->
+            <div class="book-item" onclick="openPreview('seafood', 0)">
+              <div class="book-cover-wrap">
+                <img src="./3/1.webp" alt="The Seafood Masterbook 3D Cover" loading="lazy">
+                <span class="book-cover-badge">eBook Cover</span>
+                <div class="book-hover-overlay">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <span>Look Inside</span>
+                </div>
+              </div>
+              <div class="book-info">
+                <div class="book-title">The Seafood Masterbook</div>
+                <div class="book-author">Chef A • Wild & Fresh</div>
+              </div>
+            </div>
+
+            <!-- Book 2: Table of Contents -->
+            <div class="book-item" onclick="openPreview('seafood', 1)">
+              <div class="book-cover-wrap">
+                <img src="./3/2.webp" alt="Seafoods Recipes Table of Contents" loading="lazy">
+                <span class="book-cover-badge">Contents</span>
+                <div class="book-hover-overlay">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                  </svg>
+                  <span>Read Index</span>
+                </div>
+              </div>
+              <div class="book-info">
+                <div class="book-title">Seafood Recipes Index</div>
+                <div class="book-author">Menus 81–100</div>
+              </div>
+            </div>
+
+            <!-- Book 3: Sample Recipe -->
+            <div class="book-item" onclick="openPreview('seafood', 2)">
+              <div class="book-cover-wrap">
+                <img src="./3/3.webp" alt="American Seafood Boil Recipe Page" loading="lazy">
+                <span class="book-cover-badge">Sample Page</span>
+                <div class="book-hover-overlay">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <span>View Recipe</span>
+                </div>
+              </div>
+              <div class="book-info">
+                <div class="book-title">American Seafood Boil</div>
+                <div class="book-author">King Crab & Lobster • Menu 100</div>
+              </div>
+            </div>
+
+            <!-- Book 4: Buy on Gumroad Quick Card -->
+            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="book-item" title="Get The Seafood Masterbook on Gumroad">
+              <div class="bundle-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <div class="bundle-box-title">Get This eBook</div>
+                <div class="bundle-box-sub">ebookluxe.gumroad.com</div>
+              </div>
+              <div class="book-info">
+                <div class="book-title" style="color: var(--primary);">Instant Download</div>
+                <div class="book-author">PDF & EPUB Format</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- ==================== GENRE CARD 4: CHEF A COMPLETE TRILOGY ==================== -->
+        <div class="genre-card" data-genre="bundle" data-keywords="bundle all chef a collection trilogy meat pasta seafood cookbook special discount">
+          <div class="genre-card-header">
+            <div class="genre-card-title">
+              <span>Chef A Trilogy Collection</span>
+              <span class="badge" style="background: #e0f2fe; color: #0369a1;">All 3 In 1</span>
+            </div>
+            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="genre-view-all">
+              GET BUNDLE
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </a>
+          </div>
+
+          <!-- 4 items inside row -->
+          <div class="genre-books-row">
+            <!-- Book 1: Meat Cover -->
+            <div class="book-item" onclick="openPreview('meat', 0)">
+              <div class="book-cover-wrap">
+                <img src="./1/1.webp" alt="Meat Lovers Cookbook" loading="lazy">
+                <span class="book-cover-badge">Book 1</span>
+              </div>
+              <div class="book-info">
+                <div class="book-title">Meat Lovers</div>
+                <div class="book-author">Chef A Masterpiece</div>
+              </div>
+            </div>
+
+            <!-- Book 2: Pasta Cover -->
+            <div class="book-item" onclick="openPreview('pasta', 0)">
+              <div class="book-cover-wrap">
+                <img src="./2/1.webp" alt="Pasta Ultimate Collection" loading="lazy">
+                <span class="book-cover-badge">Book 2</span>
+              </div>
+              <div class="book-info">
+                <div class="book-title">Pasta Ultimate</div>
+                <div class="book-author">Italian Culinary Guide</div>
+              </div>
+            </div>
+
+            <!-- Book 3: Seafood Cover -->
+            <div class="book-item" onclick="openPreview('seafood', 0)">
+              <div class="book-cover-wrap">
+                <img src="./3/1.webp" alt="The Seafood Masterbook" loading="lazy">
+                <span class="book-cover-badge">Book 3</span>
+              </div>
+              <div class="book-info">
+                <div class="book-title">Seafood Master</div>
+                <div class="book-author">Ocean Gastronomy</div>
+              </div>
+            </div>
+
+            <!-- Book 4: Full Trilogy Access -->
+            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="book-item" title="Download Complete Trilogy on Gumroad">
+              <div class="bundle-box" style="background: #eef2ff; border-color: #6366f1;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                </svg>
+                <div class="bundle-box-title" style="color: #4338ca;">Trilogy Pass</div>
+                <div class="bundle-box-sub">ebookluxe.gumroad.com</div>
+              </div>
+              <div class="book-info">
+                <div class="book-title" style="color: #4f46e5;">Download All 3</div>
+                <div class="book-author">Best Value Bundle</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== SPOTLIGHT EBOOK SHOWCASE ==================== -->
+  <section class="spotlight-section" id="spotlight">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Spotlight Cookbooks</h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem;">Explore detailed contents and sample pages directly from our high-resolution eBooks.</p>
+        </div>
+        <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="genre-view-all">
+          BROWSE ALL ON GUMROAD
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="spotlight-grid">
+
+        <!-- Spotlight 1: Meat Lovers -->
+        <article class="spotlight-card">
+          <div class="spotlight-img-wrap" onclick="openPreview('meat', 0)">
+            <img src="./1/1.webp" alt="Meat Lovers Cookbook" loading="lazy">
+          </div>
+          <h3 class="spotlight-title">Meat Lovers Cookbook</h3>
+          <div class="spotlight-tagline">Delicious • Juicy • Satisfying</div>
+          <p class="spotlight-desc">
+            A masterclass in dry-rubs, wood-fired smoking, smashburgers, tender braises, and artisan marinades. Includes the famous Menu 9 BBQ Beef Brisket recipe with complete temperature charts.
+          </p>
+          <div class="spotlight-specs">
+            <span>📖 100+ Curated Menus</span>
+            <span>•</span>
+            <span>⚡ Instant PDF/EPUB</span>
+            <span>•</span>
+            <span>👨‍🍳 Chef A</span>
+          </div>
+          <div class="spotlight-cta-wrap">
+            <button type="button" class="btn-preview" onclick="openPreview('meat', 0)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              Look Inside
+            </button>
+            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="btn-buy-book">
+              Buy on Gumroad
+            </a>
+          </div>
+        </article>
+
+        <!-- Spotlight 2: Pasta Ultimate -->
+        <article class="spotlight-card">
+          <div class="spotlight-img-wrap" onclick="openPreview('pasta', 0)">
+            <img src="./2/1.webp" alt="Pasta Ultimate Collection" loading="lazy">
+          </div>
+          <h3 class="spotlight-title">Pasta Ultimate Collection</h3>
+          <div class="spotlight-tagline">Delicious • Creamy • Satisfying</div>
+          <p class="spotlight-desc">
+            From silky handcrafted sauces and slow-simmered bolognese to seafood tagliatelle and oven-baked rigatoni. Includes full instructions for the acclaimed Cajun Salmon Penne with creamed sweet corn.
+          </p>
+          <div class="spotlight-specs">
+            <span>📖 100 Handcrafted Dishes</span>
+            <span>•</span>
+            <span>⚡ Instant PDF/EPUB</span>
+            <span>•</span>
+            <span>👨‍🍳 Chef A</span>
+          </div>
+          <div class="spotlight-cta-wrap">
+            <button type="button" class="btn-preview" onclick="openPreview('pasta', 0)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              Look Inside
+            </button>
+            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="btn-buy-book">
+              Buy on Gumroad
+            </a>
+          </div>
+        </article>
+
+        <!-- Spotlight 3: Seafood Masterbook -->
+        <article class="spotlight-card">
+          <div class="spotlight-img-wrap" onclick="openPreview('seafood', 0)">
+            <img src="./3/1.webp" alt="The Seafood Masterbook" loading="lazy">
+          </div>
+          <h3 class="spotlight-title">The Seafood Masterbook</h3>
+          <div class="spotlight-tagline">Delicious • Fresh • Satisfying</div>
+          <p class="spotlight-desc">
+            Uncover the secrets of king crab legs, seared sea bass, grilled whole lobster tails, and aromatic broths. Featuring Menu 100: The Great American Seafood Boil with seasoned garlic herb butter.
+          </p>
+          <div class="spotlight-specs">
+            <span>📖 100 Ocean Recipes</span>
+            <span>•</span>
+            <span>⚡ Instant PDF/EPUB</span>
+            <span>•</span>
+            <span>👨‍🍳 Chef A</span>
+          </div>
+          <div class="spotlight-cta-wrap">
+            <button type="button" class="btn-preview" onclick="openPreview('seafood', 0)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              Look Inside
+            </button>
+            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="btn-buy-book">
+              Buy on Gumroad
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CALL TO ACTION BANNER ==================== -->
+  <section class="cta-banner-section">
+    <div class="container">
+      <div class="cta-banner-box">
+        <h2 class="cta-banner-title">Ready to Elevate Your Everyday Cooking?</h2>
+        <p class="cta-banner-subtitle">
+          Join thousands of home cooks and culinary enthusiasts. Download Chef A's complete cookbook library with step-by-step guidance and guaranteed flavor.
+        </p>
+        <div class="cta-banner-actions">
+          <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="btn-large-gumroad">
+            <span>VISIT EBOOKLUXE ON GUMROAD</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <a href="#" class="brand-logo" title="MODERNBOOKS">
+          <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          <span class="brand-name">MODERN<span>BOOKS</span></span>
+        </a>
+
+        <ul class="footer-links">
+          <li><a href="#genres">Genres</a></li>
+          <li><a href="#spotlight">Cookbooks</a></li>
+          <li><a href="#features">About Chef A</a></li>
+          <li><a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer">Gumroad Store</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 MODERNBOOKS. All rights reserved. Curated digital culinary collections.</div>
+        <div>
+          Direct Store Link: <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-weight: 700;">ebookluxe.gumroad.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODAL: LOOK INSIDE VIEWER ==================== -->
+  <div class="modal-backdrop" id="previewModal" role="dialog" aria-modal="true" aria-labelledby="modalBookTitle">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <h3 class="modal-title" id="modalBookTitle">Book Title</h3>
+          <span class="modal-author" id="modalBookAuthor">By Chef A</span>
+        </div>
+        <button class="modal-close-btn" onclick="closePreview()" aria-label="Close modal">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Page Preview Viewer -->
+        <div class="modal-page-viewer">
+          <img id="modalViewerImage" src="" alt="Book preview page">
+        </div>
+
+        <!-- Details & Switcher -->
+        <div class="modal-info-details">
+          <!-- Tab Buttons to Switch Page -->
+          <div class="modal-tabs">
+            <button class="modal-tab-btn active" id="tab0" onclick="switchPreviewPage(0)">Cover 3D</button>
+            <button class="modal-tab-btn" id="tab1" onclick="switchPreviewPage(1)">Table of Contents</button>
+            <button class="modal-tab-btn" id="tab2" onclick="switchPreviewPage(2)">Sample Recipe</button>
+          </div>
+
+          <h4 id="modalPageTitle">eBook Preview</h4>
+          <p id="modalDescription">
+            Explore high-resolution pages, ingredients, and step-by-step procedures crafted by Chef A.
+          </p>
+
+          <ul class="modal-highlights" id="modalHighlightsList">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Instant download link provided via email</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Full recipe cards with ingredients & procedures</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Compatible with iPads, Kindles, phones & PCs</span>
+            </li>
+          </ul>
+
+          <div class="modal-footer-cta">
+            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="modal-gumroad-btn">
+              <span>GET COMPLETE EBOOK ON GUMROAD</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+            <span style="font-size: 0.76rem; color: var(--text-muted); text-align: center;">
+              Redirects securely to ebookluxe.gumroad.com
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    // Book Data Registry
+    const BOOKS_DATA = {
+      meat: {
+        title: "Meat Lovers Cookbook",
+        author: "By Chef A • Delicious • Juicy • Satisfying",
+        images: ["./1/1.webp", "./1/2.webp", "./1/3.webp"],
+        tabLabels: ["Hardcover 3D", "Contents (Menus 81-100)", "Menu 9: BBQ Beef Brisket"],
+        descriptions: [
+          "Deluxe 3D Hardcover edition mockup of Chef A's Meat Lovers Cookbook. Features foolproof smoking guides, smashburgers, and premium meat cuts.",
+          "Table of Contents covering 20+ hearty recipes including Classic Cheeseburgers, Salisbury Meatballs, Chicken Caesar Wraps, and BBQ Turkey Meatloaf.",
+          "Menu 9: BBQ Beef Brisket — Complete step-by-step procedures from trimming and yellow mustard base to hardwood smoke temperatures and savory beef broth wraps."
+        ]
+      },
+      pasta: {
+        title: "Pasta Ultimate Collection",
+        author: "By Chef A • Delicious • Creamy • Satisfying",
+        images: ["./2/1.webp", "./2/2.webp", "./2/3.webp"],
+        tabLabels: ["Hardcover 3D", "Contents (Menus 81-100)", "Menu 43: Cajun Salmon Penne"],
+        descriptions: [
+          "Deluxe 3D Hardcover edition mockup of the Pasta Ultimate Collection. Features artisan pasta shapes, silky reductions, and family-style casseroles.",
+          "Table of Contents covering Chicken & Broccoli Alfredo, Shrimp Scampi Angel Hair, Beef Bolognese Rigatoni, and Baked Stuffed Shells.",
+          "Menu 43: Cajun Salmon Penne with Creamed Corn — Detailed ingredient proportions, seasoning rub, garlic cream reduction, and pan-searing technique."
+        ]
+      },
+      seafood: {
+        title: "The Seafood Masterbook",
+        author: "By Chef A • Delicious • Fresh • Satisfying",
+        images: ["./3/1.webp", "./3/2.webp", "./3/3.webp"],
+        tabLabels: ["Hardcover 3D", "Contents (Menus 81-100)", "Menu 100: American Seafood Boil"],
+        descriptions: [
+          "Deluxe 3D Hardcover edition mockup of The Seafood Masterbook. Complete guide to ocean-fresh fish, crustaceans, buttery glazes, and seafood boils.",
+          "Table of Contents covering Honey-Soy Glazed Cod, Pan-Roasted Sea Bass, Garlic Butter Snow Crab, and New England Seafood Shepherd's Pie.",
+          "Menu 100: American Seafood Boil with King Crab, Lobster, Shrimp and Sweet Corn — The ultimate step-by-step stockpot procedure with Old Bay and seasoned lemon butter."
+        ]
+      }
+    };
+
+    let currentBookKey = 'meat';
+    let currentActivePageIndex = 0;
+
+    // Open Book Preview Modal
+    function openPreview(bookKey, pageIndex = 0) {
+      currentBookKey = bookKey;
+      currentActivePageIndex = pageIndex;
+      const data = BOOKS_DATA[bookKey];
+      if (!data) return;
+
+      document.getElementById('modalBookTitle').textContent = data.title;
+      document.getElementById('modalBookAuthor').textContent = data.author;
+
+      // Update tab buttons
+      for (let i = 0; i < 3; i++) {
+        const tab = document.getElementById(`tab${i}`);
+        if (tab) {
+          tab.textContent = data.tabLabels[i];
+          tab.classList.toggle('active', i === pageIndex);
         }
+      }
 
-        // 2. Menu Category Filtering
-        const filterTabs = document.querySelectorAll('#menuTabsContainer .filter-tab');
-        const recipeCards = document.querySelectorAll('#recipesGrid .recipe-card');
+      switchPreviewPage(pageIndex);
 
-        filterTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                filterTabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
+      const modal = document.getElementById('previewModal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
 
-                const selectedCategory = tab.getAttribute('data-category');
+    // Switch Page Inside Modal
+    function switchPreviewPage(index) {
+      currentActivePageIndex = index;
+      const data = BOOKS_DATA[currentBookKey];
+      if (!data) return;
 
-                recipeCards.forEach(card => {
-                    const cardCategory = card.getAttribute('data-category');
-                    if (selectedCategory === 'all' || cardCategory === selectedCategory) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
-            });
-        });
+      document.getElementById('modalViewerImage').src = data.images[index];
+      document.getElementById('modalPageTitle').textContent = data.tabLabels[index];
+      document.getElementById('modalDescription').textContent = data.descriptions[index];
 
-        // 3. Interactive Click Spark Ripple (Adds Life)
-        document.addEventListener('click', (e) => {
-            const spark = document.createElement('div');
-            spark.className = 'click-spark';
-            spark.style.left = `${e.clientX}px`;
-            spark.style.top = `${e.clientY}px`;
-            document.body.appendChild(spark);
-            setTimeout(() => spark.remove(), 600);
-        });
-
-        // 4. Floating Atmosphere Particles (Sparks, Steam & Aromatics)
-        const particlesContainer = document.getElementById('particlesContainer');
-        const culinarySymbols = ['✨', '🍕', '☕', '🥢', '🥩', '🔥', '✦', '🥟'];
-
-        function spawnAtmosphereParticle() {
-            if (!particlesContainer) return;
-            const p = document.createElement('div');
-            p.className = 'particle text-xs sm:text-sm';
-            p.innerText = culinarySymbols[Math.floor(Math.random() * culinarySymbols.length)];
-            p.style.left = `${Math.random() * 96 + 2}vw`;
-            const duration = 12 + Math.random() * 14;
-            p.style.animationDuration = `${duration}s`;
-            particlesContainer.appendChild(p);
-
-            setTimeout(() => p.remove(), duration * 1000);
+      for (let i = 0; i < 3; i++) {
+        const tab = document.getElementById(`tab${i}`);
+        if (tab) {
+          tab.classList.toggle('active', i === index);
         }
+      }
+    }
 
-        for (let i = 0; i < 7; i++) {
-            setTimeout(spawnAtmosphereParticle, i * 700);
+    // Close Modal
+    function closePreview() {
+      const modal = document.getElementById('previewModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Modal background click to close
+    document.getElementById('previewModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closePreview();
+      }
+    });
+
+    // Escape key listener
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closePreview();
+      }
+    });
+
+    // Filter Genre by Tab
+    function filterGenre(genreKey, buttonEl) {
+      const tabs = document.querySelectorAll('.filter-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      if (buttonEl) buttonEl.classList.add('active');
+
+      const cards = document.querySelectorAll('.genre-card');
+      cards.forEach(card => {
+        if (genreKey === 'all' || card.getAttribute('data-genre') === genreKey || card.getAttribute('data-genre') === 'bundle') {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
         }
-        setInterval(spawnAtmosphereParticle, 3000);
+      });
 
-        // 5. Periodic Social Proof Live Order Toast (Adds Dynamic Life)
-        const liveOrderToast = document.getElementById('liveOrderToast');
-        const toastMessage = document.getElementById('toastMessage');
-        const toastMeta = document.getElementById('toastMeta');
+      const feedback = document.getElementById('searchFeedback');
+      feedback.style.display = 'none';
+    }
 
-        const liveDishes = [
-            { item: 'The Elements Pizza', time: '1 min ago' },
-            { item: 'Grilled Pork Liempo Meal', time: 'Just now' },
-            { item: 'Truffle Mushroom Pizza', time: '3 mins ago' },
-            { item: 'Fried Siomai Rice Bowl', time: '4 mins ago' },
-            { item: 'Artisan Spanish Latte', time: 'Just now' },
-            { item: 'Loaded Streetfood Platter', time: '2 mins ago' },
-            { item: 'Biscoff Cloud Matcha Latte', time: '5 mins ago' }
-        ];
+    // Live Search Function
+    function executeSearch(query) {
+      const cleanQuery = query.trim().toLowerCase();
+      const cards = document.querySelectorAll('.genre-card');
+      const feedback = document.getElementById('searchFeedback');
 
-        function triggerOrderPopup() {
-            if (!liveOrderToast || !toastMessage) return;
-            const rand = liveDishes[Math.floor(Math.random() * liveDishes.length)];
-            toastMessage.textContent = rand.item;
-            toastMeta.textContent = `via Foodpanda • ${rand.time}`;
-            liveOrderToast.classList.remove('hidden');
+      if (!cleanQuery) {
+        cards.forEach(c => c.style.display = 'block');
+        feedback.style.display = 'none';
+        return;
+      }
 
-            setTimeout(() => {
-                liveOrderToast.classList.add('hidden');
-            }, 5500);
+      let matchCount = 0;
+      cards.forEach(card => {
+        const keywords = card.getAttribute('data-keywords') || '';
+        const text = card.textContent.toLowerCase();
+
+        if (keywords.includes(cleanQuery) || text.includes(cleanQuery)) {
+          card.style.display = 'block';
+          matchCount++;
+        } else {
+          card.style.display = 'none';
         }
+      });
 
-        // Trigger first popup after 3 seconds, then every 26 seconds
-        setTimeout(triggerOrderPopup, 3000);
-        setInterval(triggerOrderPopup, 26000);
-    </script>
+      feedback.style.display = 'block';
+      feedback.textContent = `Found ${matchCount} collection${matchCount === 1 ? '' : 's'} matching "${query}" — Click any item to preview or visit ebookluxe.gumroad.com to get instant access.`;
 
+      const genresSection = document.getElementById('genres');
+      genresSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Search Input listeners
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchButton');
+
+    searchBtn.addEventListener('click', () => {
+      executeSearch(searchInput.value);
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      executeSearch(e.target.value);
+    });
+
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        executeSearch(searchInput.value);
+      }
+    });
+
+    // Quick Filter tag click
+    function quickFilter(term) {
+      searchInput.value = term;
+      executeSearch(term);
+    }
+  </script>
 </body>
 </html>
