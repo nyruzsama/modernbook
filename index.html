@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MODERNBOOKS — Discover Cookbooks You Will Love</title>
-  <meta name="description" content="Discover premium culinary eBooks by Chef A. Instant digital downloads on Gumroad. Meat Lovers Cookbook, Pasta Ultimate Collection, and The Seafood Masterbook.">
+  <meta name="description" content="Discover premium culinary eBooks by Chef A with interactive 360° 3D touch rotation. Exactly 100 recipes per eBook. Instant digital downloads on Gumroad. Meat Lovers Cookbook, Pasta Ultimate Collection, and The Seafood Masterbook.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -202,13 +202,14 @@
     /* ==================== HERO SECTION ==================== */
     .hero-section {
       position: relative;
-      background-image: url('hero_bg.webp');
+      background: radial-gradient(circle at center, rgba(15, 23, 42, 0.52) 0%, rgba(15, 23, 42, 0.78) 100%), url('LOLS.webp');
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
       color: #ffffff;
-      padding: 5rem 1.5rem;
+      padding: 5.5rem 1.5rem;
       text-align: center;
-      box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+      box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.6);
     }
 
     .hero-content {
@@ -307,11 +308,462 @@
       color: #ffffff;
     }
 
+    /* ==================== SPOTLIGHT EBOOK SHOWCASE (WITH 360° 3D TOUCH ROTATION) ==================== */
+    .spotlight-section {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 4.5rem 0 5rem;
+    }
+
+    .spotlight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .spotlight-card {
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .spotlight-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+
+    /* 3D TURNTABLE STAGE & CONTINUOUS 3D ROTATION */
+    .book-3d-stage {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      perspective: 1400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+      cursor: grab;
+      margin-bottom: 1.25rem;
+      border-radius: var(--radius-sm);
+      background: radial-gradient(circle at 50% 45%, #ffffff 0%, #edf2f7 80%);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+
+    .book-3d-stage:active {
+      cursor: grabbing;
+    }
+
+    /* Ambient Glowing Aura Behind Book */
+    .book-aura {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      filter: blur(40px);
+      pointer-events: none;
+      opacity: 0.6;
+      animation: auraGlow 8s ease-in-out infinite;
+    }
+    .aura-meat {
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.25) 0%, rgba(245, 158, 11, 0.15) 50%, transparent 70%);
+    }
+    .aura-pasta {
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, rgba(234, 179, 8, 0.15) 50%, transparent 70%);
+    }
+    .aura-seafood {
+      background: radial-gradient(circle, rgba(14, 165, 233, 0.3) 0%, rgba(59, 130, 246, 0.15) 50%, transparent 70%);
+    }
+
+    @keyframes auraGlow {
+      0%, 100% { transform: scale(0.92); opacity: 0.45; }
+      50% { transform: scale(1.15); opacity: 0.75; }
+    }
+
+    /* 3D Rotating Book Box */
+    .book-3d-box {
+      width: 195px;
+      height: 290px;
+      position: relative;
+      transform-style: preserve-3d;
+      will-change: transform;
+      animation: bookIdleRotate 10s ease-in-out infinite;
+      transition: transform 0.15s ease-out;
+    }
+
+    /* Staggered floating rhythms */
+    #box-meat { animation-delay: 0s; }
+    #box-pasta { animation-delay: -3.3s; }
+    #box-seafood { animation-delay: -6.6s; }
+
+    /* Pauses idle loop when user is touching or dragging */
+    .book-3d-box.interacting {
+      animation: none !important;
+    }
+
+    /* Full 360 degree programmatic spin */
+    .book-3d-box.spinning-360 {
+      animation: none !important;
+      transition: transform 1.5s cubic-bezier(0.2, 0.85, 0.35, 1.05) !important;
+    }
+
+    /* Idle 3D Rotation Animation: Floating, tilting and turning in 3D */
+    @keyframes bookIdleRotate {
+      0%   { transform: rotateY(-18deg) rotateX(6deg) translateY(0); }
+      25%  { transform: rotateY(22deg) rotateX(-5deg) translateY(-10px); }
+      50%  { transform: rotateY(-14deg) rotateX(5deg) translateY(-4px); }
+      75%  { transform: rotateY(18deg) rotateX(-4deg) translateY(-12px); }
+      100% { transform: rotateY(-18deg) rotateX(6deg) translateY(0); }
+    }
+
+    /* 3D Book Faces */
+    .book-face {
+      position: absolute;
+      box-sizing: border-box;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* Front Cover Face */
+    .book-face-front {
+      width: 195px;
+      height: 290px;
+      transform: translateZ(15px);
+      border-radius: 2px 6px 6px 2px;
+      overflow: hidden;
+      box-shadow: inset 3px 0 10px rgba(0, 0, 0, 0.2), 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .book-face-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Back Cover Face */
+    .book-face-back {
+      width: 195px;
+      height: 290px;
+      transform: rotateY(180deg) translateZ(15px);
+      border-radius: 6px 2px 2px 6px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: inset -3px 0 10px rgba(0, 0, 0, 0.3), 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .back-meat {
+      background: linear-gradient(135deg, #2d180f 0%, #150b06 100%);
+      color: #f8fafc;
+      border: 1px solid #6b3d26;
+    }
+    .back-pasta {
+      background: linear-gradient(135deg, #1b2e1e 0%, #0d170f 100%);
+      color: #f8fafc;
+      border: 1px solid #3d5f42;
+    }
+    .back-seafood {
+      background: linear-gradient(135deg, #0d1e33 0%, #050d18 100%);
+      color: #f8fafc;
+      border: 1px solid #1e3c63;
+    }
+
+    .back-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #ffd269;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .back-text {
+      font-size: 0.74rem;
+      line-height: 1.5;
+      color: #cbd5e1;
+    }
+
+    .back-highlights {
+      list-style: none;
+      margin: 0.6rem 0;
+      padding: 0;
+      font-size: 0.72rem;
+      color: #94a3b8;
+    }
+
+    .back-highlights li {
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .back-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 0.65rem;
+      font-size: 0.72rem;
+      color: #94a3b8;
+    }
+
+    .back-badge {
+      background: var(--primary);
+      color: #ffffff;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-weight: 800;
+      font-size: 0.68rem;
+    }
+
+    /* Hardcover Spine */
+    .book-face-spine {
+      width: 30px;
+      height: 290px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform-origin: left center;
+      transform: rotateY(-90deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #ffffff;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
+    }
+    .spine-meat { background: #3f2215; border-left: 1px solid #ffd269; }
+    .spine-pasta { background: #1c3321; border-left: 1px solid #ffd269; }
+    .spine-seafood { background: #0c2038; border-left: 1px solid #ffd269; }
+
+    /* Paper Edge (Right Face) */
+    .book-face-pages {
+      width: 30px;
+      height: 284px;
+      position: absolute;
+      right: 0;
+      top: 3px;
+      transform-origin: right center;
+      transform: rotateY(90deg);
+      background: repeating-linear-gradient(to bottom, #fdfbf7, #fdfbf7 2px, #e2e8f0 2px, #e2e8f0 3px);
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Top & Bottom Paper Edges */
+    .book-face-top {
+      width: 195px;
+      height: 30px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top center;
+      transform: rotateX(90deg);
+      background: repeating-linear-gradient(to right, #fdfbf7, #fdfbf7 2px, #e2e8f0 2px, #e2e8f0 3px);
+      box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+    }
+    .book-face-bottom {
+      width: 195px;
+      height: 30px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform-origin: bottom center;
+      transform: rotateX(-90deg);
+      background: repeating-linear-gradient(to right, #fdfbf7, #fdfbf7 2px, #e2e8f0 2px, #e2e8f0 3px);
+      box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Dynamic Floor Drop Shadow */
+    .book-turntable-shadow {
+      position: absolute;
+      bottom: 14px;
+      width: 220px;
+      height: 36px;
+      background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.35) 0%, rgba(15, 23, 42, 0.05) 50%, transparent 70%);
+      transform: rotateX(85deg) translateZ(-40px);
+      filter: blur(8px);
+      pointer-events: none;
+      transition: transform 0.15s ease-out;
+    }
+
+    /* 360 Degree Badges & Touch Hints */
+    .badge-360 {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      color: #00C9A7;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0, 201, 167, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .hint-drag {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 5px 11px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-spin-pill {
+      position: absolute;
+      bottom: 10px;
+      right: 12px;
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid #cbd5e1;
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 10;
+      transition: var(--transition);
+    }
+
+    .btn-spin-pill:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 201, 167, 0.35);
+    }
+
+    .btn-spin-pill svg {
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .btn-spin-pill:hover svg {
+      transform: rotate(180deg);
+    }
+
+    .spotlight-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+      color: var(--text-main);
+    }
+
+    .spotlight-tagline {
+      font-size: 0.85rem;
+      color: var(--primary-dark);
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+    }
+
+    .spotlight-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      flex: 1;
+      line-height: 1.55;
+    }
+
+    .spotlight-specs {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border-color);
+      margin-bottom: 1.25rem;
+    }
+
+    .spotlight-cta-wrap {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn-preview {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 0.65rem 1rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-preview:hover {
+      background: var(--border-subtle);
+      border-color: #cbd5e1;
+    }
+
+    .btn-buy-book {
+      flex: 1.2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      background: var(--primary);
+      color: #ffffff !important;
+      padding: 0.65rem 1rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+      box-shadow: 0 2px 6px rgba(0, 201, 167, 0.25);
+    }
+
+    .btn-buy-book:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 201, 167, 0.35);
+    }
+
     /* ==================== TRUST / FEATURES BAR ==================== */
     .features-bar {
       background: var(--bg-surface);
       border-bottom: 1px solid var(--border-color);
-      padding: 1.5rem 0;
+      padding: 2rem 0;
     }
 
     .features-grid {
@@ -351,7 +803,7 @@
 
     /* ==================== POPULAR GENRES & COLLECTIONS ==================== */
     .genres-section {
-      padding: 3.5rem 0 5rem;
+      padding: 4.5rem 0 5rem;
     }
 
     .section-header {
@@ -595,127 +1047,6 @@
       margin-top: 0.25rem;
     }
 
-    /* ==================== SPOTLIGHT EBOOK SHOWCASE ==================== */
-    .spotlight-section {
-      background: var(--bg-surface);
-      border-top: 1px solid var(--border-color);
-      border-bottom: 1px solid var(--border-color);
-      padding: 4.5rem 0;
-    }
-
-    .spotlight-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-    }
-
-    .spotlight-card {
-      background: var(--bg-page);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 1.75rem;
-      display: flex;
-      flex-direction: column;
-      transition: var(--transition);
-      position: relative;
-    }
-
-    .spotlight-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-lg);
-      border-color: var(--primary);
-    }
-
-    .spotlight-img-wrap {
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      margin-bottom: 1.25rem;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-    }
-
-    .spotlight-title {
-      font-size: 1.3rem;
-      font-weight: 800;
-      margin-bottom: 0.35rem;
-      color: var(--text-main);
-    }
-
-    .spotlight-tagline {
-      font-size: 0.85rem;
-      color: var(--primary-dark);
-      font-weight: 700;
-      margin-bottom: 0.85rem;
-    }
-
-    .spotlight-desc {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      margin-bottom: 1.25rem;
-      flex: 1;
-      line-height: 1.55;
-    }
-
-    .spotlight-specs {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      padding-top: 0.85rem;
-      border-top: 1px solid var(--border-color);
-      margin-bottom: 1.25rem;
-    }
-
-    .spotlight-cta-wrap {
-      display: flex;
-      gap: 0.75rem;
-    }
-
-    .btn-preview {
-      flex: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      background: var(--bg-surface);
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-      padding: 0.65rem 1rem;
-      font-weight: 700;
-      font-size: 0.85rem;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .btn-preview:hover {
-      background: var(--border-subtle);
-      border-color: #cbd5e1;
-    }
-
-    .btn-buy-book {
-      flex: 1.2;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      background: var(--primary);
-      color: #ffffff !important;
-      padding: 0.65rem 1rem;
-      font-weight: 700;
-      font-size: 0.85rem;
-      border-radius: var(--radius-sm);
-      transition: var(--transition);
-      box-shadow: 0 2px 6px rgba(0, 201, 167, 0.25);
-    }
-
-    .btn-buy-book:hover {
-      background: var(--primary-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 201, 167, 0.35);
-    }
-
     /* ==================== BOTTOM BANNER ==================== */
     .cta-banner-section {
       padding: 5rem 0;
@@ -787,6 +1118,520 @@
       box-shadow: 0 6px 22px rgba(0, 201, 167, 0.55);
     }
 
+    
+    /* ==================== TABLE OF CONTENTS & ENHANCED MODAL CSS ==================== */
+    .toc-chip-group {
+      display: flex;
+      gap: 4px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .toc-chip {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 201, 167, 0.3);
+      transition: var(--transition);
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .toc-chip:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    /* Table of Contents Explorer Section */
+    .toc-section {
+      padding: 4.5rem 0 5rem;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .toc-book-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2.25rem;
+      flex-wrap: wrap;
+    }
+
+    
+    .toc-tab-icon {
+      width: 24px;
+      height: 36px;
+      object-fit: cover;
+      border-radius: 3px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+
+    .toc-view-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .toc-toggle-pill {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .toc-toggle-pill:hover {
+      color: var(--text-main);
+      border-color: var(--primary);
+    }
+
+    .toc-toggle-pill.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .toc-book-tab {
+      background: var(--bg-page);
+      border: 1.5px solid var(--border-color);
+      padding: 0.75rem 1.4rem;
+      border-radius: var(--radius-full);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      transition: var(--transition);
+    }
+
+    .toc-book-tab:hover {
+      border-color: var(--primary);
+      color: var(--text-main);
+      background: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .toc-book-tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(0, 201, 167, 0.3);
+    }
+
+    .toc-book-tab .toc-pill {
+      background: rgba(0, 0, 0, 0.08);
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-weight: 800;
+    }
+
+    .toc-book-tab.active .toc-pill {
+      background: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+    }
+
+    .toc-explorer-card {
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 2.5rem;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toc-set-tabs {
+      display: flex;
+      gap: 0.45rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .toc-set-btn {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.45rem 0.8rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .toc-set-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      background: var(--primary-light);
+    }
+
+    .toc-set-btn.active {
+      background: var(--text-main);
+      border-color: var(--text-main);
+      color: #ffffff;
+    }
+
+    .toc-image-frame {
+      position: relative;
+      background: #0f172a;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      aspect-ratio: 2 / 3;
+      cursor: pointer;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .toc-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .toc-image-frame:hover img {
+      transform: scale(1.02);
+    }
+
+    .toc-hover-hint {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.85);
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.76rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(4px);
+      pointer-events: none;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+
+    .toc-image-frame:hover .toc-hover-hint {
+      opacity: 1;
+    }
+
+    .toc-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 38px;
+      background: rgba(15, 23, 42, 0.75);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.4rem;
+      line-height: 1;
+      transition: var(--transition);
+      z-index: 5;
+    }
+
+    .toc-nav-arrow:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .toc-nav-arrow.prev { left: 10px; }
+    .toc-nav-arrow.next { right: 10px; }
+
+    .toc-page-indicator {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 0.75rem;
+    }
+
+    .toc-book-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .toc-set-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+
+    .toc-set-desc {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .toc-sample-box {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.75rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .toc-sample-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .toc-sample-title svg {
+      color: var(--primary);
+    }
+
+    .toc-recipe-bullets {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .toc-recipe-bullets li {
+      font-size: 0.86rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .toc-recipe-bullets li::before {
+      content: "•";
+      color: var(--primary);
+      font-size: 1.2rem;
+      line-height: 0;
+      font-weight: 900;
+    }
+
+    .toc-actions {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .btn-toc-expand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 0.75rem 1.35rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-toc-expand:hover {
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      background: var(--primary-light);
+    }
+
+    .btn-toc-buy {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--primary);
+      border: 1.5px solid var(--primary);
+      color: #ffffff !important;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 0.75rem 1.35rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(0, 201, 167, 0.25);
+    }
+
+    .btn-toc-buy:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 201, 167, 0.35);
+    }
+
+    .toc-trust-note {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    /* Modal Navigation & Thumbnail Carousel */
+    .modal-viewer-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-page-nav-arrow {
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 38px;
+      background: rgba(15, 23, 42, 0.75);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.4rem;
+      line-height: 1;
+      transition: var(--transition);
+      z-index: 10;
+    }
+
+    .modal-page-nav-arrow:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .modal-page-nav-arrow.prev { left: 8px; }
+    .modal-page-nav-arrow.next { right: 8px; }
+
+    .modal-counter-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(15, 23, 42, 0.85);
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+      font-weight: 700;
+      backdrop-filter: blur(4px);
+      z-index: 10;
+    }
+
+    .modal-thumbnails-strip {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .modal-thumb-btn {
+      width: 48px;
+      height: 68px;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      cursor: pointer;
+      flex-shrink: 0;
+      opacity: 0.65;
+      transition: var(--transition);
+      background: #0f172a;
+      padding: 0;
+    }
+
+    .modal-thumb-btn:hover {
+      opacity: 1;
+      border-color: var(--border-color);
+    }
+
+    .modal-thumb-btn.active {
+      opacity: 1;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(0, 201, 167, 0.35);
+    }
+
+    .modal-thumb-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .modal-book-switcher {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+
+    .modal-book-switch-btn {
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .modal-book-switch-btn:hover {
+      border-color: var(--primary);
+      color: var(--text-main);
+    }
+
+    .modal-book-switch-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    @media (max-width: 900px) {
+      .toc-explorer-card {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 1.5rem;
+      }
+    }
+
     /* ==================== FOOTER ==================== */
     .footer {
       background: var(--bg-surface);
@@ -826,7 +1671,7 @@
       gap: 1rem;
     }
 
-    /* ==================== MODAL: LOOK INSIDE ==================== */
+    /* ==================== MODAL: LOOK INSIDE VIEWER ==================== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -1021,56 +1866,970 @@
       border-radius: var(--radius-sm);
     }
 
+    /* ==================== CUSTOMER FEEDBACK & REVIEWS ==================== */
+    .reviews-section {
+      padding: 5rem 0;
+      background: #f8fafc;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .reviews-summary-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-sm);
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+
+    .rating-score-group {
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+    }
+
+    .rating-score-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1;
+    }
+
+    .rating-stars-badge {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .stars-row {
+      display: flex;
+      gap: 3px;
+      color: #f59e0b;
+    }
+
+    .stars-row svg {
+      width: 17px;
+      height: 17px;
+      fill: currentColor;
+    }
+
+    .rating-subtext {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .reviews-guarantee-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #ecfdf5;
+      color: #047857;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.45rem 1rem;
+      border-radius: 9999px;
+      border: 1px solid #a7f3d0;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .review-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .review-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(0, 201, 167, 0.4);
+    }
+
+    .review-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .review-verified-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #f0fdf4;
+      color: #166534;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      letter-spacing: 0.02em;
+    }
+
+    .review-quote {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: #334155;
+      font-style: normal;
+      position: relative;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .review-quote::before {
+      content: '“';
+      font-size: 1.8rem;
+      line-height: 0;
+      vertical-align: -0.35em;
+      color: var(--primary);
+      font-family: Georgia, serif;
+      margin-right: 3px;
+    }
+
+    .review-quote::after {
+      content: '”';
+      font-size: 1.8rem;
+      line-height: 0;
+      vertical-align: -0.35em;
+      color: var(--primary);
+      font-family: Georgia, serif;
+      margin-left: 3px;
+    }
+
+    .review-card-footer {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .review-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary) 0%, #0284c7 100%);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .review-user-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .review-user-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .review-user-book {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    /* ==================== FAQS SECTION ==================== */
+    .faq-section {
+      padding: 5.5rem 0;
+      background: var(--bg-surface);
+    }
+
+    .faq-container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 2.25rem;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .faq-item:hover {
+      border-color: #cbd5e1;
+    }
+
+    .faq-item.active {
+      border-color: var(--primary);
+      box-shadow: 0 4px 14px rgba(0, 201, 167, 0.08);
+    }
+
+    .faq-button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--text-main);
+      gap: 1rem;
+      transition: color 0.2s ease;
+    }
+
+    .faq-button:hover {
+      color: var(--primary-dark);
+    }
+
+    .faq-item.active .faq-button {
+      color: var(--primary-dark);
+    }
+
+    .faq-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.25s ease, background-color 0.2s ease, color 0.2s ease;
+      color: var(--text-muted);
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+      background: var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 1.5rem 1.35rem 1.5rem;
+      color: #475569;
+      font-size: 0.94rem;
+      line-height: 1.65;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+      animation: fadeInAnswer 0.25s ease;
+    }
+
+    @keyframes fadeInAnswer {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==================== SECURE PAYMENT METHODS SECTION (INSPIRED BY PHOTO) ==================== */
+    .payment-section {
+      padding: 3.5rem 0 1.5rem 0;
+      background: var(--bg-page);
+    }
+
+    .payment-box {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .payment-box-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .payment-box-sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+    }
+
+    .payment-badges-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .pay-badge {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      height: 44px;
+      min-width: 72px;
+      padding: 0 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      transition: var(--transition);
+      cursor: default;
+    }
+
+    .pay-badge:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .payment-security-note {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-size: 0.82rem;
+      color: #475569;
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+
+    .payment-security-note svg {
+      color: var(--primary-dark);
+      flex-shrink: 0;
+    }
+
+    /* Mobile Navigation Bar & Drawer */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 0.45rem 0.55rem;
+      color: var(--text-main);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .mobile-menu-toggle:hover {
+      background: var(--border-subtle);
+      border-color: #cbd5e1;
+    }
+    .mobile-nav-dropdown {
+      display: none;
+      flex-direction: column;
+      background: #ffffff;
+      border-top: 1px solid var(--border-color);
+      padding: 0.5rem 1rem 0.75rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    .mobile-nav-dropdown.active {
+      display: flex;
+    }
+    .mobile-nav-dropdown a {
+      padding: 0.7rem 0.5rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-subtle);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: var(--transition);
+    }
+    .mobile-nav-dropdown a:hover {
+      color: var(--primary);
+      padding-left: 0.75rem;
+    }
+    .mobile-nav-dropdown a:last-child {
+      border-bottom: none;
+    }
+
     /* ==================== RESPONSIVE MEDIA QUERIES ==================== */
     @media (max-width: 1024px) {
+      .container {
+        padding: 0 1.25rem;
+      }
       .genres-grid {
         grid-template-columns: 1fr;
       }
       .spotlight-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+      .book-3d-stage {
+        height: 270px;
+      }
+      .book-3d-box {
+        width: 135px;
+        height: 200px;
+      }
+      .book-face-front, .book-face-back {
+        width: 135px;
+        height: 200px;
+      }
+      .book-face-front {
+        transform: translateZ(10px);
+      }
+      .book-face-back {
+        transform: rotateY(180deg) translateZ(10px);
+        padding: 0.75rem;
+      }
+      .book-face-spine {
+        width: 20px;
+        height: 200px;
+        font-size: 0.52rem;
+      }
+      .book-face-pages {
+        width: 20px;
+        height: 196px;
+      }
+      .book-face-top, .book-face-bottom {
+        width: 135px;
+        height: 20px;
+      }
+      .book-turntable-shadow {
+        width: 150px;
+        height: 22px;
+        bottom: 10px;
+      }
+      .book-aura {
+        width: 190px;
+        height: 190px;
+      }
+      .spotlight-title {
+        font-size: 1.1rem;
+      }
+      .spotlight-desc {
+        font-size: 0.8rem;
+        -webkit-line-clamp: 3;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
       .features-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+      .reviews-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
+    /* Cellphone Friendly Optimization (<= 768px) */
     @media (max-width: 768px) {
+      .container {
+        padding: 0 0.75rem;
+      }
       .nav-links, .search-toggle-btn {
         display: none;
       }
-      .mobile-menu-btn {
-        display: block;
+      .mobile-menu-toggle {
+        display: flex;
+      }
+      .btn-gumroad {
+        padding: 0.55rem 0.85rem;
+        font-size: 0.78rem;
+        gap: 0.35rem;
+      }
+      .btn-gumroad span {
+        font-size: 0.76rem;
+      }
+      .brand-name {
+        font-size: 1.1rem;
+      }
+      .brand-icon {
+        width: 22px;
+        height: 22px;
+      }
+
+      /* Hero Section: Compact for Phone */
+      .hero-section {
+        padding: 2.75rem 0.75rem 2.25rem;
       }
       .hero-title {
-        font-size: 2rem;
+        font-size: 1.65rem;
+        line-height: 1.22;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.65rem;
       }
       .hero-subtitle {
-        font-size: 0.95rem;
+        font-size: 0.88rem;
+        line-height: 1.5;
+        max-width: 95%;
+        margin-bottom: 1.35rem;
       }
       .hero-search-wrapper {
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.45rem;
         background: transparent;
         box-shadow: none;
+        padding: 0;
       }
       .hero-search-input {
         background: #ffffff;
         border-radius: var(--radius-sm);
+        padding: 0.75rem 1rem;
+        font-size: 0.92rem;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-sm);
       }
       .hero-search-btn {
-        padding: 0.85rem;
+        padding: 0.75rem;
         justify-content: center;
+        font-size: 0.92rem;
       }
+      .search-tags {
+        gap: 0.4rem;
+        margin-top: 1rem;
+      }
+      .tag-pill {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.65rem;
+      }
+
+      /* ============================================================
+         SPOTLIGHT COOKBOOKS: CELLPHONE FRIENDLY 3-IN-A-ROW DISPLAY
+         Wherein visitors see all 3 books simultaneously on their phone!
+         ============================================================ */
+      .spotlight-section {
+        padding: 2.25rem 0 2.75rem;
+      }
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-bottom: 1.25rem;
+      }
+      .section-title {
+        font-size: 1.35rem;
+      }
+      .genre-view-all {
+        font-size: 0.76rem;
+      }
+
+      /* 3 Columns on Phone: All 3 Spotlight Books Visible Side-by-Side */
+      .spotlight-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.45rem;
+      }
+
+      .spotlight-card {
+        padding: 0.55rem 0.4rem 0.65rem;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      }
+
+      /* Compact 3D Stage for Phone Screen */
+      .book-3d-stage {
+        height: 155px;
+        margin-bottom: 0.45rem;
+        border-radius: 6px;
+        perspective: 900px;
+      }
+
+      /* Scaled Miniature 3D Book Box */
+      .book-3d-box {
+        width: 76px;
+        height: 114px;
+        animation: bookIdleRotateMobile 10s ease-in-out infinite;
+      }
+
+      /* Front Cover */
+      .book-face-front {
+        width: 76px;
+        height: 114px;
+        transform: translateZ(7px);
+        border-radius: 1px 3px 3px 1px;
+        box-shadow: inset 1px 0 5px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.12);
+      }
+
+      /* Back Cover */
+      .book-face-back {
+        width: 76px;
+        height: 114px;
+        transform: rotateY(180deg) translateZ(7px);
+        border-radius: 3px 1px 1px 3px;
+        padding: 0.35rem;
+        box-shadow: inset -1px 0 5px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(0, 0, 0, 0.12);
+      }
+      .back-title {
+        font-size: 0.5rem;
+        line-height: 1.15;
+        margin-bottom: 0.15rem;
+      }
+      .back-text {
+        font-size: 0.42rem;
+        line-height: 1.25;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .back-highlights {
+        display: none;
+      }
+      .back-footer {
+        padding-top: 0.2rem;
+        font-size: 0.42rem;
+        border-top-width: 1px;
+      }
+      .back-badge {
+        font-size: 0.4rem;
+        padding: 1px 3px;
+      }
+
+      /* Hardcover Spine */
+      .book-face-spine {
+        width: 14px;
+        height: 114px;
+        font-size: 0.36rem;
+        letter-spacing: 0.5px;
+        box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Book Pages Edge */
+      .book-face-pages {
+        width: 14px;
+        height: 110px;
+        top: 2px;
+      }
+      .book-face-top, .book-face-bottom {
+        width: 76px;
+        height: 14px;
+      }
+
+      /* Drop Shadow */
+      .book-turntable-shadow {
+        width: 82px;
+        height: 14px;
+        bottom: 8px;
+        transform: rotateX(85deg) translateZ(-20px);
+        filter: blur(4px);
+      }
+
+      /* Aura */
+      .book-aura {
+        width: 110px;
+        height: 110px;
+        filter: blur(20px);
+      }
+
+      /* 360 Badge & Spin Button on Stage */
+      .badge-360 {
+        font-size: 0.5rem;
+        padding: 2px 5px;
+        top: 4px;
+        right: 4px;
+        gap: 2px;
+      }
+      .badge-360 svg {
+        width: 8px;
+        height: 8px;
+      }
+      .hint-drag {
+        display: none; /* remove clutter from small stage */
+      }
+      .btn-spin-pill {
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        border-radius: 50%;
+        bottom: 5px;
+        right: 5px;
+        font-size: 0;
+        justify-content: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+      }
+      .btn-spin-pill svg {
+        width: 11px;
+        height: 11px;
+        margin: 0;
+      }
+
+      /* Card Typography for 3-Column Mobile View */
+      .spotlight-title {
+        font-size: 0.78rem;
+        line-height: 1.25;
+        margin-bottom: 0.15rem;
+        text-align: center;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .spotlight-tagline {
+        font-size: 0.62rem;
+        margin-bottom: 0.3rem;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .spotlight-desc {
+        display: none; /* hidden on small mobile columns to keep books neatly aligned and prominent */
+      }
+      .spotlight-specs {
+        font-size: 0.62rem;
+        padding-top: 0.35rem;
+        margin-bottom: 0.45rem;
+        justify-content: center;
+        gap: 0.2rem;
+        border-top: 1px solid var(--border-subtle);
+        flex-wrap: wrap;
+        text-align: center;
+      }
+      .spotlight-cta-wrap {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      .btn-preview {
+        padding: 0.42rem 0.25rem;
+        font-size: 0.72rem;
+        justify-content: center;
+        gap: 0.25rem;
+        border-radius: 4px;
+      }
+      .btn-preview svg {
+        width: 12px;
+        height: 12px;
+      }
+      .btn-buy-book {
+        padding: 0.42rem 0.25rem;
+        font-size: 0.72rem;
+        justify-content: center;
+        border-radius: 4px;
+      }
+
+      /* Popular Genres Section */
       .genre-books-row {
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
+        gap: 0.65rem;
       }
+      .filter-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 0.4rem;
+        gap: 0.4rem;
+      }
+      .filter-tab {
+        flex-shrink: 0;
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      /* Features Grid */
       .features-grid {
         grid-template-columns: 1fr;
+        gap: 0.75rem;
       }
+      .feature-box {
+        padding: 1.15rem;
+      }
+
+      /* Customer Reviews */
+      .reviews-section {
+        padding: 3rem 0;
+      }
+      .reviews-summary-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.85rem;
+        padding: 1rem 1.15rem;
+      }
+      .rating-score-number {
+        font-size: 2.2rem;
+      }
+      .review-card {
+        padding: 1.25rem 1rem;
+      }
+      .review-quote {
+        font-size: 0.88rem;
+        line-height: 1.55;
+      }
+
+      /* FAQs */
+      .faq-section {
+        padding: 3rem 0;
+      }
+      .faq-button {
+        padding: 0.95rem 1.1rem;
+        font-size: 0.92rem;
+      }
+      .faq-answer {
+        padding: 0 1.1rem 1rem 1.1rem;
+        font-size: 0.88rem;
+      }
+
+      /* Payment Methods */
+      .payment-section {
+        padding: 2.5rem 0 1rem;
+      }
+      .payment-box {
+        padding: 1.75rem 1rem;
+      }
+      .payment-box-title {
+        font-size: 1.15rem;
+      }
+      .payment-box-sub {
+        font-size: 0.82rem;
+        margin-bottom: 1.25rem;
+      }
+      .payment-badges-row {
+        gap: 0.45rem;
+      }
+      .pay-badge {
+        height: 36px;
+        min-width: 54px;
+        padding: 0 6px;
+      }
+      .payment-security-note {
+        font-size: 0.76rem;
+      }
+
+      /* CTA Banner */
+      .cta-banner-section {
+        padding: 2.75rem 0;
+      }
+      .cta-banner-box {
+        padding: 2.25rem 1.25rem;
+      }
+      .cta-banner-title {
+        font-size: 1.45rem;
+      }
+      .cta-banner-subtitle {
+        font-size: 0.88rem;
+        margin-bottom: 1.5rem;
+      }
+      .btn-large-gumroad {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.92rem;
+        padding: 0.85rem 1.25rem;
+      }
+
+      /* Modal Look Inside */
       .modal-body {
         grid-template-columns: 1fr;
+        padding: 1.25rem;
       }
+      .modal-page-viewer {
+        max-height: 360px;
+      }
+      .modal-page-viewer img {
+        max-height: 340px;
+      }
+      .modal-tabs {
+        gap: 0.35rem;
+      }
+      .modal-tab-btn {
+        font-size: 0.75rem;
+        padding: 0.45rem 0.65rem;
+      }
+    }
+
+    /* Extra Small Cellphones (<= 380px, e.g. iPhone SE 1st gen / small Androids) */
+    @media (max-width: 380px) {
+      .container {
+        padding: 0 0.5rem;
+      }
+      .spotlight-grid {
+        gap: 0.3rem !important;
+      }
+      .spotlight-card {
+        padding: 0.45rem 0.3rem 0.55rem;
+      }
+      .book-3d-stage {
+        height: 140px;
+      }
+      .book-3d-box {
+        width: 66px;
+        height: 100px;
+      }
+      .book-face-front, .book-face-back {
+        width: 66px;
+        height: 100px;
+      }
+      .book-face-front {
+        transform: translateZ(6px);
+      }
+      .book-face-back {
+        transform: rotateY(180deg) translateZ(6px);
+      }
+      .book-face-spine {
+        width: 12px;
+        height: 100px;
+        font-size: 0.32rem;
+      }
+      .book-face-pages {
+        width: 12px;
+        height: 96px;
+      }
+      .book-face-top, .book-face-bottom {
+        width: 66px;
+        height: 12px;
+      }
+      .book-turntable-shadow {
+        width: 72px;
+        height: 12px;
+      }
+      .spotlight-title {
+        font-size: 0.72rem;
+      }
+      .spotlight-tagline {
+        font-size: 0.58rem;
+      }
+      .spotlight-specs {
+        font-size: 0.58rem;
+      }
+      .btn-preview, .btn-buy-book {
+        font-size: 0.66rem;
+        padding: 0.38rem 0.2rem;
+      }
+    }
+
+    @keyframes bookIdleRotateMobile {
+      0%   { transform: rotateY(-18deg) rotateX(6deg) translateY(0); }
+      25%  { transform: rotateY(22deg) rotateX(-5deg) translateY(-5px); }
+      50%  { transform: rotateY(-14deg) rotateX(5deg) translateY(-2px); }
+      75%  { transform: rotateY(18deg) rotateX(-4deg) translateY(-6px); }
+      100% { transform: rotateY(-18deg) rotateX(6deg) translateY(0); }
     }
   </style>
 </head>
@@ -1090,10 +2849,13 @@
 
       <!-- Desktop Nav Items -->
       <ul class="nav-links">
-        <li><a href="#genres">Books Genres</a></li>
-        <li><a href="#spotlight">Spotlight eBooks</a></li>
+        <li><a href="#spotlight">Spotlight Cookbooks</a></li>
+        <li><a href="#toc">Table of Contents</a></li>
+        <li><a href="#genres">Popular Genres</a></li>
+        <li><a href="#reviews">Customer Feedback</a></li>
+        <li><a href="#faqs">FAQs</a></li>
         <li><a href="#features">Why Chef A</a></li>
-        <li><a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer">All Cookbooks</a></li>
+        <li><a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer">All Cookbooks</a></li>
       </ul>
 
       <!-- Action Button: Directed to Gumroad -->
@@ -1105,14 +2867,35 @@
           </svg>
         </button>
 
-        <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="btn-gumroad" title="Browse full store on Gumroad">
+        <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="btn-gumroad" title="Browse full store on Gumroad">
           <span>GET ACCESS</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="7" y1="17" x2="17" y2="7"></line>
             <polyline points="7 7 17 7 17 17"></polyline>
           </svg>
         </a>
+
+        <!-- Mobile Hamburger Toggle Button -->
+        <button class="mobile-menu-toggle" id="mobileMenuBtn" aria-label="Toggle navigation menu" onclick="toggleMobileMenu()">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
       </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation Menu -->
+    <div class="mobile-nav-dropdown" id="mobileNav">
+      <a href="#spotlight" onclick="closeMobileMenu()">📖 Spotlight Cookbooks</a>
+      <a href="#toc" onclick="closeMobileMenu()">📑 Table of Contents (100 Recipes)</a>
+      <a href="#genres" onclick="closeMobileMenu()">📚 Popular Genres</a>
+      <a href="#reviews" onclick="closeMobileMenu()">⭐ Customer Feedback</a>
+      <a href="#faqs" onclick="closeMobileMenu()">❓ FAQs</a>
+      <a href="#payments" onclick="closeMobileMenu()">💳 Payment Methods</a>
+      <a href="#features" onclick="closeMobileMenu()">👨‍🍳 Why Chef A</a>
+      <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-weight: 700;">🚀 Gumroad Store</a>
     </div>
   </header>
 
@@ -1120,7 +2903,7 @@
   <section class="hero-section">
     <div class="hero-content">
       <h1 class="hero-title">Discover eBooks you will love!</h1>
-      <p class="hero-subtitle">Premium, tested digital culinary masterclasses by Chef A. Instant lifetime access, full-color recipe spreads, and foolproof kitchen guides.</p>
+      <p class="hero-subtitle">Premium, tested digital culinary masterclasses by Chef A. Exactly 100 recipes per eBook. Instant lifetime access, full-color recipe spreads, and foolproof kitchen guides.</p>
 
       <!-- Search Bar -->
       <div class="hero-search-wrapper">
@@ -1153,6 +2936,290 @@
     </div>
   </section>
 
+  <!-- ==================== SPOTLIGHT EBOOK SHOWCASE (CONTINUOUS 3D ROTATION + TOUCH/DRAG) ==================== -->
+  <section class="spotlight-section" id="spotlight">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Spotlight Cookbooks</h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem;">Interactive 3D Hardcovers with floating rotation. Touch or hover to rotate in 3D perspective, or drag sideways to spin 360°.</p>
+        </div>
+        <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="genre-view-all">
+          BROWSE ALL ON GUMROAD
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="spotlight-grid">
+
+        <!-- ==================== SPOTLIGHT 1: MEAT LOVERS (360° 3D) ==================== -->
+        <article class="spotlight-card">
+          <!-- 3D Stage with Glowing Aura -->
+          <div class="book-3d-stage" id="stage-meat" title="Touch or drag to rotate in 3D">
+            <div class="book-aura aura-meat"></div>
+
+            <div class="badge-360">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              360° 3D
+            </div>
+
+            <!-- Solid 3D Book Box -->
+            <div class="book-3d-box" id="box-meat">
+              <!-- Front Face -->
+              <div class="book-face book-face-front">
+                <img src="./1/meat_3d.jpg" alt="Meat Lovers Cookbook 3D Hardcover" loading="lazy">
+              </div>
+              <!-- Back Face -->
+              <div class="book-face book-face-back back-meat">
+                <div>
+                  <div class="back-title">Meat Lovers Cookbook</div>
+                  <p class="back-text">
+                    100 Hearty masterclass recipes covering wood-fired smoking, juicy smashburgers, tender braises, and secret glazes. Tested to perfection by Chef A.
+                  </p>
+                  <ul class="back-highlights">
+                    <li>✓ 100 Chef-Tested Recipes</li>
+                    <li>✓ Complete Temperature Guides</li>
+                    <li>✓ Full-Color Plating Photography</li>
+                  </ul>
+                </div>
+                <div class="back-footer">
+                  <span>MODERNBOOKS</span>
+                  <span class="back-badge">100 RECIPES</span>
+                </div>
+              </div>
+              <!-- Spine Face -->
+              <div class="book-face book-face-spine spine-meat">
+                MEAT LOVERS • CHEF A
+              </div>
+              <!-- Paper Pages (Right, Top, Bottom) -->
+              <div class="book-face book-face-pages"></div>
+              <div class="book-face book-face-top"></div>
+              <div class="book-face book-face-bottom"></div>
+            </div>
+
+            <!-- Floor Shadow -->
+            <div class="book-turntable-shadow" id="shadow-meat"></div>
+
+            <!-- Touch / Drag Guide -->
+            <div class="hint-drag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8l4 4-4 4"/></svg>
+              Touch to Rotate
+            </div>
+
+            <!-- One-Click 360 Spin Button -->
+            <button class="btn-spin-pill" type="button" onclick="trigger360Spin('box-meat', 'shadow-meat')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              Spin 360°
+            </button>
+          </div>
+
+          <h3 class="spotlight-title">Meat Lovers Cookbook</h3>
+          <div class="spotlight-tagline">Delicious • Juicy • Satisfying</div>
+          <p class="spotlight-desc">
+            A masterclass in dry-rubs, wood-fired smoking, smashburgers, tender braises, and artisan marinades. Includes the famous Menu 9 BBQ Beef Brisket recipe with complete temperature charts.
+          </p>
+          <div class="spotlight-specs">
+            <span>📖 100 Curated Menus</span>
+            <span>•</span>
+            <span>⚡ Instant PDF/EPUB</span>
+            <span>•</span>
+            <span>👨‍🍳 Chef A</span>
+          </div>
+          <div class="spotlight-cta-wrap">
+            <button type="button" class="btn-preview" onclick="openPreview('meat', 0)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              Look Inside
+            </button>
+            <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="btn-buy-book">
+              Buy on Gumroad
+            </a>
+          </div>
+        </article>
+
+        <!-- ==================== SPOTLIGHT 2: PASTA ULTIMATE (360° 3D) ==================== -->
+        <article class="spotlight-card">
+          <!-- 3D Stage with Glowing Aura -->
+          <div class="book-3d-stage" id="stage-pasta" title="Touch or drag to rotate in 3D">
+            <div class="book-aura aura-pasta"></div>
+
+            <div class="badge-360">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              360° 3D
+            </div>
+
+            <!-- Solid 3D Book Box -->
+            <div class="book-3d-box" id="box-pasta">
+              <!-- Front Face -->
+              <div class="book-face book-face-front">
+                <img src="./2/pasta_3d.jpg" alt="Pasta Ultimate Collection 3D Hardcover" loading="lazy">
+              </div>
+              <!-- Back Face -->
+              <div class="book-face book-face-back back-pasta">
+                <div>
+                  <div class="back-title">Pasta Ultimate Collection</div>
+                  <p class="back-text">
+                    100 Handcrafted Italian pasta recipes ranging from velvety alfredo reductions and slow-simmered bolognese to seafood rigatoni and skillet casseroles.
+                  </p>
+                  <ul class="back-highlights">
+                    <li>✓ 100 Handcrafted Dishes</li>
+                    <li>✓ Artisan Dough & Sauce Pairings</li>
+                    <li>✓ Step-by-Step Cooking Timers</li>
+                  </ul>
+                </div>
+                <div class="back-footer">
+                  <span>MODERNBOOKS</span>
+                  <span class="back-badge">100 RECIPES</span>
+                </div>
+              </div>
+              <!-- Spine Face -->
+              <div class="book-face book-face-spine spine-pasta">
+                PASTA ULTIMATE • CHEF A
+              </div>
+              <!-- Paper Pages (Right, Top, Bottom) -->
+              <div class="book-face book-face-pages"></div>
+              <div class="book-face book-face-top"></div>
+              <div class="book-face book-face-bottom"></div>
+            </div>
+
+            <!-- Floor Shadow -->
+            <div class="book-turntable-shadow" id="shadow-pasta"></div>
+
+            <!-- Touch / Drag Guide -->
+            <div class="hint-drag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8l4 4-4 4"/></svg>
+              Touch to Rotate
+            </div>
+
+            <!-- One-Click 360 Spin Button -->
+            <button class="btn-spin-pill" type="button" onclick="trigger360Spin('box-pasta', 'shadow-pasta')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              Spin 360°
+            </button>
+          </div>
+
+          <h3 class="spotlight-title">Pasta Ultimate Collection</h3>
+          <div class="spotlight-tagline">Delicious • Creamy • Satisfying</div>
+          <p class="spotlight-desc">
+            From silky handcrafted sauces and slow-simmered bolognese to seafood tagliatelle and oven-baked rigatoni. Includes full instructions for the acclaimed Cajun Salmon Penne with creamed sweet corn.
+          </p>
+          <div class="spotlight-specs">
+            <span>📖 100 Handcrafted Dishes</span>
+            <span>•</span>
+            <span>⚡ Instant PDF/EPUB</span>
+            <span>•</span>
+            <span>👨‍🍳 Chef A</span>
+          </div>
+          <div class="spotlight-cta-wrap">
+            <button type="button" class="btn-preview" onclick="openPreview('pasta', 0)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              Look Inside
+            </button>
+            <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="btn-buy-book">
+              Buy on Gumroad
+            </a>
+          </div>
+        </article>
+
+        <!-- ==================== SPOTLIGHT 3: SEAFOOD MASTERBOOK (360° 3D) ==================== -->
+        <article class="spotlight-card">
+          <!-- 3D Stage with Glowing Aura -->
+          <div class="book-3d-stage" id="stage-seafood" title="Touch or drag to rotate in 3D">
+            <div class="book-aura aura-seafood"></div>
+
+            <div class="badge-360">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              360° 3D
+            </div>
+
+            <!-- Solid 3D Book Box -->
+            <div class="book-3d-box" id="box-seafood">
+              <!-- Front Face -->
+              <div class="book-face book-face-front">
+                <img src="./3/seafood_3d.jpg" alt="The Seafood Masterbook 3D Hardcover" loading="lazy">
+              </div>
+              <!-- Back Face -->
+              <div class="book-face book-face-back back-seafood">
+                <div>
+                  <div class="back-title">The Seafood Masterbook</div>
+                  <p class="back-text">
+                    100 Gourmet ocean creations covering sweet King Crab legs, seared sea bass, grilled whole lobster tails, garlic butter shrimp, and aromatic stockpots.
+                  </p>
+                  <ul class="back-highlights">
+                    <li>✓ 100 Fresh Ocean Recipes</li>
+                    <li>✓ Seafood Boiling & Steaming Timers</li>
+                    <li>✓ Foolproof Cleaning & Prep Guides</li>
+                  </ul>
+                </div>
+                <div class="back-footer">
+                  <span>MODERNBOOKS</span>
+                  <span class="back-badge">100 RECIPES</span>
+                </div>
+              </div>
+              <!-- Spine Face -->
+              <div class="book-face book-face-spine spine-seafood">
+                SEAFOOD MASTERBOOK • CHEF A
+              </div>
+              <!-- Paper Pages (Right, Top, Bottom) -->
+              <div class="book-face book-face-pages"></div>
+              <div class="book-face book-face-top"></div>
+              <div class="book-face book-face-bottom"></div>
+            </div>
+
+            <!-- Floor Shadow -->
+            <div class="book-turntable-shadow" id="shadow-seafood"></div>
+
+            <!-- Touch / Drag Guide -->
+            <div class="hint-drag">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8l4 4-4 4"/></svg>
+              Touch to Rotate
+            </div>
+
+            <!-- One-Click 360 Spin Button -->
+            <button class="btn-spin-pill" type="button" onclick="trigger360Spin('box-seafood', 'shadow-seafood')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              Spin 360°
+            </button>
+          </div>
+
+          <h3 class="spotlight-title">The Seafood Masterbook</h3>
+          <div class="spotlight-tagline">Delicious • Fresh • Satisfying</div>
+          <p class="spotlight-desc">
+            Uncover the secrets of king crab legs, seared sea bass, grilled whole lobster tails, and aromatic broths. Featuring Menu 100: The Great American Seafood Boil with seasoned garlic herb butter.
+          </p>
+          <div class="spotlight-specs">
+            <span>📖 100 Ocean Recipes</span>
+            <span>•</span>
+            <span>⚡ Instant PDF/EPUB</span>
+            <span>•</span>
+            <span>👨‍🍳 Chef A</span>
+          </div>
+          <div class="spotlight-cta-wrap">
+            <button type="button" class="btn-preview" onclick="openPreview('seafood', 0)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              Look Inside
+            </button>
+            <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="btn-buy-book">
+              Buy on Gumroad
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ==================== TRUST / FEATURES BAR ==================== -->
   <section class="features-bar" id="features">
     <div class="container">
@@ -1179,7 +3246,7 @@
           </div>
           <div>
             <div class="feature-title">Chef A Signature Series</div>
-            <div class="feature-desc">Tested gourmet recipes with exact measurements</div>
+            <div class="feature-desc">100 tested gourmet recipes with exact measurements</div>
           </div>
         </div>
 
@@ -1213,13 +3280,128 @@
     </div>
   </section>
 
+
+  <!-- ==================== TABLE OF CONTENTS EXPLORER SECTION ==================== -->
+  <section class="toc-section" id="toc">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div style="font-size: 0.8rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem;">Complete Recipe Catalog</div>
+          <h2 class="section-title">Table of Contents Explorer</h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem;">Browse all 100 curated recipe titles in each cookbook. Every eBook features 5 complete sets of 20 dishes totaling 100 tested recipes.</p>
+        </div>
+        <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="genre-view-all">
+          GET ALL 300 RECIPES
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Book Selector Tabs with Miniature 3D Book Photos -->
+      <div class="toc-book-tabs">
+        <button class="toc-book-tab active" id="tocBookBtn-meat" onclick="selectTocBook('meat', this)">
+          <img src="./1/meat_3d.jpg" alt="Meat Lovers Cookbook" class="toc-tab-icon">
+          <span>Meat Lovers Cookbook</span>
+          <span class="toc-pill">100 Recipes</span>
+        </button>
+        <button class="toc-book-tab" id="tocBookBtn-pasta" onclick="selectTocBook('pasta', this)">
+          <img src="./2/pasta_3d.jpg" alt="Pasta Ultimate Collection" class="toc-tab-icon">
+          <span>Pasta Ultimate Collection</span>
+          <span class="toc-pill">100 Recipes</span>
+        </button>
+        <button class="toc-book-tab" id="tocBookBtn-seafood" onclick="selectTocBook('seafood', this)">
+          <img src="./3/seafood_3d.jpg" alt="The Seafood Masterbook" class="toc-tab-icon">
+          <span>The Seafood Masterbook</span>
+          <span class="toc-pill">100 Recipes</span>
+        </button>
+      </div>
+
+      <!-- Explorer Showcase Card -->
+      <div class="toc-explorer-card">
+        <!-- Left Column: Primary 3D Picture with View Switcher -->
+        <div class="toc-viewer-column">
+          <div class="toc-image-frame" onclick="openCurrentTocPreview()" title="Click for Fullscreen Look Inside">
+            <img id="tocViewerImage" src="./1/meat_3d.jpg" alt="Meat Lovers Cookbook 3D Hardcover" loading="lazy">
+            <div class="toc-hover-hint">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span>Click for Fullscreen Preview</span>
+            </div>
+            <button class="toc-nav-arrow prev" type="button" onclick="event.stopPropagation(); changeTocBook(-1)" aria-label="Previous cookbook">‹</button>
+            <button class="toc-nav-arrow next" type="button" onclick="event.stopPropagation(); changeTocBook(1)" aria-label="Next cookbook">›</button>
+          </div>
+
+          <!-- Toggle between 3D Book Picture & Table of Contents Sheet -->
+          <div class="toc-view-toggle">
+            <button class="toc-toggle-pill active" id="tocToggleBook" type="button" onclick="setTocDisplayMode('book')">
+              📖 3D Hardcover Photo
+            </button>
+            <button class="toc-toggle-pill" id="tocToggleSheet" type="button" onclick="setTocDisplayMode('sheet')">
+              📑 Table of Contents Sheet
+            </button>
+          </div>
+
+          <div class="toc-page-indicator" id="tocPageIndicator">
+            Meat Lovers Cookbook • 3D Hardcover Edition
+          </div>
+        </div>
+
+        <!-- Right Column: Metadata, Sets & Recipe Highlights -->
+        <div class="toc-details-column">
+          <div class="toc-book-badge" id="tocBookBadge">MEAT LOVERS COOKBOOK • 100 RECIPES</div>
+          <h3 class="toc-set-title" id="tocSetHeading">Table of Contents — Menus 1 to 20</h3>
+          <p class="toc-set-desc" id="tocSetDescription">
+            Menus 1 through 20 covering premium steak cuts, Southern fried chicken, smoked pork chops, and garlic herb butter basting techniques.
+          </p>
+
+          <!-- 5 Set Buttons (1-20, 21-40, 41-60, 61-80, 81-100) -->
+          <div class="toc-set-tabs" id="tocSetTabs">
+            <!-- Rendered by JS -->
+          </div>
+
+          <div class="toc-sample-box">
+            <div class="toc-sample-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <span id="tocSetSubtitle">Featured in Set 1 (Menus 1 to 20):</span>
+            </div>
+            <ul class="toc-recipe-bullets" id="tocRecipeBullets">
+              <li>Includes Garlic Butter Ribeye &amp; Smoked Ribs</li>
+              <li>Foolproof marinade proportions and resting times</li>
+              <li>Pages 1 to 20 of the full 100-recipe master collection</li>
+            </ul>
+          </div>
+
+          <div class="toc-actions">
+            <button class="btn-toc-expand" type="button" onclick="openCurrentTocPreview()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+              Open Fullscreen Look Inside
+            </button>
+            <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="btn-toc-buy">
+              Get Complete eBook on Gumroad
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </a>
+          </div>
+
+          <div class="toc-trust-note">
+            <span>✓ Instant digital delivery to your email</span> • 
+            <span>✓ PDF &amp; EPUB compatible with all phones, tablets &amp; PCs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ==================== POPULAR GENRES (Exact Inspo Photo Layout) ==================== -->
   <main class="genres-section" id="genres">
     <div class="container">
       
       <!-- Section Title & Filter Tabs -->
       <div class="section-header">
-        <h2 class="section-title">Popular Genres</h2>
+        <div>
+          <h2 class="section-title">Popular Genres</h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem;">Browse individual covers, complete recipe indexes, and signature sample spreads.</p>
+        </div>
         <div class="section-filter-tabs">
           <button class="filter-tab active" onclick="filterGenre('all', this)">All Genres</button>
           <button class="filter-tab" onclick="filterGenre('meat', this)">Meat & BBQ</button>
@@ -1241,7 +3423,7 @@
               <span>Meat & BBQ</span>
               <span class="badge">Bestseller</span>
             </div>
-            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="genre-view-all">
+            <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="genre-view-all">
               VIEW ALL
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6"></polyline>
@@ -1254,7 +3436,7 @@
             <!-- Book 1: 3D Cover -->
             <div class="book-item" onclick="openPreview('meat', 0)">
               <div class="book-cover-wrap">
-                <img src="./1/1.webp" alt="Meat Lovers Cookbook 3D Hardcover" loading="lazy">
+                <img src="./1/meat_3d.jpg" alt="Meat Lovers Cookbook 3D Hardcover" loading="lazy">
                 <span class="book-cover-badge">eBook Cover</span>
                 <div class="book-hover-overlay">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1266,36 +3448,40 @@
               </div>
               <div class="book-info">
                 <div class="book-title">Meat Lovers Cookbook</div>
-                <div class="book-author">Chef A • 100+ Recipes</div>
+                <div class="book-author">Chef A • 100 Recipes</div>
               </div>
             </div>
 
-            <!-- Book 2: Table of Contents -->
+            <!-- Book 2: Table of Contents (All 100 Recipes) -->
             <div class="book-item" onclick="openPreview('meat', 1)">
               <div class="book-cover-wrap">
-                <img src="./1/2.webp" alt="Meat Recipes Table of Contents" loading="lazy">
-                <span class="book-cover-badge">Contents</span>
+                <img src="./1/6e178f29-0065-4ed0-95ef-cb5e7521274c.jpg" alt="Meat Recipes Table of Contents" loading="lazy">
+                <span class="book-cover-badge">100 Recipes</span>
                 <div class="book-hover-overlay">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                     <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                    <polyline points="10 9 9 9 8 9"></polyline>
                   </svg>
-                  <span>Read Index</span>
+                  <span>Browse Contents</span>
                 </div>
               </div>
               <div class="book-info">
-                <div class="book-title">Hearty Recipe Index</div>
-                <div class="book-author">Menus 81–100</div>
+                <div class="book-title">Table of Contents</div>
+                <div class="book-author">Menus 1–100 (5 Sets)</div>
+                <div class="toc-chip-group">
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('meat', 1)">1–20</span>
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('meat', 2)">21–40</span>
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('meat', 3)">41–60</span>
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('meat', 4)">61–80</span>
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('meat', 5)">81–100</span>
+                </div>
               </div>
             </div>
 
             <!-- Book 3: Sample Recipe -->
-            <div class="book-item" onclick="openPreview('meat', 2)">
+            <div class="book-item" onclick="openPreview('meat', 6)">
               <div class="book-cover-wrap">
-                <img src="./1/3.webp" alt="BBQ Beef Brisket Sample Recipe" loading="lazy">
+                <img src="./1/4563eb1f-abae-491c-ba46-b3feb698a28e.jpg" alt="BBQ Beef Brisket Sample Recipe" loading="lazy">
                 <span class="book-cover-badge">Sample Page</span>
                 <div class="book-hover-overlay">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1306,12 +3492,12 @@
               </div>
               <div class="book-info">
                 <div class="book-title">BBQ Beef Brisket</div>
-                <div class="book-author">Smoked • Menu 9</div>
+                <div class="book-author">Smoked • Menu 9 of 100</div>
               </div>
             </div>
 
             <!-- Book 4: Buy on Gumroad Quick Card -->
-            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="book-item" title="Get Meat Lovers Cookbook on Gumroad">
+            <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="book-item" title="Get Meat Lovers Cookbook on Gumroad">
               <div class="bundle-box">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="9" cy="21" r="1"></circle>
@@ -1323,7 +3509,7 @@
               </div>
               <div class="book-info">
                 <div class="book-title" style="color: var(--primary);">Instant Download</div>
-                <div class="book-author">PDF & EPUB Format</div>
+                <div class="book-author">100 Recipes • PDF/EPUB</div>
               </div>
             </a>
           </div>
@@ -1336,7 +3522,7 @@
               <span>Pasta & Italian</span>
               <span class="badge">Top Rated</span>
             </div>
-            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="genre-view-all">
+            <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="genre-view-all">
               VIEW ALL
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6"></polyline>
@@ -1349,7 +3535,7 @@
             <!-- Book 1: 3D Cover -->
             <div class="book-item" onclick="openPreview('pasta', 0)">
               <div class="book-cover-wrap">
-                <img src="./2/1.webp" alt="Pasta Ultimate Collection 3D Cover" loading="lazy">
+                <img src="./2/pasta_3d.jpg" alt="Pasta Ultimate Collection 3D Cover" loading="lazy">
                 <span class="book-cover-badge">eBook Cover</span>
                 <div class="book-hover-overlay">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1361,33 +3547,40 @@
               </div>
               <div class="book-info">
                 <div class="book-title">Pasta Ultimate Collection</div>
-                <div class="book-author">Chef A • Creamy Classics</div>
+                <div class="book-author">Chef A • 100 Recipes</div>
               </div>
             </div>
 
-            <!-- Book 2: Table of Contents -->
+            <!-- Book 2: Table of Contents (All 100 Recipes) -->
             <div class="book-item" onclick="openPreview('pasta', 1)">
               <div class="book-cover-wrap">
-                <img src="./2/2.webp" alt="Pasta Recipes Table of Contents" loading="lazy">
-                <span class="book-cover-badge">Contents</span>
+                <img src="./2/6c56148d-a2dc-41b3-a6a6-580ceadbf35e.jpg" alt="Pasta Recipes Table of Contents" loading="lazy">
+                <span class="book-cover-badge">100 Recipes</span>
                 <div class="book-hover-overlay">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                     <polyline points="14 2 14 8 20 8"></polyline>
                   </svg>
-                  <span>Read Index</span>
+                  <span>Browse Contents</span>
                 </div>
               </div>
               <div class="book-info">
-                <div class="book-title">Pasta Recipes Index</div>
-                <div class="book-author">Menus 81–100</div>
+                <div class="book-title">Table of Contents</div>
+                <div class="book-author">Menus 1–100 (5 Sets)</div>
+                <div class="toc-chip-group">
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('pasta', 1)">1–20</span>
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('pasta', 2)">21–40</span>
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('pasta', 3)">41–60</span>
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('pasta', 4)">61–80</span>
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('pasta', 5)">81–100</span>
+                </div>
               </div>
             </div>
 
             <!-- Book 3: Sample Recipe -->
-            <div class="book-item" onclick="openPreview('pasta', 2)">
+            <div class="book-item" onclick="openPreview('pasta', 6)">
               <div class="book-cover-wrap">
-                <img src="./2/3.webp" alt="Cajun Salmon Penne Recipe Page" loading="lazy">
+                <img src="./2/620cff6a-cc54-4a3d-bcad-9fdc5db75951.jpg" alt="Cajun Salmon Penne Recipe Page" loading="lazy">
                 <span class="book-cover-badge">Sample Page</span>
                 <div class="book-hover-overlay">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1398,12 +3591,12 @@
               </div>
               <div class="book-info">
                 <div class="book-title">Cajun Salmon Penne</div>
-                <div class="book-author">Creamed Corn • Menu 43</div>
+                <div class="book-author">Creamed Corn • Menu 43 of 100</div>
               </div>
             </div>
 
             <!-- Book 4: Buy on Gumroad Quick Card -->
-            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="book-item" title="Get Pasta Ultimate Collection on Gumroad">
+            <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="book-item" title="Get Pasta Ultimate Collection on Gumroad">
               <div class="bundle-box">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="9" cy="21" r="1"></circle>
@@ -1415,7 +3608,7 @@
               </div>
               <div class="book-info">
                 <div class="book-title" style="color: var(--primary);">Instant Download</div>
-                <div class="book-author">PDF & EPUB Format</div>
+                <div class="book-author">100 Recipes • PDF/EPUB</div>
               </div>
             </a>
           </div>
@@ -1428,7 +3621,7 @@
               <span>Seafood & Coastal</span>
               <span class="badge">Featured</span>
             </div>
-            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="genre-view-all">
+            <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="genre-view-all">
               VIEW ALL
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6"></polyline>
@@ -1441,7 +3634,7 @@
             <!-- Book 1: 3D Cover -->
             <div class="book-item" onclick="openPreview('seafood', 0)">
               <div class="book-cover-wrap">
-                <img src="./3/1.webp" alt="The Seafood Masterbook 3D Cover" loading="lazy">
+                <img src="./3/seafood_3d.jpg" alt="The Seafood Masterbook 3D Cover" loading="lazy">
                 <span class="book-cover-badge">eBook Cover</span>
                 <div class="book-hover-overlay">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1453,33 +3646,40 @@
               </div>
               <div class="book-info">
                 <div class="book-title">The Seafood Masterbook</div>
-                <div class="book-author">Chef A • Wild & Fresh</div>
+                <div class="book-author">Chef A • 100 Recipes</div>
               </div>
             </div>
 
-            <!-- Book 2: Table of Contents -->
+            <!-- Book 2: Table of Contents (All 100 Recipes) -->
             <div class="book-item" onclick="openPreview('seafood', 1)">
               <div class="book-cover-wrap">
-                <img src="./3/2.webp" alt="Seafoods Recipes Table of Contents" loading="lazy">
-                <span class="book-cover-badge">Contents</span>
+                <img src="./3/1da317df-681a-4f54-a6d6-101977560028.jpg" alt="Seafoods Recipes Table of Contents" loading="lazy">
+                <span class="book-cover-badge">100 Recipes</span>
                 <div class="book-hover-overlay">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                     <polyline points="14 2 14 8 20 8"></polyline>
                   </svg>
-                  <span>Read Index</span>
+                  <span>Browse Contents</span>
                 </div>
               </div>
               <div class="book-info">
-                <div class="book-title">Seafood Recipes Index</div>
-                <div class="book-author">Menus 81–100</div>
+                <div class="book-title">Table of Contents</div>
+                <div class="book-author">Menus 1–100 (5 Sets)</div>
+                <div class="toc-chip-group">
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('seafood', 1)">1–20</span>
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('seafood', 2)">21–40</span>
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('seafood', 3)">41–60</span>
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('seafood', 4)">61–80</span>
+                  <span class="toc-chip" onclick="event.stopPropagation(); openPreview('seafood', 5)">81–100</span>
+                </div>
               </div>
             </div>
 
             <!-- Book 3: Sample Recipe -->
-            <div class="book-item" onclick="openPreview('seafood', 2)">
+            <div class="book-item" onclick="openPreview('seafood', 6)">
               <div class="book-cover-wrap">
-                <img src="./3/3.webp" alt="American Seafood Boil Recipe Page" loading="lazy">
+                <img src="./3/903eae37-413b-44a0-ab2d-333a8918d001.jpg" alt="American Seafood Boil Recipe Page" loading="lazy">
                 <span class="book-cover-badge">Sample Page</span>
                 <div class="book-hover-overlay">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1490,12 +3690,12 @@
               </div>
               <div class="book-info">
                 <div class="book-title">American Seafood Boil</div>
-                <div class="book-author">King Crab & Lobster • Menu 100</div>
+                <div class="book-author">King Crab &amp; Lobster • Menu 100</div>
               </div>
             </div>
 
             <!-- Book 4: Buy on Gumroad Quick Card -->
-            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="book-item" title="Get The Seafood Masterbook on Gumroad">
+            <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="book-item" title="Get The Seafood Masterbook on Gumroad">
               <div class="bundle-box">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="9" cy="21" r="1"></circle>
@@ -1507,20 +3707,20 @@
               </div>
               <div class="book-info">
                 <div class="book-title" style="color: var(--primary);">Instant Download</div>
-                <div class="book-author">PDF & EPUB Format</div>
+                <div class="book-author">100 Recipes • PDF/EPUB</div>
               </div>
             </a>
           </div>
         </div>
 
         <!-- ==================== GENRE CARD 4: CHEF A COMPLETE TRILOGY ==================== -->
-        <div class="genre-card" data-genre="bundle" data-keywords="bundle all chef a collection trilogy meat pasta seafood cookbook special discount">
+        <div class="genre-card" data-genre="bundle" data-keywords="bundle all chef a collection trilogy meat pasta seafood cookbook special discount 300 recipes">
           <div class="genre-card-header">
             <div class="genre-card-title">
               <span>Chef A Trilogy Collection</span>
               <span class="badge" style="background: #e0f2fe; color: #0369a1;">All 3 In 1</span>
             </div>
-            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="genre-view-all">
+            <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="genre-view-all">
               GET BUNDLE
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6"></polyline>
@@ -1533,41 +3733,41 @@
             <!-- Book 1: Meat Cover -->
             <div class="book-item" onclick="openPreview('meat', 0)">
               <div class="book-cover-wrap">
-                <img src="./1/1.webp" alt="Meat Lovers Cookbook" loading="lazy">
+                <img src="./1/meat_3d.jpg" alt="Meat Lovers Cookbook" loading="lazy">
                 <span class="book-cover-badge">Book 1</span>
               </div>
               <div class="book-info">
                 <div class="book-title">Meat Lovers</div>
-                <div class="book-author">Chef A Masterpiece</div>
+                <div class="book-author">100 Meat Recipes</div>
               </div>
             </div>
 
             <!-- Book 2: Pasta Cover -->
             <div class="book-item" onclick="openPreview('pasta', 0)">
               <div class="book-cover-wrap">
-                <img src="./2/1.webp" alt="Pasta Ultimate Collection" loading="lazy">
+                <img src="./2/pasta_3d.jpg" alt="Pasta Ultimate Collection" loading="lazy">
                 <span class="book-cover-badge">Book 2</span>
               </div>
               <div class="book-info">
                 <div class="book-title">Pasta Ultimate</div>
-                <div class="book-author">Italian Culinary Guide</div>
+                <div class="book-author">100 Pasta Recipes</div>
               </div>
             </div>
 
             <!-- Book 3: Seafood Cover -->
             <div class="book-item" onclick="openPreview('seafood', 0)">
               <div class="book-cover-wrap">
-                <img src="./3/1.webp" alt="The Seafood Masterbook" loading="lazy">
+                <img src="./3/seafood_3d.jpg" alt="The Seafood Masterbook" loading="lazy">
                 <span class="book-cover-badge">Book 3</span>
               </div>
               <div class="book-info">
                 <div class="book-title">Seafood Master</div>
-                <div class="book-author">Ocean Gastronomy</div>
+                <div class="book-author">100 Seafood Recipes</div>
               </div>
             </div>
 
             <!-- Book 4: Full Trilogy Access -->
-            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="book-item" title="Download Complete Trilogy on Gumroad">
+            <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="book-item" title="Download Complete Trilogy on Gumroad">
               <div class="bundle-box" style="background: #eef2ff; border-color: #6366f1;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
@@ -1577,7 +3777,7 @@
               </div>
               <div class="book-info">
                 <div class="book-title" style="color: #4f46e5;">Download All 3</div>
-                <div class="book-author">Best Value Bundle</div>
+                <div class="book-author">300 Total Recipes</div>
               </div>
             </a>
           </div>
@@ -1587,16 +3787,17 @@
     </div>
   </main>
 
-  <!-- ==================== SPOTLIGHT EBOOK SHOWCASE ==================== -->
-  <section class="spotlight-section" id="spotlight">
+  <!-- ==================== CUSTOMER FEEDBACK & REVIEWS ==================== -->
+  <section class="reviews-section" id="reviews">
     <div class="container">
       <div class="section-header">
         <div>
-          <h2 class="section-title">Spotlight Cookbooks</h2>
-          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem;">Explore detailed contents and sample pages directly from our high-resolution eBooks.</p>
+          <div style="font-size: 0.8rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem;">Customer Feedback</div>
+          <h2 class="section-title">Loved by Home Cooks &amp; Readers</h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem;">Authentic reviews and ratings from home chefs cooking with Chef A's curated digital collections.</p>
         </div>
-        <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="genre-view-all">
-          BROWSE ALL ON GUMROAD
+        <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="genre-view-all">
+          EXPLORE STORE
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="7" y1="17" x2="17" y2="7"></line>
             <polyline points="7 7 17 7 17 17"></polyline>
@@ -1604,101 +3805,463 @@
         </a>
       </div>
 
-      <div class="spotlight-grid">
+      <!-- Rating Summary Banner -->
+      <div class="reviews-summary-bar">
+        <div class="rating-score-group">
+          <div class="rating-score-number">4.9</div>
+          <div class="rating-stars-badge">
+            <div class="stars-row">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="rating-subtext">Overall 4.9 out of 5 stars based on 2,400+ readers</div>
+          </div>
+        </div>
+        <div class="reviews-guarantee-pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>100% Verified Customer Feedback</span>
+        </div>
+      </div>
 
-        <!-- Spotlight 1: Meat Lovers -->
-        <article class="spotlight-card">
-          <div class="spotlight-img-wrap" onclick="openPreview('meat', 0)">
-            <img src="./1/1.webp" alt="Meat Lovers Cookbook" loading="lazy">
+      <!-- 10 Customer Reviews Grid -->
+      <div class="reviews-grid">
+        <!-- Review 1 -->
+        <div class="review-card">
+          <div>
+            <div class="review-card-top">
+              <div class="stars-row">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <span class="review-verified-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Purchase
+              </span>
+            </div>
+            <p class="review-quote">
+              I absolutely loved the PASTA ULTIMATE COLLECTION! There are so many delicious recipes to choose from, and it has given me plenty of new ideas for family dinners.
+            </p>
           </div>
-          <h3 class="spotlight-title">Meat Lovers Cookbook</h3>
-          <div class="spotlight-tagline">Delicious • Juicy • Satisfying</div>
-          <p class="spotlight-desc">
-            A masterclass in dry-rubs, wood-fired smoking, smashburgers, tender braises, and artisan marinades. Includes the famous Menu 9 BBQ Beef Brisket recipe with complete temperature charts.
-          </p>
-          <div class="spotlight-specs">
-            <span>📖 100+ Curated Menus</span>
-            <span>•</span>
-            <span>⚡ Instant PDF/EPUB</span>
-            <span>•</span>
-            <span>👨‍🍳 Chef A</span>
+          <div class="review-card-footer">
+            <div class="review-avatar">MS</div>
+            <div class="review-user-info">
+              <span class="review-user-name">Maria Santos</span>
+              <span class="review-user-book">Verified Reader • Pasta Ultimate Collection</span>
+            </div>
           </div>
-          <div class="spotlight-cta-wrap">
-            <button type="button" class="btn-preview" onclick="openPreview('meat', 0)">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-              Look Inside
-            </button>
-            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="btn-buy-book">
-              Buy on Gumroad
-            </a>
-          </div>
-        </article>
+        </div>
 
-        <!-- Spotlight 2: Pasta Ultimate -->
-        <article class="spotlight-card">
-          <div class="spotlight-img-wrap" onclick="openPreview('pasta', 0)">
-            <img src="./2/1.webp" alt="Pasta Ultimate Collection" loading="lazy">
+        <!-- Review 2 -->
+        <div class="review-card">
+          <div>
+            <div class="review-card-top">
+              <div class="stars-row">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <span class="review-verified-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Purchase
+              </span>
+            </div>
+            <p class="review-quote">
+              The MEAT LOVERS COOKBOOK is fantastic! The recipes are straightforward, flavorful, and perfect for anyone who enjoys hearty meat dishes.
+            </p>
           </div>
-          <h3 class="spotlight-title">Pasta Ultimate Collection</h3>
-          <div class="spotlight-tagline">Delicious • Creamy • Satisfying</div>
-          <p class="spotlight-desc">
-            From silky handcrafted sauces and slow-simmered bolognese to seafood tagliatelle and oven-baked rigatoni. Includes full instructions for the acclaimed Cajun Salmon Penne with creamed sweet corn.
-          </p>
-          <div class="spotlight-specs">
-            <span>📖 100 Handcrafted Dishes</span>
-            <span>•</span>
-            <span>⚡ Instant PDF/EPUB</span>
-            <span>•</span>
-            <span>👨‍🍳 Chef A</span>
+          <div class="review-card-footer">
+            <div class="review-avatar" style="background: linear-gradient(135deg, #ea580c 0%, #b91c1c 100%);">DM</div>
+            <div class="review-user-info">
+              <span class="review-user-name">David Miller</span>
+              <span class="review-user-book">Verified Reader • Meat Lovers Cookbook</span>
+            </div>
           </div>
-          <div class="spotlight-cta-wrap">
-            <button type="button" class="btn-preview" onclick="openPreview('pasta', 0)">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-              Look Inside
-            </button>
-            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="btn-buy-book">
-              Buy on Gumroad
-            </a>
-          </div>
-        </article>
+        </div>
 
-        <!-- Spotlight 3: Seafood Masterbook -->
-        <article class="spotlight-card">
-          <div class="spotlight-img-wrap" onclick="openPreview('seafood', 0)">
-            <img src="./3/1.webp" alt="The Seafood Masterbook" loading="lazy">
+        <!-- Review 3 -->
+        <div class="review-card">
+          <div>
+            <div class="review-card-top">
+              <div class="stars-row">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <span class="review-verified-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Purchase
+              </span>
+            </div>
+            <p class="review-quote">
+              THE SEAFOOD MASTERBOOK quickly became one of my favorite cookbooks. I’ve found so many seafood recipes that I’m excited to try in my own kitchen.
+            </p>
           </div>
-          <h3 class="spotlight-title">The Seafood Masterbook</h3>
-          <div class="spotlight-tagline">Delicious • Fresh • Satisfying</div>
-          <p class="spotlight-desc">
-            Uncover the secrets of king crab legs, seared sea bass, grilled whole lobster tails, and aromatic broths. Featuring Menu 100: The Great American Seafood Boil with seasoned garlic herb butter.
-          </p>
-          <div class="spotlight-specs">
-            <span>📖 100 Ocean Recipes</span>
-            <span>•</span>
-            <span>⚡ Instant PDF/EPUB</span>
-            <span>•</span>
-            <span>👨‍🍳 Chef A</span>
+          <div class="review-card-footer">
+            <div class="review-avatar" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">CB</div>
+            <div class="review-user-info">
+              <span class="review-user-name">Claire Bennett</span>
+              <span class="review-user-book">Verified Reader • The Seafood Masterbook</span>
+            </div>
           </div>
-          <div class="spotlight-cta-wrap">
-            <button type="button" class="btn-preview" onclick="openPreview('seafood', 0)">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-              Look Inside
-            </button>
-            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="btn-buy-book">
-              Buy on Gumroad
-            </a>
-          </div>
-        </article>
+        </div>
 
+        <!-- Review 4 -->
+        <div class="review-card">
+          <div>
+            <div class="review-card-top">
+              <div class="stars-row">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <span class="review-verified-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Purchase
+              </span>
+            </div>
+            <p class="review-quote">
+              PASTA ULTIMATE COLLECTION is packed with amazing recipe ideas. I love how easy it is to browse through and find something delicious whenever I need dinner inspiration.
+            </p>
+          </div>
+          <div class="review-card-footer">
+            <div class="review-avatar" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">AR</div>
+            <div class="review-user-info">
+              <span class="review-user-name">Anthony Rossi</span>
+              <span class="review-user-book">Verified Reader • Pasta Ultimate Collection</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 5 -->
+        <div class="review-card">
+          <div>
+            <div class="review-card-top">
+              <div class="stars-row">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <span class="review-verified-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Purchase
+              </span>
+            </div>
+            <p class="review-quote">
+              I purchased the MEAT LOVERS COOKBOOK and couldn’t be happier with it. It’s full of satisfying recipes that make home cooking feel exciting again.
+            </p>
+          </div>
+          <div class="review-card-footer">
+            <div class="review-avatar" style="background: linear-gradient(135deg, #c026d3 0%, #7c3aed 100%);">MV</div>
+            <div class="review-user-info">
+              <span class="review-user-name">Marcus Vance</span>
+              <span class="review-user-book">Verified Reader • Meat Lovers Cookbook</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 6 -->
+        <div class="review-card">
+          <div>
+            <div class="review-card-top">
+              <div class="stars-row">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <span class="review-verified-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Purchase
+              </span>
+            </div>
+            <p class="review-quote">
+              THE SEAFOOD MASTERBOOK is exactly what I was looking for! The variety of seafood recipes makes it easy to switch things up and try something different.
+            </p>
+          </div>
+          <div class="review-card-footer">
+            <div class="review-avatar" style="background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);">ER</div>
+            <div class="review-user-info">
+              <span class="review-user-name">Elena Rostova</span>
+              <span class="review-user-book">Verified Reader • The Seafood Masterbook</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 7 -->
+        <div class="review-card">
+          <div>
+            <div class="review-card-top">
+              <div class="stars-row">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <span class="review-verified-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Purchase
+              </span>
+            </div>
+            <p class="review-quote">
+              I bought the PASTA ULTIMATE COLLECTION for more meal ideas, and it did not disappoint. There are so many recipes that I want to try!
+            </p>
+          </div>
+          <div class="review-card-footer">
+            <div class="review-avatar" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">SJ</div>
+            <div class="review-user-info">
+              <span class="review-user-name">Sarah Jenkins</span>
+              <span class="review-user-book">Verified Reader • Pasta Ultimate Collection</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 8 -->
+        <div class="review-card">
+          <div>
+            <div class="review-card-top">
+              <div class="stars-row">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <span class="review-verified-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Purchase
+              </span>
+            </div>
+            <p class="review-quote">
+              The MEAT LOVERS COOKBOOK has become a go-to whenever I’m planning a hearty meal. The recipes are practical, delicious, and easy to follow.
+            </p>
+          </div>
+          <div class="review-card-footer">
+            <div class="review-avatar" style="background: linear-gradient(135deg, #78350f 0%, #451a03 100%);">RH</div>
+            <div class="review-user-info">
+              <span class="review-user-name">Robert Hayes</span>
+              <span class="review-user-book">Verified Reader • Meat Lovers Cookbook</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 9 -->
+        <div class="review-card">
+          <div>
+            <div class="review-card-top">
+              <div class="stars-row">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <span class="review-verified-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Purchase
+              </span>
+            </div>
+            <p class="review-quote">
+              THE SEAFOOD MASTERBOOK has inspired me to cook more seafood at home. I love having so many different recipe ideas available in one book.
+            </p>
+          </div>
+          <div class="review-card-footer">
+            <div class="review-avatar" style="background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);">HN</div>
+            <div class="review-user-info">
+              <span class="review-user-name">Hannah Nguyen</span>
+              <span class="review-user-book">Verified Reader • The Seafood Masterbook</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 10 -->
+        <div class="review-card">
+          <div>
+            <div class="review-card-top">
+              <div class="stars-row">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <span class="review-verified-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified Purchase
+              </span>
+            </div>
+            <p class="review-quote">
+              I’m very happy with my EBOOKLUXE cooking books. Having the PASTA ULTIMATE COLLECTION, MEAT LOVERS COOKBOOK, and THE SEAFOOD MASTERBOOK gives me endless inspiration for delicious homemade meals.
+            </p>
+          </div>
+          <div class="review-card-footer">
+            <div class="review-avatar" style="background: linear-gradient(135deg, #4f46e5 0%, #312e81 100%);">JP</div>
+            <div class="review-user-info">
+              <span class="review-user-name">James &amp; Lily Peterson</span>
+              <span class="review-user-book">Verified Readers • Chef A Complete Trilogy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FAQS ACCORDION SECTION ==================== -->
+  <section class="faq-section" id="faqs">
+    <div class="container faq-container">
+      <div class="section-header" style="text-align: center; display: block; margin-bottom: 1.5rem;">
+        <div style="font-size: 0.8rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem;">Help &amp; Support</div>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.35rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+          Got questions about our digital eBooks, instant delivery, or recipes? Find all your answers below.
+        </p>
+      </div>
+
+      <div class="faq-list">
+        <!-- FAQ 1 -->
+        <div class="faq-item active">
+          <button type="button" class="faq-button" onclick="toggleFaq(this)">
+            <span>1. What can I find at EBOOKLUXE?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>EBOOKLUXE offers a curated selection of premium digital books and resources designed to inspire, educate, and support personal growth. Our store features content across cooking, health &amp; wellness, finance, and enriching reading materials.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <button type="button" class="faq-button" onclick="toggleFaq(this)">
+            <span>2. What kind of cooking content is available?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>Our cooking collection includes easy-to-follow recipes, culinary guides, and meal ideas for food lovers of all levels—whether you're looking for everyday family meals or gourmet inspiration.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <button type="button" class="faq-button" onclick="toggleFaq(this)">
+            <span>3. What health and wellness content can I access?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>We provide resources covering fitness, nutrition, mental well-being, mindful living, and healthy lifestyle habits to help you look and feel your best.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <button type="button" class="faq-button" onclick="toggleFaq(this)">
+            <span>4. Does EBOOKLUXE include finance content?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. Our finance category covers practical guides on personal finance, budgeting, smart investing, and wealth-building strategies to help you achieve financial confidence.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item">
+          <button type="button" class="faq-button" onclick="toggleFaq(this)">
+            <span>5. What can I expect from the books and reading materials?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>Our general reading collection includes personal development, productivity, motivational reads, and knowledge-rich topics curated to expand your mindset and skills.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 6 -->
+        <div class="faq-item">
+          <button type="button" class="faq-button" onclick="toggleFaq(this)">
+            <span>6. Is it an instant download?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>Yes! Once your purchase is complete, your digital download link will be provided immediately so you can start reading right away.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 7 -->
+        <div class="faq-item">
+          <button type="button" class="faq-button" onclick="toggleFaq(this)">
+            <span>7. Can I print it?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>Yes! You are welcome to print your purchased materials for personal use if you prefer reading physical copies.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 8 -->
+        <div class="faq-item">
+          <button type="button" class="faq-button" onclick="toggleFaq(this)">
+            <span>8. Is my purchase for personal use?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. All purchases from EBOOKLUXE are strictly intended for personal use only.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 9 -->
+        <div class="faq-item">
+          <button type="button" class="faq-button" onclick="toggleFaq(this)">
+            <span>9. Can I share, copy, reproduce, or resell my purchased materials?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>No. All content is protected by copyright. Sharing, redistributing, copying, reproducing, or reselling any purchased materials—digitally or physically—is strictly prohibited.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 10 -->
+        <div class="faq-item">
+          <button type="button" class="faq-button" onclick="toggleFaq(this)">
+            <span>10. Why should I purchase from EBOOKLUXE?</span>
+            <div class="faq-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </button>
+          <div class="faq-answer">
+            <p>We offer carefully curated, high-quality digital resources in an instant, accessible format—allowing you to learn, cook, grow, and improve your life anytime, anywhere at an affordable price.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1709,16 +4272,102 @@
       <div class="cta-banner-box">
         <h2 class="cta-banner-title">Ready to Elevate Your Everyday Cooking?</h2>
         <p class="cta-banner-subtitle">
-          Join thousands of home cooks and culinary enthusiasts. Download Chef A's complete cookbook library with step-by-step guidance and guaranteed flavor.
+          Join thousands of home cooks and culinary enthusiasts. Download Chef A's complete cookbook library with step-by-step guidance, exact measurements, and guaranteed flavor.
         </p>
         <div class="cta-banner-actions">
-          <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="btn-large-gumroad">
+          <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="btn-large-gumroad">
             <span>VISIT EBOOKLUXE ON GUMROAD</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <line x1="7" y1="17" x2="17" y2="7"></line>
               <polyline points="7 7 17 7 17 17"></polyline>
             </svg>
           </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SECURE & CONVENIENT PAYMENT METHODS (AS SEEN IN PHOTO) ==================== -->
+  <section class="payment-section" id="payments">
+    <div class="container">
+      <div class="payment-box">
+        <h3 class="payment-box-title">Secure &amp; Convenient Payment Methods</h3>
+        <p class="payment-box-sub">We accept the following payment options for a safe and easy checkout experience.</p>
+
+        <!-- 8 Payment Cards Row (Matching Screenshot) -->
+        <div class="payment-badges-row">
+          <!-- 1. VISA -->
+          <div class="pay-badge" title="Visa">
+            <span style="font-family: 'Arial', sans-serif; font-weight: 900; font-style: italic; font-size: 1.15rem; color: #1434cb; letter-spacing: -0.5px;">VISA</span>
+          </div>
+
+          <!-- 2. Mastercard -->
+          <div class="pay-badge" title="Mastercard">
+            <svg viewBox="0 0 42 26" width="38" height="24">
+              <circle cx="14" cy="13" r="11" fill="#EB001B"/>
+              <circle cx="28" cy="13" r="11" fill="#F79E1B"/>
+              <path d="M21 5.6a11 11 0 0 1 0 14.8 11 11 0 0 1 0-14.8z" fill="#FF5F00"/>
+            </svg>
+          </div>
+
+          <!-- 3. American Express -->
+          <div class="pay-badge" title="American Express" style="background: #006fcf; border-color: #006fcf;">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.05;">
+              <span style="font-family: Arial, sans-serif; font-weight: 900; font-size: 0.56rem; color: #ffffff; letter-spacing: 0.5px;">AMERICAN</span>
+              <span style="font-family: Arial, sans-serif; font-weight: 900; font-size: 0.56rem; color: #ffffff; letter-spacing: 0.5px;">EXPRESS</span>
+            </div>
+          </div>
+
+          <!-- 4. Discover -->
+          <div class="pay-badge" title="Discover">
+            <span style="font-family: 'Arial Black', Arial, sans-serif; font-weight: 900; font-size: 0.78rem; color: #111827; letter-spacing: 0.3px; display: inline-flex; align-items: center;">
+              DISC<span style="display:inline-block; width: 9px; height: 9px; border-radius: 50%; background: #ff6000; margin: 0 1px;"></span>VER
+            </span>
+          </div>
+
+          <!-- 5. PayPal -->
+          <div class="pay-badge" title="PayPal">
+            <span style="font-family: Verdana, sans-serif; font-weight: 800; font-style: italic; font-size: 0.95rem; color: #003087;">Pay<span style="color: #0079C1;">Pal</span></span>
+          </div>
+
+          <!-- 6. Apple Pay -->
+          <div class="pay-badge" title="Apple Pay">
+            <div style="display: inline-flex; align-items: center; gap: 3px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 600; font-size: 0.92rem; color: #000000;">
+              <svg width="14" height="17" viewBox="0 0 170 170" fill="currentColor">
+                <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.69-7.86-12-14.47-6.19-9.5-11.07-20.73-14.65-33.68-3.58-12.95-5.37-24.96-5.37-36.03 0-14.19 3.51-26.04 10.53-35.56 7.02-9.51 15.86-14.35 26.52-14.52 4.99 0 10.45 1.34 16.38 4.02 5.93 2.68 9.77 4.07 11.53 4.17 1.45 0 5.48-1.52 12.09-4.56 6.61-3.04 12.56-4.41 17.85-4.1 13.23.83 23.63 5.49 31.2 13.98-11.75 7.09-17.51 16.99-17.29 29.69.22 9.87 4.02 18.25 11.4 25.13 7.38 6.88 16.29 10.84 26.73 11.89-2.28 7.08-5.1 14.38-8.46 21.9zM119.22 33.04c0-7.39 2.66-14.28 7.98-20.67 5.32-6.39 11.97-10.53 19.95-12.43 0 1.09.05 2.12.16 3.11.11.99.16 1.77.16 2.34 0 7.39-2.82 14.46-8.45 21.22-5.63 6.76-12.45 10.66-20.45 11.71-.65-1.74-.98-3.5-.98-5.28z"/>
+              </svg>
+              <span>Pay</span>
+            </div>
+          </div>
+
+          <!-- 7. Google Pay -->
+          <div class="pay-badge" title="Google Pay">
+            <div style="display: inline-flex; align-items: center; gap: 3px; font-family: 'Google Sans', Roboto, Arial, sans-serif; font-weight: 700; font-size: 0.92rem;">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+              </svg>
+              <span style="color: #5f6368;">Pay</span>
+            </div>
+          </div>
+
+          <!-- 8. Shop Pay -->
+          <div class="pay-badge" title="Shop Pay" style="background: #5a31f4; border-color: #5a31f4;">
+            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 800; font-size: 0.85rem; color: #ffffff; display: inline-flex; align-items: baseline; gap: 2px;">
+              shop <span style="font-weight: 500; font-size: 0.78rem;">Pay</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Security Subtext with Shield Icon -->
+        <div class="payment-security-note">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+          <span>Your payment information is securely processed.</span>
         </div>
       </div>
     </div>
@@ -1737,17 +4386,20 @@
         </a>
 
         <ul class="footer-links">
-          <li><a href="#genres">Genres</a></li>
           <li><a href="#spotlight">Cookbooks</a></li>
+          <li><a href="#genres">Genres</a></li>
+          <li><a href="#reviews">Customer Feedback</a></li>
+          <li><a href="#faqs">FAQs</a></li>
+          <li><a href="#payments">Payment Methods</a></li>
           <li><a href="#features">About Chef A</a></li>
-          <li><a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer">Gumroad Store</a></li>
+          <li><a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer">Gumroad Store</a></li>
         </ul>
       </div>
 
       <div class="footer-bottom">
         <div>© 2026 MODERNBOOKS. All rights reserved. Curated digital culinary collections.</div>
         <div>
-          Direct Store Link: <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-weight: 700;">ebookluxe.gumroad.com</a>
+          Direct Store Link: <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" style="color: var(--primary); font-weight: 700;">ebookluxe.gumroad.com</a>
         </div>
       </div>
     </div>
@@ -1770,18 +4422,33 @@
       </div>
 
       <div class="modal-body">
-        <!-- Page Preview Viewer -->
-        <div class="modal-page-viewer">
-          <img id="modalViewerImage" src="" alt="Book preview page">
+        <!-- Page Preview Viewer with Navigation Arrows & Thumbnails -->
+        <div class="modal-viewer-wrap">
+          <div class="modal-page-viewer">
+            <span class="modal-counter-badge" id="modalCounterBadge">Page 1 of 7</span>
+            <img id="modalViewerImage" src="" alt="Book preview page">
+            <button class="modal-page-nav-arrow prev" type="button" onclick="modalPageNav(-1)" aria-label="Previous page">‹</button>
+            <button class="modal-page-nav-arrow next" type="button" onclick="modalPageNav(1)" aria-label="Next page">›</button>
+          </div>
+
+          <!-- Miniature Thumbnail Strip -->
+          <div class="modal-thumbnails-strip" id="modalThumbnailsStrip">
+            <!-- Rendered by JS -->
+          </div>
         </div>
 
         <!-- Details & Switcher -->
         <div class="modal-info-details">
-          <!-- Tab Buttons to Switch Page -->
-          <div class="modal-tabs">
-            <button class="modal-tab-btn active" id="tab0" onclick="switchPreviewPage(0)">Cover 3D</button>
-            <button class="modal-tab-btn" id="tab1" onclick="switchPreviewPage(1)">Table of Contents</button>
-            <button class="modal-tab-btn" id="tab2" onclick="switchPreviewPage(2)">Sample Recipe</button>
+          <!-- Book Switcher in Modal -->
+          <div class="modal-book-switcher">
+            <button class="modal-book-switch-btn" id="modalBookBtn-meat" onclick="switchModalBook('meat')">🥩 Meat Lovers</button>
+            <button class="modal-book-switch-btn" id="modalBookBtn-pasta" onclick="switchModalBook('pasta')">🍝 Pasta Ultimate</button>
+            <button class="modal-book-switch-btn" id="modalBookBtn-seafood" onclick="switchModalBook('seafood')">🦞 Seafood Master</button>
+          </div>
+
+          <!-- 7 Tab Buttons to Switch Page -->
+          <div class="modal-tabs" id="modalPageTabs">
+            <!-- Rendered dynamically by JS for all 7 pages -->
           </div>
 
           <h4 id="modalPageTitle">eBook Preview</h4>
@@ -1790,29 +4457,12 @@
           </p>
 
           <ul class="modal-highlights" id="modalHighlightsList">
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Instant download link provided via email</span>
-            </li>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Full recipe cards with ingredients & procedures</span>
-            </li>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Compatible with iPads, Kindles, phones & PCs</span>
-            </li>
+            <!-- Dynamic highlights -->
           </ul>
 
           <div class="modal-footer-cta">
-            <a href="https://ebookluxe.gumroad.com" target="_blank" rel="noopener noreferrer" class="modal-gumroad-btn">
-              <span>GET COMPLETE EBOOK ON GUMROAD</span>
+            <a href="https://ebookluxe.gumroad.com/" target="_blank" rel="noopener noreferrer" class="modal-gumroad-btn">
+              <span>GET COMPLETE 100-RECIPE EBOOK ON GUMROAD</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="7" y1="17" x2="17" y2="7"></line>
                 <polyline points="7 7 17 7 17 17"></polyline>
@@ -1829,39 +4479,325 @@
 
   <!-- ==================== JAVASCRIPT ==================== -->
   <script>
-    // Book Data Registry
+    // Book Data Registry (100 Recipes per eBook)
+    // Book Data Registry (All 21 High-Resolution Assets across 3 Cookbooks)
     const BOOKS_DATA = {
       meat: {
+        key: 'meat',
         title: "Meat Lovers Cookbook",
-        author: "By Chef A • Delicious • Juicy • Satisfying",
-        images: ["./1/1.webp", "./1/2.webp", "./1/3.webp"],
-        tabLabels: ["Hardcover 3D", "Contents (Menus 81-100)", "Menu 9: BBQ Beef Brisket"],
-        descriptions: [
-          "Deluxe 3D Hardcover edition mockup of Chef A's Meat Lovers Cookbook. Features foolproof smoking guides, smashburgers, and premium meat cuts.",
-          "Table of Contents covering 20+ hearty recipes including Classic Cheeseburgers, Salisbury Meatballs, Chicken Caesar Wraps, and BBQ Turkey Meatloaf.",
-          "Menu 9: BBQ Beef Brisket — Complete step-by-step procedures from trimming and yellow mustard base to hardwood smoke temperatures and savory beef broth wraps."
+        tagline: "Delicious • Juicy • Satisfying",
+        author: "By Chef A • Exactly 100 Recipes • Complete Digital Edition",
+        pages: [
+          {
+            type: "cover",
+            tabLabel: "3D Cover",
+            thumbLabel: "Cover",
+            badge: "Hardcover 3D Edition",
+            src: "./1/meat_3d.jpg",
+            title: "Deluxe 3D Hardcover Edition",
+            desc: "Chef A's Meat Lovers Cookbook featuring 100 chef-crafted recipes — masterclass wood-fired smoking, smashburgers, tender braises, and secret glazes with temperature charts and step-by-step guides.",
+            highlights: [
+              "Complete 100 chef-tested meat recipes",
+              "Foolproof internal temperature & smoking charts",
+              "High-definition step-by-step plating photography"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 1–20",
+            thumbLabel: "Set 1",
+            badge: "Set 1: Menus 1–20",
+            src: "./1/6e178f29-0065-4ed0-95ef-cb5e7521274c.jpg",
+            title: "Table of Contents — Set 1: Menus 1 to 20",
+            desc: "Menus 1 through 20 covering premium steak cuts, Southern fried chicken, smoked pork chops, and garlic herb butter basting techniques.",
+            highlights: [
+              "Includes Garlic Butter Ribeye & Wood-Smoked Pork Ribs",
+              "Foolproof marinade proportions and resting times",
+              "Pages 1 to 20 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 21–40",
+            thumbLabel: "Set 2",
+            badge: "Set 2: Menus 21–40",
+            src: "./1/231702ad-e239-448d-a43c-83b7e5aec336.jpg",
+            title: "Table of Contents — Set 2: Menus 21 to 40",
+            desc: "Menus 21 through 40 featuring Philly cheesesteaks, classic chicken pot pie, slow-roasted pork shoulder, and braised beef short ribs.",
+            highlights: [
+              "Comfort food classics perfected for everyday home cooking",
+              "Tender braising schedules and high-heat searing temperatures",
+              "Pages 21 to 40 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 41–60",
+            thumbLabel: "Set 3",
+            badge: "Set 3: Menus 41–60",
+            src: "./1/a8d59d76-4cc9-4a7c-8fb2-75bf86a8f025.jpg",
+            title: "Table of Contents — Set 3: Menus 41 to 60",
+            desc: "Menus 41 through 60 featuring Buffalo chicken pasta, hearty beef and vegetable stew, Korean BBQ glazed short ribs, and crispy skillet pork chops.",
+            highlights: [
+              "Bold regional seasonings & artisan glaze reductions",
+              "Skillet-to-oven roasting procedures and resting guidance",
+              "Pages 41 to 60 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 61–80",
+            thumbLabel: "Set 4",
+            badge: "Set 4: Menus 61–80",
+            src: "./1/bb816f15-0cef-4f1f-842a-0cbae6f8c035.jpg",
+            title: "Table of Contents — Set 4: Menus 61 to 80",
+            desc: "Menus 61 through 80 featuring street-style seasoned beef tacos, stuffed chicken cordon bleu, slow-cooker pulled pork, and herb-crusted lamb chops.",
+            highlights: [
+              "Crowd-pleasing weeknight dinners and weekend feasts",
+              "Step-by-step stuffing, rolling, and breading techniques",
+              "Pages 61 to 80 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 81–100",
+            thumbLabel: "Set 5",
+            badge: "Set 5: Menus 81–100",
+            src: "./1/02de3d86-fbc0-4e01-92de-5ac0eaeffbab.jpg",
+            title: "Table of Contents — Set 5: Menus 81 to 100",
+            desc: "Menus 81 through 100 featuring Classic Cheeseburgers, Salisbury Meatballs, Chicken Caesar Wraps, and BBQ Turkey Meatloaf.",
+            highlights: [
+              "Complete recipe index concluding all 100 menus",
+              "Smashburger sear technique & homemade signature burger sauce",
+              "Pages 81 to 100 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "recipe",
+            tabLabel: "Menu 9 Spread",
+            thumbLabel: "Recipe",
+            badge: "Sample Recipe Spread",
+            src: "./1/4563eb1f-abae-491c-ba46-b3feb698a28e.jpg",
+            title: "Menu 9: BBQ Beef Brisket",
+            desc: "Complete step-by-step masterclass procedure: Yellow mustard binder, coarse black pepper rub, 225°F hickory smoke, and butcher paper wrap.",
+            highlights: [
+              "Full ingredient proportions and smoke wood selection",
+              "Internal probe guidance to tender 203°F finish",
+              "Chef A's savory beef broth wrap technique"
+            ]
+          }
         ]
       },
       pasta: {
+        key: 'pasta',
         title: "Pasta Ultimate Collection",
-        author: "By Chef A • Delicious • Creamy • Satisfying",
-        images: ["./2/1.webp", "./2/2.webp", "./2/3.webp"],
-        tabLabels: ["Hardcover 3D", "Contents (Menus 81-100)", "Menu 43: Cajun Salmon Penne"],
-        descriptions: [
-          "Deluxe 3D Hardcover edition mockup of the Pasta Ultimate Collection. Features artisan pasta shapes, silky reductions, and family-style casseroles.",
-          "Table of Contents covering Chicken & Broccoli Alfredo, Shrimp Scampi Angel Hair, Beef Bolognese Rigatoni, and Baked Stuffed Shells.",
-          "Menu 43: Cajun Salmon Penne with Creamed Corn — Detailed ingredient proportions, seasoning rub, garlic cream reduction, and pan-searing technique."
+        tagline: "Delicious • Creamy • Satisfying",
+        author: "By Chef A • Exactly 100 Recipes • Complete Digital Edition",
+        pages: [
+          {
+            type: "cover",
+            tabLabel: "3D Cover",
+            thumbLabel: "Cover",
+            badge: "Hardcover 3D Edition",
+            src: "./2/pasta_3d.jpg",
+            title: "Deluxe 3D Hardcover Edition",
+            desc: "Chef A's Pasta Ultimate Collection — 100 handcrafted Italian pasta dishes covering silky cream reductions, slow-simmered ragùs, and family casseroles.",
+            highlights: [
+              "Exactly 100 artisan pasta recipes",
+              "Pairing guide for dough shapes and velvety sauces",
+              "High-definition step-by-step plating photography"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 1–20",
+            thumbLabel: "Set 1",
+            badge: "Set 1: Menus 1–20",
+            src: "./2/6c56148d-a2dc-41b3-a6a6-580ceadbf35e.jpg",
+            title: "Table of Contents — Set 1: Menus 1 to 20",
+            desc: "Menus 1 through 20 covering traditional Beef Spaghetti, Creamy Chicken Alfredo, Garlic Butter Linguine, and Baked Ziti.",
+            highlights: [
+              "Essential Italian foundations & sauce emulsions",
+              "Al dente boiling times and starchy pasta water techniques",
+              "Pages 1 to 20 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 21–40",
+            thumbLabel: "Set 2",
+            badge: "Set 2: Menus 21–40",
+            src: "./2/8eea160e-deec-4b65-95b6-a558f29933a2.jpg",
+            title: "Table of Contents — Set 2: Menus 21 to 40",
+            desc: "Menus 21 through 40 featuring Three-Cheese Lasagna, Spicy Penne Arrabbiata, Creamy Mushroom Tagliatelle, and Pesto Gnocchi.",
+            highlights: [
+              "Layered casseroles and slow-simmered tomato passata",
+              "Ricotta and mozzarella melting balances",
+              "Pages 21 to 40 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 41–60",
+            thumbLabel: "Set 3",
+            badge: "Set 3: Menus 41–60",
+            src: "./2/7822b567-d380-4296-866d-013f7c26f9ef.jpg",
+            title: "Table of Contents — Set 3: Menus 41 to 60",
+            desc: "Menus 41 through 60 featuring Bacon Ranch Pasta Shells, Spinach Ricotta Manicotti, Tuscan Chicken Tortellini, and Cajun Salmon Penne.",
+            highlights: [
+              "Includes Menu 43 Cajun Salmon Penne with Creamed Corn",
+              "Silky garlic cream sauce reductions and pan-searing tips",
+              "Pages 41 to 60 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 61–80",
+            thumbLabel: "Set 4",
+            badge: "Set 4: Menus 61–80",
+            src: "./2/fc2d6913-a18e-49f2-b2c4-981f4ed1850b.jpg",
+            title: "Table of Contents — Set 4: Menus 61 to 80",
+            desc: "Menus 61 through 80 featuring Sausage Tortellini Skillet, Rigatoni with Sun-Dried Tomatoes, Carbonara Linguine, and Creamy Lemon Orzo.",
+            highlights: [
+              "One-pot skillet dinners with crisp toppings",
+              "Authentic egg-emulsion carbonara technique",
+              "Pages 61 to 80 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 81–100",
+            thumbLabel: "Set 5",
+            badge: "Set 5: Menus 81–100",
+            src: "./2/8d47c3d9-4440-44ce-ac2c-9f00c54293c7.jpg",
+            title: "Table of Contents — Set 5: Menus 81 to 100",
+            desc: "Menus 81 through 100 featuring Baked Rotini Casserole, Deep-Dish Spaghetti Pie, Creamy Gorgonzola Fettuccine, and Garlic Shrimp Angel Hair.",
+            highlights: [
+              "Complete recipe index concluding all 100 pasta menus",
+              "Oven-baked crusts and bubbling golden cheese finishes",
+              "Pages 81 to 100 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "recipe",
+            tabLabel: "Menu 43 Spread",
+            thumbLabel: "Recipe",
+            badge: "Sample Recipe Spread",
+            src: "./2/620cff6a-cc54-4a3d-bcad-9fdc5db75951.jpg",
+            title: "Menu 43: Cajun Salmon Penne with Creamed Corn",
+            desc: "Complete step-by-step masterclass: Blackened salmon fillets seared in cast iron, tossed with al dente penne in a sweet creamed corn reduction.",
+            highlights: [
+              "Signature Cajun spice blend and searing crust tips",
+              "Garlic, parmesan, and heavy cream reduction procedure",
+              "Fresh chopped chives and cracked black pepper garnish"
+            ]
+          }
         ]
       },
       seafood: {
+        key: 'seafood',
         title: "The Seafood Masterbook",
-        author: "By Chef A • Delicious • Fresh • Satisfying",
-        images: ["./3/1.webp", "./3/2.webp", "./3/3.webp"],
-        tabLabels: ["Hardcover 3D", "Contents (Menus 81-100)", "Menu 100: American Seafood Boil"],
-        descriptions: [
-          "Deluxe 3D Hardcover edition mockup of The Seafood Masterbook. Complete guide to ocean-fresh fish, crustaceans, buttery glazes, and seafood boils.",
-          "Table of Contents covering Honey-Soy Glazed Cod, Pan-Roasted Sea Bass, Garlic Butter Snow Crab, and New England Seafood Shepherd's Pie.",
-          "Menu 100: American Seafood Boil with King Crab, Lobster, Shrimp and Sweet Corn — The ultimate step-by-step stockpot procedure with Old Bay and seasoned lemon butter."
+        tagline: "Delicious • Fresh • Satisfying",
+        author: "By Chef A • Exactly 100 Recipes • Complete Digital Edition",
+        pages: [
+          {
+            type: "cover",
+            tabLabel: "3D Cover",
+            thumbLabel: "Cover",
+            badge: "Hardcover 3D Edition",
+            src: "./3/seafood_3d.jpg",
+            title: "Deluxe 3D Hardcover Edition",
+            desc: "Chef A's The Seafood Masterbook — 100 ocean creations from sweet King Crab legs and butter-poached lobster tails to blackened salmon and coastal boils.",
+            highlights: [
+              "Exactly 100 ocean-fresh seafood recipes",
+              "Steaming, boiling, and skillet searing timelines",
+              "High-definition step-by-step plating photography"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 1–20",
+            thumbLabel: "Set 1",
+            badge: "Set 1: Menus 1–20",
+            src: "./3/1da317df-681a-4f54-a6d6-101977560028.jpg",
+            title: "Table of Contents — Set 1: Menus 1 to 20",
+            desc: "Menus 1 through 20 covering Garlic Butter King Crab Legs, Cajun Shrimp & Cheesy Grits, Lemon Herb Baked Salmon, and New England Clam Chowder.",
+            highlights: [
+              "Essential coastal shellfish & fish fillet techniques",
+              "Dungeness crab steaming & Old Bay butter glazes",
+              "Pages 1 to 20 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 21–40",
+            thumbLabel: "Set 2",
+            badge: "Set 2: Menus 21–40",
+            src: "./3/1bba7253-438f-4488-9069-ca49e8118532.jpg",
+            title: "Table of Contents — Set 2: Menus 21 to 40",
+            desc: "Menus 21 through 40 featuring Parmesan-Crusted Cod, Honey-Lime Shrimp Tacos, Garlic Parmesan Scallops, and New England Lobster Rolls.",
+            highlights: [
+              "Delicate sea scallops and lobster salad preparations",
+              "Pan-searing timings for crisp crusts without overcooking",
+              "Pages 21 to 40 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 41–60",
+            thumbLabel: "Set 3",
+            badge: "Set 3: Menus 41–60",
+            src: "./3/c59584f8-5ea9-45f7-83fa-8d77ca440830.jpg",
+            title: "Table of Contents — Set 3: Menus 41 to 60",
+            desc: "Menus 41 through 60 featuring New Orleans BBQ Shrimp, Maple-Bourbon Salmon, Crispy Coconut Shrimp, and Garlic Butter Lobster Tails.",
+            highlights: [
+              "Bold regional marinades and artisan dipping sauces",
+              "Oysters Rockefeller & crab-stuffed portobellos",
+              "Pages 41 to 60 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 61–80",
+            thumbLabel: "Set 4",
+            badge: "Set 4: Menus 61–80",
+            src: "./3/665966bc-1734-4aae-9a27-a0a7d52dc8ec.jpg",
+            title: "Table of Contents — Set 4: Menus 61 to 80",
+            desc: "Menus 61 through 80 featuring Cajun Shrimp Stuffed Peppers, Maple-Pecan Salmon, Tomato-Basil Sea Bass, and Chesapeake Crab Casserole.",
+            highlights: [
+              "Hearty baked seafood casseroles & foil-packet dinners",
+              "Herb-crusted halibut & beer-battered shrimp",
+              "Pages 61 to 80 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "toc",
+            tabLabel: "TOC: 81–100",
+            thumbLabel: "Set 5",
+            badge: "Set 5: Menus 81–100",
+            src: "./3/8f311a59-bcaa-46a2-bdd2-9d040ab09b90.jpg",
+            title: "Table of Contents — Set 5: Menus 81 to 100",
+            desc: "Menus 81 through 100 featuring Honey-Soy Glazed Cod, Grilled Salmon Kabobs, Garlic Butter Lobster Risotto, and American Seafood Boil.",
+            highlights: [
+              "Includes Menu 100 American Seafood Boil masterclass",
+              "Complete recipe index concluding all 100 seafood menus",
+              "Pages 81 to 100 of the full 100-recipe master collection"
+            ]
+          },
+          {
+            type: "recipe",
+            tabLabel: "Menu 100 Spread",
+            thumbLabel: "Recipe",
+            badge: "Sample Recipe Spread",
+            src: "./3/903eae37-413b-44a0-ab2d-333a8918d001.jpg",
+            title: "Menu 100: American Seafood Boil",
+            desc: "The ultimate showstopper: King Crab legs, whole lobster tails, jumbo shrimp, smoked sausage, sweet corn, and baby red potatoes in Old Bay garlic butter.",
+            highlights: [
+              "12-step precision stockpot boiling timeline",
+              "Melted lemon butter with fresh parsley and smoked paprika",
+              "Feeds a hungry family feast with foolproof timing"
+            ]
+          }
         ]
       }
     };
@@ -1879,15 +4815,13 @@
       document.getElementById('modalBookTitle').textContent = data.title;
       document.getElementById('modalBookAuthor').textContent = data.author;
 
-      // Update tab buttons
-      for (let i = 0; i < 3; i++) {
-        const tab = document.getElementById(`tab${i}`);
-        if (tab) {
-          tab.textContent = data.tabLabels[i];
-          tab.classList.toggle('active', i === pageIndex);
-        }
-      }
+      // Update book switcher buttons in modal
+      ['meat', 'pasta', 'seafood'].forEach(k => {
+        const btn = document.getElementById(`modalBookBtn-${k}`);
+        if (btn) btn.classList.toggle('active', k === bookKey);
+      });
 
+      renderModalTabsAndThumbs(data, pageIndex);
       switchPreviewPage(pageIndex);
 
       const modal = document.getElementById('previewModal');
@@ -1895,22 +4829,86 @@
       document.body.style.overflow = 'hidden';
     }
 
+    // Switch Book Inside Modal
+    function switchModalBook(bookKey) {
+      openPreview(bookKey, Math.min(currentActivePageIndex, 6));
+    }
+
+    // Render Modal Tabs & Thumbnails dynamically
+    function renderModalTabsAndThumbs(data, activeIndex) {
+      const tabsContainer = document.getElementById('modalPageTabs');
+      const thumbsContainer = document.getElementById('modalThumbnailsStrip');
+      if (!tabsContainer || !thumbsContainer) return;
+
+      tabsContainer.innerHTML = '';
+      thumbsContainer.innerHTML = '';
+
+      data.pages.forEach((page, idx) => {
+        // Tab Button
+        const tabBtn = document.createElement('button');
+        tabBtn.className = `modal-tab-btn ${idx === activeIndex ? 'active' : ''}`;
+        tabBtn.textContent = page.tabLabel;
+        tabBtn.onclick = () => switchPreviewPage(idx);
+        tabsContainer.appendChild(tabBtn);
+
+        // Thumbnail Button
+        const thumbBtn = document.createElement('button');
+        thumbBtn.className = `modal-thumb-btn ${idx === activeIndex ? 'active' : ''}`;
+        thumbBtn.title = `${page.badge}: ${page.title}`;
+        thumbBtn.innerHTML = `<img src="${page.src}" alt="${page.title}" loading="lazy">`;
+        thumbBtn.onclick = () => switchPreviewPage(idx);
+        thumbsContainer.appendChild(thumbBtn);
+      });
+    }
+
     // Switch Page Inside Modal
     function switchPreviewPage(index) {
       currentActivePageIndex = index;
       const data = BOOKS_DATA[currentBookKey];
       if (!data) return;
+      const page = data.pages[index];
+      if (!page) return;
 
-      document.getElementById('modalViewerImage').src = data.images[index];
-      document.getElementById('modalPageTitle').textContent = data.tabLabels[index];
-      document.getElementById('modalDescription').textContent = data.descriptions[index];
+      document.getElementById('modalViewerImage').src = page.src;
+      document.getElementById('modalPageTitle').textContent = page.title;
+      document.getElementById('modalDescription').textContent = page.desc;
+      document.getElementById('modalCounterBadge').textContent = `Page ${index + 1} of ${data.pages.length} • ${page.badge}`;
 
-      for (let i = 0; i < 3; i++) {
-        const tab = document.getElementById(`tab${i}`);
-        if (tab) {
-          tab.classList.toggle('active', i === index);
-        }
+      // Update Highlights
+      const hlContainer = document.getElementById('modalHighlightsList');
+      if (hlContainer && page.highlights) {
+        hlContainer.innerHTML = page.highlights.map(hl => `
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>${hl}</span>
+          </li>
+        `).join('');
       }
+
+      // Update active tabs and thumbs
+      const tabs = document.querySelectorAll('#modalPageTabs .modal-tab-btn');
+      tabs.forEach((t, i) => t.classList.toggle('active', i === index));
+
+      const thumbs = document.querySelectorAll('#modalThumbnailsStrip .modal-thumb-btn');
+      thumbs.forEach((th, i) => {
+        th.classList.toggle('active', i === index);
+        if (i === index) {
+          th.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+        }
+      });
+    }
+
+    // Modal Arrow Navigation
+    function modalPageNav(direction) {
+      const data = BOOKS_DATA[currentBookKey];
+      if (!data) return;
+      const totalPages = data.pages.length;
+      let newIndex = currentActivePageIndex + direction;
+      if (newIndex < 0) newIndex = totalPages - 1;
+      if (newIndex >= totalPages) newIndex = 0;
+      switchPreviewPage(newIndex);
     }
 
     // Close Modal
@@ -1920,6 +4918,124 @@
       document.body.style.overflow = '';
     }
 
+    // ==================== ON-PAGE TABLE OF CONTENTS EXPLORER ====================
+    const TOC_BOOK_PICTURES = {
+      meat: "./1/meat_3d.jpg",
+      pasta: "./2/pasta_3d.jpg",
+      seafood: "./3/seafood_3d.jpg"
+    };
+
+    const BOOK_KEYS_LIST = ['meat', 'pasta', 'seafood'];
+
+    let currentTocBook = 'meat';
+    let currentTocSetIndex = 1; // 1 to 5
+    let tocDisplayMode = 'book'; // 'book' (shows 3D photo) or 'sheet' (shows TOC page)
+
+    function selectTocBook(bookKey, btnEl) {
+      currentTocBook = bookKey;
+      document.querySelectorAll('.toc-book-tab').forEach(b => b.classList.remove('active'));
+      const activeTab = btnEl || document.getElementById(`tocBookBtn-${bookKey}`);
+      if (activeTab) activeTab.classList.add('active');
+
+      renderTocSetTabs();
+      updateTocExplorerView();
+    }
+
+    function changeTocBook(direction) {
+      let idx = BOOK_KEYS_LIST.indexOf(currentTocBook);
+      idx = (idx + direction + BOOK_KEYS_LIST.length) % BOOK_KEYS_LIST.length;
+      selectTocBook(BOOK_KEYS_LIST[idx]);
+    }
+
+    function setTocDisplayMode(mode) {
+      tocDisplayMode = mode;
+      document.getElementById('tocToggleBook').classList.toggle('active', mode === 'book');
+      document.getElementById('tocToggleSheet').classList.toggle('active', mode === 'sheet');
+      updateTocExplorerView();
+    }
+
+    function renderTocSetTabs() {
+      const tabsContainer = document.getElementById('tocSetTabs');
+      if (!tabsContainer) return;
+      const data = BOOKS_DATA[currentTocBook];
+      if (!data) return;
+
+      tabsContainer.innerHTML = '';
+      for (let s = 1; s <= 5; s++) {
+        const btn = document.createElement('button');
+        btn.className = `toc-set-btn ${s === currentTocSetIndex ? 'active' : ''}`;
+        btn.textContent = `Set ${s} (Menus ${(s - 1) * 20 + 1}–${s * 20})`;
+        btn.onclick = () => selectTocSet(s, btn);
+        tabsContainer.appendChild(btn);
+      }
+    }
+
+    function selectTocSet(setIndex, btnEl) {
+      currentTocSetIndex = setIndex;
+      document.querySelectorAll('.toc-set-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      updateTocExplorerView();
+    }
+
+    function changeTocSet(delta) {
+      let newSet = currentTocSetIndex + delta;
+      if (newSet < 1) newSet = 5;
+      if (newSet > 5) newSet = 1;
+      currentTocSetIndex = newSet;
+      renderTocSetTabs();
+      updateTocExplorerView();
+    }
+
+    function updateTocExplorerView() {
+      const data = BOOKS_DATA[currentTocBook];
+      if (!data) return;
+      const page = data.pages[currentTocSetIndex];
+      if (!page) return;
+
+      const img = document.getElementById('tocViewerImage');
+      if (img) {
+        if (tocDisplayMode === 'book') {
+          img.src = TOC_BOOK_PICTURES[currentTocBook];
+          img.alt = `${data.title} 3D Hardcover`;
+        } else {
+          img.src = page.src;
+          img.alt = page.title;
+        }
+      }
+
+      const badge = document.getElementById('tocBookBadge');
+      if (badge) badge.textContent = `${data.title.toUpperCase()} • 100 RECIPES`;
+
+      const heading = document.getElementById('tocSetHeading');
+      if (heading) heading.textContent = page.title;
+
+      const desc = document.getElementById('tocSetDescription');
+      if (desc) desc.textContent = page.desc;
+
+      const indicator = document.getElementById('tocPageIndicator');
+      if (indicator) {
+        if (tocDisplayMode === 'book') {
+          indicator.textContent = `${data.title} • 3D Hardcover Edition`;
+        } else {
+          indicator.textContent = `Set ${currentTocSetIndex} of 5 • Menus ${(currentTocSetIndex - 1) * 20 + 1} to ${currentTocSetIndex * 20}`;
+        }
+      }
+
+      const subtitle = document.getElementById('tocSetSubtitle');
+      if (subtitle) subtitle.textContent = `Featured in Set ${currentTocSetIndex} (Menus ${(currentTocSetIndex - 1) * 20 + 1} to ${currentTocSetIndex * 20}):`;
+
+      const bullets = document.getElementById('tocRecipeBullets');
+      if (bullets && page.highlights) {
+        bullets.innerHTML = page.highlights.map(hl => `<li>${hl}</li>`).join('');
+      }
+    }
+
+    function openCurrentTocPreview() {
+      // If in book mode, open cover; if in sheet mode, open that TOC set
+      const pageIdx = (tocDisplayMode === 'book') ? 0 : currentTocSetIndex;
+      openPreview(currentTocBook, pageIdx);
+    }
+
     // Modal background click to close
     document.getElementById('previewModal').addEventListener('click', function(e) {
       if (e.target === this) {
@@ -1927,10 +5043,17 @@
       }
     });
 
-    // Escape key listener
+    // Escape key & arrow key listeners
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
+      const modal = document.getElementById('previewModal');
+      const isModalOpen = modal && modal.classList.contains('active');
+
+      if (e.key === 'Escape' && isModalOpen) {
         closePreview();
+      } else if (isModalOpen && e.key === 'ArrowLeft') {
+        modalPageNav(-1);
+      } else if (isModalOpen && e.key === 'ArrowRight') {
+        modalPageNav(1);
       }
     });
 
@@ -2008,6 +5131,163 @@
       searchInput.value = term;
       executeSearch(term);
     }
+
+    // FAQ Accordion Toggle
+    function toggleFaq(buttonEl) {
+      const item = buttonEl.closest('.faq-item');
+      if (!item) return;
+      const isOpen = item.classList.contains('active');
+
+      // Close other open FAQ items for clean minimalist UX
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+
+      // If it wasn't open before, open it now
+      if (!isOpen) {
+        item.classList.add('active');
+      }
+    }
+
+    // Mobile Hamburger Menu Toggle
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mobileNav');
+      if (nav) nav.classList.toggle('active');
+    }
+
+    function closeMobileMenu() {
+      const nav = document.getElementById('mobileNav');
+      if (nav) nav.classList.remove('active');
+    }
+
+    // ==================== ADVANCED 3D TOUCH & DRAG ROTATING BOOK SYSTEM ====================
+    function setup3dInteractiveBook(stageId, boxId, shadowId) {
+      const stage = document.getElementById(stageId);
+      const box = document.getElementById(boxId);
+      const shadow = document.getElementById(shadowId);
+      if (!stage || !box || !shadow) return;
+
+      let isTouching = false;
+      let isDragging = false;
+      let startPointerX = 0;
+      let startPointerY = 0;
+      let currentAngleY = 0;
+      let currentAngleX = 4;
+      let baseAngleY = 0;
+      let baseAngleX = 4;
+      let resetTimeout = null;
+
+      // Pointer enter (Hover on desktop)
+      stage.addEventListener('pointerenter', () => {
+        if (box.classList.contains('spinning-360')) return;
+        clearTimeout(resetTimeout);
+        box.classList.add('interacting');
+      });
+
+      // Pointer move (Touch or cursor movement across book)
+      stage.addEventListener('pointermove', (e) => {
+        if (box.classList.contains('spinning-360')) return;
+        clearTimeout(resetTimeout);
+
+        const rect = stage.getBoundingClientRect();
+        const clientX = e.clientX;
+        const clientY = e.clientY;
+
+        if (isTouching) {
+          // Dragging / swiping horizontally across book: full 360 rotation
+          const deltaX = clientX - startPointerX;
+          const deltaY = clientY - startPointerY;
+          currentAngleY = baseAngleY + deltaX * 1.15;
+          currentAngleX = Math.max(-35, Math.min(35, baseAngleX - deltaY * 0.4));
+        } else {
+          // Touching or hovering over book: responsive 3D perspective tracking
+          const relX = ((clientX - rect.left) / rect.width - 0.5) * 2; // -1 to 1
+          const relY = ((clientY - rect.top) / rect.height - 0.5) * 2; // -1 to 1
+          currentAngleY = relX * 38;
+          currentAngleX = -relY * 22;
+        }
+
+        box.style.transform = `rotateY(${currentAngleY}deg) rotateX(${currentAngleX}deg) translateY(-8px) scale3d(1.04, 1.04, 1.04)`;
+        shadow.style.transform = `rotateX(85deg) rotateZ(${-currentAngleY * 0.4}deg) translateZ(-45px) scale(1.1)`;
+      });
+
+      // Pointer down (start touch or click drag)
+      stage.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('.btn-spin-pill')) return;
+        if (box.classList.contains('spinning-360')) return;
+
+        isTouching = true;
+        startPointerX = e.clientX;
+        startPointerY = e.clientY;
+        baseAngleY = currentAngleY;
+        baseAngleX = currentAngleX;
+
+        box.classList.add('interacting');
+        try {
+          stage.setPointerCapture(e.pointerId);
+        } catch(err) {}
+      });
+
+      // Pointer up & cancel
+      const stopTouch = (e) => {
+        isTouching = false;
+        try {
+          stage.releasePointerCapture(e.pointerId);
+        } catch(err) {}
+      };
+
+      stage.addEventListener('pointerup', stopTouch);
+      stage.addEventListener('pointercancel', stopTouch);
+
+      // Pointer leave: smoothly resume idle floating rotation
+      stage.addEventListener('pointerleave', () => {
+        if (!isTouching) {
+          box.style.transform = '';
+          shadow.style.transform = '';
+          resetTimeout = setTimeout(() => {
+            box.classList.remove('interacting');
+          }, 250);
+        }
+      });
+    }
+
+    // One-Click 360 Degree Spin
+    const spinAngles = { 'box-meat': 0, 'box-pasta': 0, 'box-seafood': 0 };
+
+    function trigger360Spin(boxId, shadowId) {
+      const box = document.getElementById(boxId);
+      const shadow = document.getElementById(shadowId);
+      if (!box || !shadow) return;
+
+      spinAngles[boxId] = (spinAngles[boxId] || 0) + 360;
+
+      box.classList.add('spinning-360');
+      box.style.transform = `rotateY(${spinAngles[boxId]}deg) rotateX(4deg) translateY(-10px) scale3d(1.05, 1.05, 1.05)`;
+      shadow.style.transform = `rotateX(85deg) translateZ(-45px) scale(1.18)`;
+
+      setTimeout(() => {
+        box.classList.remove('spinning-360');
+        box.style.transform = '';
+        shadow.style.transform = '';
+        setTimeout(() => {
+          box.classList.remove('interacting');
+        }, 150);
+      }, 1550);
+    }
+
+    // Initialize all 3 books
+    window.addEventListener('DOMContentLoaded', () => {
+      setup3dInteractiveBook('stage-meat', 'box-meat', 'shadow-meat');
+      setup3dInteractiveBook('stage-pasta', 'box-pasta', 'shadow-pasta');
+      setup3dInteractiveBook('stage-seafood', 'box-seafood', 'shadow-seafood');
+
+      // Initialize TOC Explorer
+      renderTocSetTabs();
+      updateTocExplorerView();
+    });
+
+    // Also run immediately in case DOM is ready
+    setup3dInteractiveBook('stage-meat', 'box-meat', 'shadow-meat');
+    setup3dInteractiveBook('stage-pasta', 'box-pasta', 'shadow-pasta');
+    setup3dInteractiveBook('stage-seafood', 'box-seafood', 'shadow-seafood');
   </script>
 </body>
 </html>
